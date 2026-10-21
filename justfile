@@ -3,6 +3,12 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 default:
     @just --list
 
+cargo-cache-setup:
+    python3 scripts/cargo-cache.py setup
+
+cargo-cache-check:
+    python3 scripts/cargo-cache.py check
+
 check: standards-check catalog-check
 
 catalog-check:

@@ -125,7 +125,7 @@ def main():
             parser.error("run requires a command after --")
         environment = dict(os.environ, PATH=str(binary) + os.pathsep + os.environ.get("PATH", ""),
                            RUSTC=str(binary / "rustc"), RUSTDOC=str(binary / "rustdoc"))
-        environment.setdefault("CARGO_TARGET_DIR", str(target))
+        environment.setdefault("CARGO_TARGET_DIR", environment.get("CARGO_BUILD_TARGET_DIR", str(target)))
         environment.setdefault("CARGO_BUILD_BUILD_DIR", str(Path(environment["CARGO_TARGET_DIR"]) / "build"))
         return subprocess.run(command, env=environment).returncode
     return 0

@@ -10,6 +10,8 @@ and the owning module's AGENTS.md, standarts.lock and module.yaml before work.
 The owner defines outcomes and trust boundaries; the agent completes authorized
 implementation, verification and delivery without repeatedly asking about
 routine engineering choices. Preserve unrelated dirty work and live services.
+Local build tooling and shared Cargo artifacts follow
+[ADR 0012](standarts/decisions/0012-shared-cargo-cache.md).
 
 ## Boundaries
 

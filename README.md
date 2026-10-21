@@ -25,6 +25,12 @@ methods depend on the instance configuration. A compiled platform is not proof
 of runtime qualification; each runtime repository owns that evidence.
 Existing module locks and published alpha tags keep their original meaning.
 
+For sibling NDS checkouts, run `just cargo-cache-setup` once to share Cargo
+artifacts outside Git. From any module, use
+`python3 ../nddev-device-sync/scripts/cargo-cache.py run -- just check` to select
+the complete pinned Rust toolchain. [ADR 0012](standarts/decisions/0012-shared-cargo-cache.md)
+defines cache isolation, artifact paths and safe cleanup.
+
 [ADR 0009](standarts/decisions/0009-first-alpha-product-contract.md) records the
 accepted NDS 1 first-alpha outcomes and acceptance criteria. It includes module
 setup after sign-in, seven-day offline authorization, bidirectional GDS sync,

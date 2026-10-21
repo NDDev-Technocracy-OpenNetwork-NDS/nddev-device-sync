@@ -49,3 +49,7 @@ stack through a checked component set, as required by
 the current technology family; exact versions and source identities belong to
 the qualified locks and release manifest. A documented compatibility pin needs
 an upstream issue and an explicit removal condition.
+
+Local module builds share the compiler-scoped Cargo artifact cache defined by
+[ADR 0012](decisions/0012-shared-cargo-cache.md). Cargo metadata owns effective
+artifact paths; the complete pinned Rust toolchain owns each cache lane.

@@ -29,6 +29,8 @@ presentation to React/TypeScript while preserving Rust behavior and offline data
 [ADR 0011](decisions/0011-company-membership-and-device-access.md) adds company
 membership, invitations and administrative RDS access while preserving personal
 data isolation.
+[ADR 0012](decisions/0012-shared-cargo-cache.md) defines the shared local Cargo
+artifact cache and safe build/acceptance path resolution.
 An edit here does not change the meaning of a module's existing release lock.
 
 ## Normative documents

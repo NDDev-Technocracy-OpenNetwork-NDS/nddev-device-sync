@@ -13,6 +13,10 @@ SOURCE = Path(__file__).with_name("cargo-cache.py")
 
 class CargoCache(unittest.TestCase):
     def setUp(self):
+        # A caller may itself run inside the shared-cache runner. The fixture
+        # must exercise its own configuration, never populate that caller's lane.
+        self.environment = {key: value for key, value in os.environ.items()
+                            if key not in {"CARGO_TARGET_DIR", "CARGO_BUILD_TARGET_DIR", "CARGO_BUILD_BUILD_DIR"}}
         self.directory = tempfile.TemporaryDirectory(prefix="nds-cache-check-")
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
@@ -36,7 +40,7 @@ class CargoCache(unittest.TestCase):
 
     def command(self, args, cwd=None, check=True):
         return subprocess.run(args, cwd=cwd or self.project, capture_output=True, text=True,
-                              timeout=60, check=check, env=dict(os.environ, GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull))
+                              timeout=60, check=check, env=dict(self.environment, GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull))
 
     def helper(self, *args, cwd=None, check=True):
         return self.command([sys.executable, str(self.project / "scripts/cargo-cache.py"), *args], cwd, check)
@@ -66,7 +70,7 @@ class CargoCache(unittest.TestCase):
         self.assertNotEqual(failed.returncode, 0)
         self.assertFalse((self.scope / ".cargo/config.toml").exists())
 
-    def test_two_actual_workspaces_reuse_one_compiled_dependency(self):
+    def test_actual_workspaces_share_artifacts_and_allow_isolated_targets(self):
         core = self.scope / "nddev-device-sync-core"
         server = self.scope / "nddev-device-sync-server"
         common = self.project / "common"
@@ -89,6 +93,13 @@ class CargoCache(unittest.TestCase):
         self.assertFalse(receipts[0]["fresh"])
         self.assertTrue(receipts[1]["fresh"])
         self.assertEqual(receipts[0]["filenames"], receipts[1]["filenames"])
+        isolated_target = self.root / "explicit-target"
+        isolated_build = self.root / "explicit-build"
+        self.environment.update(CARGO_TARGET_DIR=str(isolated_target),
+                                CARGO_BUILD_BUILD_DIR=str(isolated_build))
+        metadata = json.loads(self.helper("run", "--", "cargo", "metadata", "--offline", "--no-deps", "--format-version=1", cwd=server).stdout)
+        self.assertEqual(metadata["target_directory"], str(isolated_target))
+        self.assertEqual(metadata["build_directory"], str(isolated_build))
 
 
 if __name__ == "__main__":

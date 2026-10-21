@@ -64,8 +64,13 @@ def setup(base=None):
     config, target, text = configuration(scope, binary, lane, base)
     if config.with_name("config").exists():
         raise ValueError("refuse to shadow an existing legacy Cargo configuration")
-    if config.exists() and not config.read_text().startswith(MARKER):
-        raise ValueError("refuse to replace unrelated Cargo configuration")
+    original = config.read_bytes() if config.exists() else None
+    if original is not None:
+        if not original.decode().startswith(MARKER):
+            raise ValueError("refuse to replace unrelated Cargo configuration")
+        data = tomllib.loads(original.decode())
+        if set(data) != {"build"} or not isinstance(data["build"], dict) or not set(data["build"]) <= {"target-dir", "build-dir", "rustc", "rustdoc"}:
+            raise ValueError("refuse to replace locally extended Cargo configuration")
     config.parent.mkdir(exist_ok=True)
     target.mkdir(mode=0o700, parents=True, exist_ok=True)
     if not config.exists() or config.read_text() != text:
@@ -80,6 +85,8 @@ def setup(base=None):
                 pending.unlink(missing_ok=True)
                 raise
         try:
+            if (config.read_bytes() if config.exists() else None) != original:
+                raise ValueError("Cargo configuration changed during setup")
             pending.replace(config)
         finally:
             pending.unlink(missing_ok=True)

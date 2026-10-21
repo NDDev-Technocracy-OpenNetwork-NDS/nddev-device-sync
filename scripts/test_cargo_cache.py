@@ -50,6 +50,11 @@ class CargoCache(unittest.TestCase):
         before = config.read_bytes(), config.stat().st_mtime_ns
         self.assertEqual(self.setup_cache(), result)
         self.assertEqual((config.read_bytes(), config.stat().st_mtime_ns), before)
+        config.write_bytes(before[0] + b'\n[net]\noffline=true\n')
+        extended = config.read_bytes()
+        failed = self.helper("setup", check=False)
+        self.assertNotEqual(failed.returncode, 0)
+        self.assertEqual(config.read_bytes(), extended)
         config.write_text('[build]\njobs=2\n')
         failed = self.helper("setup", check=False)
         self.assertNotEqual(failed.returncode, 0)

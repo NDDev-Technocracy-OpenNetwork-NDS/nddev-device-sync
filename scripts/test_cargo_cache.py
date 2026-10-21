@@ -93,13 +93,17 @@ class CargoCache(unittest.TestCase):
         self.assertFalse(receipts[0]["fresh"])
         self.assertTrue(receipts[1]["fresh"])
         self.assertEqual(receipts[0]["filenames"], receipts[1]["filenames"])
-        isolated_target = self.root / "explicit-target"
-        isolated_build = self.root / "explicit-build"
-        self.environment.update(CARGO_TARGET_DIR=str(isolated_target),
-                                CARGO_BUILD_BUILD_DIR=str(isolated_build))
-        metadata = json.loads(self.helper("run", "--", "cargo", "metadata", "--offline", "--no-deps", "--format-version=1", cwd=server).stdout)
-        self.assertEqual(metadata["target_directory"], str(isolated_target))
-        self.assertEqual(metadata["build_directory"], str(isolated_build))
+        for variable in ["CARGO_TARGET_DIR", "CARGO_BUILD_TARGET_DIR"]:
+            with self.subTest(variable=variable):
+                isolated_target = self.root / variable
+                isolated_build = self.root / (variable + "-build")
+                self.environment.pop("CARGO_TARGET_DIR", None)
+                self.environment.pop("CARGO_BUILD_TARGET_DIR", None)
+                self.environment[variable] = str(isolated_target)
+                self.environment["CARGO_BUILD_BUILD_DIR"] = str(isolated_build)
+                metadata = json.loads(self.helper("run", "--", "cargo", "metadata", "--offline", "--no-deps", "--format-version=1", cwd=server).stdout)
+                self.assertEqual(metadata["target_directory"], str(isolated_target))
+                self.assertEqual(metadata["build_directory"], str(isolated_build))
 
 
 if __name__ == "__main__":

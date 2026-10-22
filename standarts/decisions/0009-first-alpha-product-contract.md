@@ -72,8 +72,10 @@ Catalog reading grants no Git write authority. The separate device-local
 publication/update, subject to the original account, source, credential and
 module-consent checks. Removing it prevents subsequent Git mutations without
 deleting existing work. Checkout bindings identify the NDS server, tenant, user,
-device and stable GitHub repository/owner IDs. Encrypted NDS state owns the
-binding; its local Git marker is an additional filesystem witness, never a grant.
+device and stable GitHub repository/owner IDs. Encrypted NDS state owns one
+connection intent per repository across the account. Physical Git markers stay
+device-local additional witnesses, never grants; 1024 repositories on32 devices
+do not create32,768 replicated binding entities.
 Older clients which do not understand this permission must refuse it; existing
 read-only descriptors remain valid under their immutable standards locks.
 

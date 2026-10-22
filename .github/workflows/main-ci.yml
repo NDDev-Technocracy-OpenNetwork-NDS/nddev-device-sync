@@ -1,0 +1,42 @@
+name: main-ci
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: main-validation
+  cancel-in-progress: false
+
+jobs:
+  quality:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3
+        with:
+          just-version: '1.59.0'
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.15.0'
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
+        with:
+          version: '0.13.1'
+          python-version: '3.15.0'
+          enable-cache: 'false'
+      - run: just setup
+      - name: Install the pinned compiler for actual shared-cache acceptance
+        run: rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
+      - name: Validate standards and module catalog
+        run: just check
+      - name: Install the pinned std-0001 validator
+        run: uv tool install git+https://github.com/NDDev-Technocracy-Standarts/std-0001-github-repository-structure@std-0001-v3.0.0
+      - name: Check repository structure conformance
+        run: nddev check

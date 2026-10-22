@@ -7,6 +7,7 @@ TypeScript for web, in English and Russian. The product keeps
 the NDDev OpenNetwork name and [nddev.ai](https://nddev.ai) attribution.
 
 License: AGPL-3.0-only. See [LICENSE](LICENSE) and [TRADEMARKS.md](TRADEMARKS.md).
+Release journals live in [GitHub Releases](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/releases).
 
 This repository owns the [standards](standarts/README.md) and
 [module catalog](contracts/module-catalog.json). Runtime modules are separate

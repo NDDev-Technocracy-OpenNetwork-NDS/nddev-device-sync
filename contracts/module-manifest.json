@@ -78,7 +78,8 @@
           "process_execution",
           "local_network",
           "user_service",
-          "clipboard"
+          "clipboard",
+          "git_write"
         ]
       },
       "uniqueItems": true

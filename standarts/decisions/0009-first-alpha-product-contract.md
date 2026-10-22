@@ -67,6 +67,16 @@ paths, active writers and permission failures block the affected repository
 with an actionable outcome. Do not invent commits, force-push, reset dirty work,
 rewrite history or turn synchronization into implicit pull-request approval.
 
+Catalog reading grants no Git write authority. The separate device-local
+`git_write` permission authorizes bounded checkout connection and existing-commit
+publication/update, subject to the original account, source, credential and
+module-consent checks. Removing it prevents subsequent Git mutations without
+deleting existing work. Checkout bindings identify the NDS server, tenant, user,
+device and stable GitHub repository/owner IDs. Encrypted NDS state owns the
+binding; its local Git marker is an additional filesystem witness, never a grant.
+Older clients which do not understand this permission must refuse it; existing
+read-only descriptors remain valid under their immutable standards locks.
+
 Discovery, filesystem placement, operation ownership and restart progress use
 one canonical NDS model. Relocation preserves existing repositories, worktrees
 and user edits. Every scan, queue, Git operation, retry and resource allocation

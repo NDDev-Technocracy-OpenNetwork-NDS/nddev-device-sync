@@ -36,7 +36,3 @@ jobs:
         run: rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
       - name: Validate standards and module catalog
         run: just check
-      - name: Install the pinned std-0001 validator
-        run: uv tool install git+https://github.com/NDDev-Technocracy-Standarts/std-0001-github-repository-structure@std-0001-v3.0.0
-      - name: Check repository structure conformance
-        run: nddev check

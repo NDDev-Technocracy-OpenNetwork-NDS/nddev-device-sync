@@ -124,7 +124,7 @@
     {
       "id": "web",
       "repository": "nddev-device-sync-web",
-      "kind": "flutter-client",
+      "kind": "web-client",
       "status": "alpha",
       "platforms": [
         "web"

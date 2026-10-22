@@ -32,7 +32,7 @@
       "enum": [
         "alpha",
         "beta",
-        "stable"
+        "release"
       ]
     },
     "modules": {
@@ -64,6 +64,7 @@
               "server",
               "agent",
               "flutter-client",
+              "web-client",
               "service",
               "module",
               "adapter",
@@ -76,7 +77,7 @@
               "future",
               "alpha",
               "beta",
-              "stable"
+              "release"
             ]
           },
           "platforms": {

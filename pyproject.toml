@@ -1,0 +1,5 @@
+[project]
+name = "nddev-device-sync-tools"
+version = "0.0.1-alpha.0"
+description = "Structural check tooling for the NDS standards and catalog repository"
+requires-python = ">=3.11"

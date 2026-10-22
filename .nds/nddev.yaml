@@ -1,0 +1,137 @@
+# std-0001 repository manifest — schema: `nddev schema manifest`.
+apiVersion: nddev.ai/v1alpha3
+kind: Repository
+metadata:
+  id: nddev-device-sync
+  locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync
+  owner: rldyourmnd
+spec:
+  standard:
+    id: std-0001
+    version: 3.0.0
+  role: system-root
+  profiles:
+  - docs
+  - python
+  lifecycle: active
+  portfolios:
+  - portfolio:nddev-technocracy-opennetwork-nds
+  adapters:
+  - claude
+  - cursor
+  system:
+    id: nds
+  members:
+  - id: nddev-device-sync-core
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-core
+    kind: shared-core
+  - id: nddev-device-sync-protocol
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-protocol
+    kind: contracts
+  - id: nddev-device-sync-server
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-server
+    kind: server
+  - id: nddev-device-sync-agent
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-agent
+    kind: agent
+  - id: nddev-device-sync-desktop
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop
+    kind: flutter-client
+  - id: nddev-device-sync-mobile
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile
+    kind: flutter-client
+  - id: nddev-device-sync-observability
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability
+    kind: service
+  - id: nddev-device-sync-accounts
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-accounts
+    kind: module
+  - id: nddev-device-sync-organizations
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-organizations
+    kind: module
+  - id: nddev-device-sync-vault
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-vault
+    kind: module
+  - id: nddev-device-sync-web
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web
+    kind: web-client
+  - id: nddev-device-sync-gds
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-gds
+    kind: adapter
+  - id: nddev-device-sync-rds
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-rds
+    kind: adapter
+  - id: nddev-device-sync-sysinfo
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-sysinfo
+    kind: adapter
+  - id: nddev-device-sync-clipboard
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-clipboard
+    kind: adapter
+  - id: nddev-device-sync-cleaner
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-cleaner
+    kind: adapter
+  - id: nddev-device-sync-updater
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-updater
+    kind: adapter
+  - id: nddev-device-sync-estate
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate
+    kind: self-hosting-engine
+  - id: nddev-opennetwork-design-system
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-opennetwork-design-system
+    kind: design-system
+  root-tooling:
+  - purposes:
+    - catalog
+    - assembly
+    paths:
+    - contracts
+    - scripts
+    - pyproject.toml
+    - requirements-check.txt
+  - purposes:
+    - authoring
+    paths:
+    - standarts
+  provides:
+  - name: module-catalog
+    source: contracts/module-catalog.json
+    direction: schema-first
+  - name: module-manifest
+    source: contracts/module-manifest.json
+    direction: schema-first
+  - name: standards-corpus
+    source: standarts
+    direction: schema-first
+  variations:
+  - paths:
+    - TRADEMARKS.md
+    purpose: legal
+    reason: Trademark usage terms are a deliberate legal document kept beside LICENSE at the repository root.
+    decision:
+      state: approved
+      by: rldyourmnd
+      date: '2026-10-22'
+      origin: document
+      reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
+  - paths:
+    - .gds
+    purpose: config
+    reason: GDS-owned repository anchor and policy projections; std-0001 excludes .gds from migration and validation by its own boundary rule.
+    decision:
+      state: approved
+      by: rldyourmnd
+      date: '2026-10-22'
+      origin: document
+      reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
+  - paths:
+    - rust-toolchain.toml
+    purpose: tool-config
+    reason: Pinned Rust toolchain for contract tooling in a repository without a Cargo workspace; the rust profile requires Cargo.toml so the pin is declared as a variation.
+    decision:
+      state: approved
+      by: rldyourmnd
+      date: '2026-10-22'
+      origin: document
+      reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
+  modules:
+  - .

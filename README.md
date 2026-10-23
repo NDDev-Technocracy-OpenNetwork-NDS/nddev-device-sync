@@ -39,16 +39,17 @@ cross-device viewing, NDS application updates and common observability. These
 targets are not a claim that the deployed composition already implements them.
 [ADR 0011](standarts/decisions/0011-company-membership-and-device-access.md) adds
 companies and invited users with administrative RDS access; personal Vault and
-GDS data remain owner-only. The singleton server still requires this migration.
+GDS data remain owner-only. Server and client sources implement company,
+membership and invitation workflows. Runtime repositories own supported-target
+qualification and migration acceptance for existing installations.
 
 The catalog describes repository boundaries and declared platforms, not a
 release bill of materials or a runtime capability response. The accepted
 [offline browser scope](standarts/decisions/0007-offline-browser-client.md)
 is implemented by the [web assembly](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web),
-whose current implementation reuses shared Flutter UI and Rust modules.
-[ADR 0010](standarts/decisions/0010-react-browser-presentation.md) replaces the
-browser presentation with React/TanStack/shadcn while retaining Rust/WASM and
-requiring an explicitly qualified migration. Browser
+which uses React/TanStack/shadcn presentation under
+[ADR 0010](standarts/decisions/0010-react-browser-presentation.md) and the shared
+Rust/WASM composition. Desktop and mobile retain Flutter. Browser
 adapters provide encrypted local credentials, a durable replica and telemetry
 queue, while the server remains authoritative for committed state. The web
 repository owns artifact provenance and browser qualification; an alpha catalog

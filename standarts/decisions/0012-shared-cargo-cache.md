@@ -40,3 +40,20 @@ hits never substitute for owning tests or source verification.
 
 References: [Cargo configuration](https://doc.rust-lang.org/cargo/reference/config.html),
 [Cargo build cache](https://doc.rust-lang.org/cargo/reference/build-cache.html).
+
+## Managed development profile — 2026-10-24
+
+The owner selects three days of idle retention, with maintenance owned by the
+[Cleaner module](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-cleaner).
+Its qualified nightly Cargo frontend tracks native use while each project retains
+its selected compiler. The profile pools compiler/host-specific intermediates and
+isolates final workspace artifacts; active inherited leases and native package
+owners govern cleanup. Unknown legacy caches are not silently adopted.
+
+With `NDS_CACHE_FRONTENDS` and `NDS_CLEANER_CONFIG` set by the operator, this
+repository's cache setup/check/run delegate to that owner without installing a
+second generated placement policy. The complete pinned compiler tools remain
+available after the managed frontend on PATH. Prepared Cargo homes, compiler
+selection and explicit native staging directories remain caller-owned. Native
+SDK preparation opts into the same frontend while preserving verified provider
+inputs. Profile deployment and device facts belong in private estate.

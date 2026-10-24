@@ -199,8 +199,17 @@
     {
       "id": "estate",
       "repository": "nddev-device-sync-estate",
-      "kind": "self-hosting-engine",
-      "status": "future",
+      "kind": "module",
+      "status": "alpha",
+      "platforms": [
+        "linux"
+      ]
+    },
+    {
+      "id": "estate-example",
+      "repository": "nddev-device-sync-estate-example",
+      "kind": "module",
+      "status": "alpha",
       "platforms": [
         "linux"
       ]

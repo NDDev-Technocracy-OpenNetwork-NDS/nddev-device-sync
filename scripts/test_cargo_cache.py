@@ -16,7 +16,7 @@ class CargoCache(unittest.TestCase):
         # A caller may itself run inside the shared-cache runner. The fixture
         # must exercise its own configuration, never populate that caller's lane.
         self.environment = {key: value for key, value in os.environ.items()
-                            if key not in {"CARGO_TARGET_DIR", "CARGO_BUILD_TARGET_DIR", "CARGO_BUILD_BUILD_DIR"}}
+                            if key not in {"CARGO_TARGET_DIR", "CARGO_BUILD_TARGET_DIR", "CARGO_BUILD_BUILD_DIR", "NDS_CACHE_FRONTENDS", "NDS_CLEANER_CONFIG"}}
         self.directory = tempfile.TemporaryDirectory(prefix="nds-cache-check-")
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)

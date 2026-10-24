@@ -32,6 +32,12 @@ artifacts outside Git. From any module, use
 the complete pinned Rust toolchain. [ADR 0012](standarts/decisions/0012-shared-cargo-cache.md)
 defines cache isolation, artifact paths and safe cleanup.
 
+Actual deployment configuration and operational evidence belong in the private
+`nddev-device-sync-estate`. The public
+[estate example](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate-example)
+contains synthetic values and consumes the server's existing Compose contract
+through an exact Gitlink. It does not expose company infrastructure.
+
 [ADR 0009](standarts/decisions/0009-first-alpha-product-contract.md) records the
 accepted NDS 1 first-alpha outcomes and acceptance criteria. It includes module
 setup after sign-in, seven-day offline authorization, bidirectional GDS sync,

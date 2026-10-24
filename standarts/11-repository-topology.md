@@ -2,8 +2,10 @@
 
 The central repository owns standards, assembly metadata and the module catalog.
 Each runtime module owns its implementation, tests, dependency locks and release
-boundary. The future public self-hosting engine is `nddev-device-sync-estate`;
-a personal deployment is private configuration, not another product.
+boundary. `nddev-device-sync-estate` is the private configuration and operational
+evidence repository. `nddev-device-sync-estate-example` is the public synthetic
+self-hosting example, consuming the generic server through an exact source
+Gitlink. Public modules never require private estate access for builds or CI.
 
 Create a module repository when an accepted behavior needs that boundary.
 Catalog reservations do not authorize empty repositories or inactive services.

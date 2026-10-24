@@ -75,7 +75,10 @@ spec:
     kind: adapter
   - id: nddev-device-sync-estate
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate
-    kind: self-hosting-engine
+    kind: module
+  - id: nddev-device-sync-estate-example
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate-example
+    kind: module
   - id: nddev-opennetwork-design-system
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-opennetwork-design-system
     kind: design-system

@@ -52,10 +52,17 @@ retroactively extend them. Remote revocation cannot be learned while disconnecte
 
 ## GDS
 
-The canonical desktop/server workspace is
-`~/Developer/nddev/<github-owner>/<repository>`. Personal owners and organizations
-are separate owner directories; stable GitHub IDs retain identity through rename
-or transfer. Mobile storage uses the same logical layout in an authorized
+Owner amendment, 2026-10-24: GDS is the existing `nddev-device-sync-gds` module
+of NDS (`nddev-device-sync`). The canonical desktop/server workspace is
+`~/Developer/NDS/<github-owner>/...`. Personal accounts and organizations have
+separate owner directories. GitHub repositories remain flat; local containment
+follows declared Git submodules and their pinned revisions rather than creating
+an additional flat checkout for every nested repository. Stable GitHub IDs
+retain identity through rename or transfer. Existing work, including the earlier
+`~/Developer/nddev` layout, is preserved; relocation requires an explicit owner
+decision. Older immutable standards locks retain their original path contract
+until their consumer adopts this amendment through a coordinated source update.
+Mobile storage uses the same logical layout in an authorized
 app-owned workspace. Browser filesystem capabilities must be explicitly granted
 and reported; a remote workspace view is distinct from a local checkout.
 

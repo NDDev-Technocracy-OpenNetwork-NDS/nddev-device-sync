@@ -17,21 +17,22 @@ def output(arguments, *, cwd=ROOT):
     return subprocess.check_output(arguments, cwd=cwd, text=True, timeout=30).strip()
 
 
-def context():
+def context(*, validate_scope=True):
     catalog = json.loads((ROOT / "contracts/module-catalog.json").read_text())
     allowed = {item["repository"] for item in catalog["modules"]} | {catalog["product"]}
     scope = ROOT.parent
     # Cargo's parent configuration must never cover unrelated projects.
-    for child in scope.iterdir():
-        if not child.is_dir() or child.name == ".cargo":
-            continue
-        if child.name not in allowed or not (child / ".git").exists():
-            raise ValueError("the common parent must contain only registered NDS checkouts")
-        remote = output(["git", "remote", "get-url", "origin"], cwd=child)
-        expected = f"github.com/{catalog['organization']}/{child.name}"
-        normalized = remote.removesuffix(".git").removeprefix("https://").replace("git@github.com:", "github.com/")
-        if normalized.lower() != expected.lower():
-            raise ValueError("an NDS checkout has a different provider identity")
+    if validate_scope:
+        for child in scope.iterdir():
+            if not child.is_dir() or child.name == ".cargo":
+                continue
+            if child.name not in allowed or not (child / ".git").exists():
+                raise ValueError("the common parent must contain only registered NDS checkouts")
+            remote = output(["git", "remote", "get-url", "origin"], cwd=child)
+            expected = f"github.com/{catalog['organization']}/{child.name}"
+            normalized = remote.removesuffix(".git").removeprefix("https://").replace("git@github.com:", "github.com/")
+            if normalized.lower() != expected.lower():
+                raise ValueError("an NDS checkout has a different provider identity")
     channel = tomllib.loads((ROOT / "rust-toolchain.toml").read_text())["toolchain"]["channel"]
     binary = Path(output(["rustup", "which", "--toolchain", channel, "rustc"]))
     compiler = dict(line.split(": ", 1) for line in output([str(binary), "-vV"]).splitlines() if ": " in line)
@@ -106,6 +107,19 @@ def configured():
     return binary, target
 
 
+def cleaner_profile():
+    prefix = os.environ.get("NDS_CACHE_FRONTENDS")
+    config = os.environ.get("NDS_CLEANER_CONFIG")
+    if not prefix and not config:
+        return None
+    if not prefix or not config or not Path(prefix).is_absolute() or not Path(config).is_absolute():
+        raise ValueError("NDS Cleaner profile is incomplete")
+    if not (Path(prefix) / "cargo").is_file() or not Path(config).is_file():
+        raise ValueError("NDS Cleaner profile is unavailable")
+    _, binary, lane = context(validate_scope=False)
+    return Path(prefix), Path(config), binary, lane
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="mode", required=True)
@@ -113,6 +127,22 @@ def main():
     commands.add_parser("check")
     commands.add_parser("run").add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
+    profile = cleaner_profile()
+    if profile:
+        prefix, config, binary, lane = profile
+        if args.mode in {"setup", "check"}:
+            if args.mode == "setup" and args.cache_root:
+                raise ValueError("the active Cleaner profile owns cache placement")
+            output([str(prefix / "cargo"), "--version"])
+            print(json.dumps({"owner": "nddev-device-sync-cleaner", "configuration": str(config),
+                              "frontends": str(prefix), "toolchain": lane}))
+            return 0
+        command = args.command[1:] if args.command[:1] == ["--"] else args.command
+        if not command:
+            parser.error("run requires a command after --")
+        environment = dict(os.environ, PATH=os.pathsep.join([str(prefix), str(binary), os.environ.get("PATH", "")]),
+                           RUSTC=str(binary / "rustc"), RUSTDOC=str(binary / "rustdoc"))
+        return subprocess.run(command, env=environment).returncode
     if args.mode == "setup":
         print(json.dumps(setup(args.cache_root)))
     else:

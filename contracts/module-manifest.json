@@ -64,7 +64,8 @@
           "switch_harness_account",
           "read_module_health",
           "apply_updates",
-          "share_clipboard"
+          "share_clipboard",
+          "control_browser"
         ]
       },
       "uniqueItems": true
@@ -79,7 +80,8 @@
           "local_network",
           "user_service",
           "clipboard",
-          "git_write"
+          "git_write",
+          "browser_control"
         ]
       },
       "uniqueItems": true

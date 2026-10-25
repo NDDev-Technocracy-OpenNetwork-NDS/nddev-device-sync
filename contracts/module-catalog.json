@@ -197,6 +197,17 @@
       ]
     },
     {
+      "id": "browser-use",
+      "repository": "nddev-device-sync-browser-use",
+      "kind": "adapter",
+      "status": "future",
+      "platforms": [
+        "macos",
+        "linux",
+        "windows"
+      ]
+    },
+    {
       "id": "cache",
       "repository": "nddev-device-sync-cache",
       "kind": "service",

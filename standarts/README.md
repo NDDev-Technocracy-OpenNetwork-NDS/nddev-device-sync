@@ -31,6 +31,8 @@ membership, invitations and administrative RDS access while preserving personal
 data isolation.
 [ADR 0012](decisions/0012-shared-cargo-cache.md) defines the shared local Cargo
 artifact cache and safe build/acceptance path resolution.
+[ADR 0015](decisions/0015-agent-browser-automation.md) defines NDS-owned agent
+browser automation inside owner-granted agent tab groups.
 An edit here does not change the meaning of a module's existing release lock.
 
 ## Normative documents

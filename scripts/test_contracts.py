@@ -29,6 +29,17 @@ class Contracts(unittest.TestCase):
             with self.subTest(patch=patch), self.assertRaises((ValueError, ValidationError)):
                 contracts.descriptor(value | patch)
 
+    def test_browser_control_is_a_distinct_capability_and_permission(self):
+        contracts.descriptor({'id': 'browser-use', 'version': '0.0.1-alpha.1', 'api_version': 1,
+                              'kind': 'integration', 'platforms': ['linux'],
+                              'capabilities': ['control_browser'], 'permissions': ['browser_control'],
+                              'dependencies': []})
+        with self.assertRaises(ValidationError):
+            contracts.descriptor({'id': 'browser-use', 'version': '0.0.1-alpha.1', 'api_version': 1,
+                                  'kind': 'integration', 'platforms': ['linux'],
+                                  'capabilities': ['control_browser'], 'permissions': ['browser'],
+                                  'dependencies': []})
+
     def test_catalog_rejects_ambiguous_assembly(self):
         original = contracts.load(contracts.ROOT / 'contracts/module-catalog.json')
         for mutate in [

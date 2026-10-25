@@ -15,6 +15,7 @@ The product coordinates these modules through typed contracts:
 - clipboard;
 - cleaner;
 - updater;
+- agent browser automation;
 - harness account management;
 - company membership and invitations;
 - server inventory and health;

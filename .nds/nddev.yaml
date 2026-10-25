@@ -73,6 +73,9 @@ spec:
   - id: nddev-device-sync-updater
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-updater
     kind: adapter
+  - id: nddev-device-sync-browser-use
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-browser-use
+    kind: adapter
   - id: nddev-device-sync-cache
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-cache
     kind: service

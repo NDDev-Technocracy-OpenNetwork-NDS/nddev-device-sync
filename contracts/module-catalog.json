@@ -197,6 +197,15 @@
       ]
     },
     {
+      "id": "cache",
+      "repository": "nddev-device-sync-cache",
+      "kind": "service",
+      "status": "future",
+      "platforms": [
+        "linux"
+      ]
+    },
+    {
       "id": "estate",
       "repository": "nddev-device-sync-estate",
       "kind": "module",

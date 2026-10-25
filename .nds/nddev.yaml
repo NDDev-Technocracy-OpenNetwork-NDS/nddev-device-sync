@@ -57,25 +57,25 @@ spec:
     kind: web-client
   - id: nddev-device-sync-gds
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-gds
-    kind: adapter
+    kind: module
   - id: nddev-device-sync-rds
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-rds
-    kind: adapter
+    kind: module
   - id: nddev-device-sync-sysinfo
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-sysinfo
-    kind: adapter
+    kind: tool
   - id: nddev-device-sync-clipboard
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-clipboard
-    kind: adapter
+    kind: tool
   - id: nddev-device-sync-cleaner
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-cleaner
-    kind: adapter
+    kind: tool
   - id: nddev-device-sync-updater
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-updater
-    kind: adapter
+    kind: tool
   - id: nddev-device-sync-browser-use
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-browser-use
-    kind: adapter
+    kind: module
   - id: nddev-device-sync-cache
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-cache
     kind: service
@@ -142,5 +142,15 @@ spec:
       date: '2026-10-22'
       origin: document
       reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
+  - paths: [modules, tools]
+    purpose: package
+    reason: The owner-selected NDS monorepo groups independently versioned module and tool Git submodules.
+    decision:
+      state: approved
+      by: rldyourmnd
+      date: '2026-10-25'
+      origin: conversation
+      reference: standarts/decisions/0016-module-and-tool-monorepo.md
+      excerpt: 'у нас должен быть один главный монорепо и в нем модули и тулы как отдельные репо'
   modules:
   - .

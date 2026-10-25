@@ -29,7 +29,7 @@ class CargoCache(unittest.TestCase):
         names = ["nddev-device-sync-core", "nddev-device-sync-server"]
         (self.project / "contracts/module-catalog.json").write_text(json.dumps({
             "product": "nddev-device-sync", "organization": "NDDev-Technocracy-OpenNetwork-NDS",
-            "modules": [{"repository": name} for name in names],
+            "components": [{"repository": name} for name in names],
         }))
         for name in ["nddev-device-sync", *names]:
             directory = self.scope / name

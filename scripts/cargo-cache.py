@@ -19,7 +19,7 @@ def output(arguments, *, cwd=ROOT):
 
 def context(*, validate_scope=True):
     catalog = json.loads((ROOT / "contracts/module-catalog.json").read_text())
-    allowed = {item["repository"] for item in catalog["modules"]} | {catalog["product"]}
+    allowed = {item["repository"] for item in catalog["components"]} | {catalog["product"]}
     scope = ROOT.parent
     # Cargo's parent configuration must never cover unrelated projects.
     if validate_scope:

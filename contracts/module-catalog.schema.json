@@ -9,7 +9,7 @@
     "license",
     "organization",
     "channel",
-    "modules"
+    "components"
   ],
   "additionalProperties": false,
   "properties": {
@@ -17,7 +17,7 @@
       "const": "module-catalog.schema.json"
     },
     "catalog_version": {
-      "const": 1
+      "const": 2
     },
     "product": {
       "const": "nddev-device-sync"
@@ -35,7 +35,7 @@
         "release"
       ]
     },
-    "modules": {
+    "components": {
       "type": "array",
       "minItems": 1,
       "items": {
@@ -46,7 +46,8 @@
           "repository",
           "kind",
           "status",
-          "platforms"
+          "platforms",
+          "path"
         ],
         "properties": {
           "id": {
@@ -67,7 +68,7 @@
               "web-client",
               "service",
               "module",
-              "adapter",
+              "tool",
               "self-hosting-engine",
               "design-system"
             ]
@@ -95,8 +96,66 @@
                 "all"
               ]
             }
+          },
+          "path": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^(modules|tools)/[a-z][a-z0-9-]{0,127}$"
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "id": {
+                  "const": "estate"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "kind": {
+                  "const": "module"
+                },
+                "path": {
+                  "type": "null"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "path": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "tool"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "path": {
+                  "pattern": "^tools/"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "path": {
+                  "pattern": "^modules/"
+                }
+              }
+            }
+          }
+        ]
       }
     }
   }

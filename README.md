@@ -9,10 +9,27 @@ the NDDev OpenNetwork name and [nddev.ai](https://nddev.ai) attribution.
 License: AGPL-3.0-only. See [LICENSE](LICENSE) and [TRADEMARKS.md](TRADEMARKS.md).
 Release journals live in [GitHub Releases](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/releases).
 
-This repository owns the [standards](standarts/README.md) and
-[module catalog](contracts/module-catalog.json). Runtime modules are separate
-repositories. The catalog reserves boundaries; it does not assert that planned
-modules are implemented or require building all of them for the first alpha.
+This is the main NDS source monorepo. It owns the
+[standards](standarts/README.md), [component catalog](contracts/module-catalog.json)
+and exact Git submodules for the independent component repositories:
+
+```text
+nddev-device-sync/
+  modules/       core, protocol, server, agent, clients, Vault, GDS, RDS, ...
+  tools/         clipboard, sysinfo, updater, cleaner
+  contracts/     catalog and assembly validation
+  standarts/     NDS product contracts
+```
+
+GitHub repositories keep their flat organization names, histories and releases.
+The [catalog](contracts/module-catalog.json) gives every component its exact path;
+`.gitmodules` and Gitlinks own the source snapshot. Initialize only the components
+needed for the current work, for example
+`git submodule update --init -- modules/gds tools/cleaner`.
+Each repository retains its own checks and dependency locks. These Gitlinks are
+a source snapshot; application assembly locks still select runtime dependencies.
+The catalog's `future` entries for cache and browser-use reserve their accepted
+boundaries without asserting runtime readiness.
 
 The [engineering contract](standarts/13-engineering-and-agent-standard.md)
 governs autonomous delivery, minimal code and state, real verification and
@@ -26,14 +43,16 @@ methods depend on the instance configuration. A compiled platform is not proof
 of runtime qualification; each runtime repository owns that evidence.
 Existing module locks and published alpha tags keep their original meaning.
 
-For sibling NDS checkouts, run `just cargo-cache-setup` once to share Cargo
-artifacts outside Git. From any module, use
-`python3 ../nddev-device-sync/scripts/cargo-cache.py run -- just check` to select
-the complete pinned Rust toolchain. [ADR 0012](standarts/decisions/0012-shared-cargo-cache.md)
+Use the installed NDS development profile to share Cargo artifacts outside Git.
+The central helper remains available: from a component under `modules/` or
+`tools/`, use `python3 ../../scripts/cargo-cache.py run -- just check` to select
+the complete pinned Rust toolchain. Existing sibling checkouts retain their
+previous helper path until an explicit, checked relocation.
+[ADR 0012](standarts/decisions/0012-shared-cargo-cache.md)
 defines cache isolation, artifact paths and safe cleanup.
 
 Actual deployment configuration and operational evidence belong in the private
-`nddev-device-sync-estate`. The public
+`nddev-device-sync-estate`, a separate checkout outside this public assembly. The public
 [estate example](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate-example)
 contains synthetic values and consumes the server's existing Compose contract
 through an exact Gitlink. It does not expose company infrastructure.
@@ -73,3 +92,10 @@ graph compatibility and OS behavior remain the runtime owner’s responsibility.
 The descriptor schema includes the `web` platform accepted by ADR 0007.
 Earlier native-only schema snapshots cannot validate browser descriptors;
 their immutable release and source locks remain unchanged.
+
+Catalog version 2 adds exact component paths, names the four small adapters
+`tool`, and uses `components` for the catalog entries. The runtime descriptor
+already supports `kind: tool`; this source-layout change does not alter its ABI.
+[ADR 0016](standarts/decisions/0016-module-and-tool-monorepo.md) records the layout
+and preservation rules. Existing working checkouts, dirty changes, Vault data and
+live processes require checked adoption before physical relocation.

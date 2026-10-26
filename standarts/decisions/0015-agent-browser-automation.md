@@ -88,10 +88,22 @@ NDS Vault for agent credentials. Implementation needs the integration listed bel
 - Release goes only to the browser-use host on the same device, for one operation of the bound
   session. It requires a fresh `browser_control` consent check and a fresh Vault read. The host
   keeps the key in zeroizing memory and imports it into a virtual authenticator of that agent tab
-  over CDP. Agent code, the executor, FFI, public DTOs, logs and telemetry never carry it.
+  over CDP. FFI, public DTOs, logs and telemetry do not carry it.
+- Exposure boundary, measured: Chrome gives the extension one debugger session per tab, and the
+  relay shares it between the host and every raw CDP session of agent code on that tab. Through
+  the current relay, a second agent CDP session received `WebAuthn.credentialAdded` and
+  `WebAuthn.credentialAsserted` events with the private key without enabling the domain, and read
+  the key with `WebAuthn.getCredentials`. Chrome does not isolate the credential, so the relay must:
+  while a custody authenticator exists, it drops WebAuthn credential events and refuses credential
+  reads and changes on host-owned authenticators toward agent sessions. Acceptance repeats that
+  probe as a negative test. Agent code and the executor still run with the owner's OS authority
+  and are not a sandbox. Custody bounds the credential to its binding, keeps it out of the
+  browser-use interfaces, logs and telemetry, and makes revocation explicit. It does not make the
+  key secret from code that runs as the owner.
 - After the operation the host reads the new signature counter back, writes it to the record and
-  removes the authenticator. Cancellation, timeout, host loss and revocation zeroize the memory;
-  Chrome removes the authenticator with its CDP session.
+  removes the authenticator. Cancellation, timeout, host loss and revocation zeroize the host
+  memory. When the host is lost, the extension detaches its debugger from the agent tabs, which
+  removes their virtual authenticators.
 - Registration and revocation are explicit owner commands. Revocation deletes the record; the
   public key stays trusted at the RP until the owner removes it there, which NDS reports and
   cannot do itself.
@@ -100,8 +112,8 @@ NDS Vault for agent credentials. Implementation needs the integration listed bel
   Chrome for Testing profile, an exported credential imported into a new authenticator signed in
   with an advancing counter, and the authenticator was gone after its CDP session detached.
 - Integration: a core record kind, a Vault adapter for the browser-use custody port, agent
-  consent wiring and a typed host operation that keeps the key out of agent code. Until it
-  exists, agents keep no persistent credential.
+  consent wiring, a typed host operation that imports the key, and the relay filter above with
+  its negative test. Until they exist, agents keep no persistent credential.
 
 References: [chrome.debugger](https://developer.chrome.com/docs/extensions/reference/api/debugger),
 [native messaging](https://developer.chrome.com/docs/extensions/develop/concepts/native-messaging),

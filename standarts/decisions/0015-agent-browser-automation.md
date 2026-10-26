@@ -72,6 +72,37 @@ Playwriter remains the ADR 0009 and STD-0002 interactive browser tool until
 the owner accepts qualified browser-use. This decision does not change
 existing locks, alpha acceptance or release blockers.
 
+## Agent passkey custody
+
+Status: proposed amendment; the owner asked the NDS session to choose custody, and it recommends
+NDS Vault for agent credentials. Implementation needs the integration listed below.
+
+- Owner passkeys stay with Chrome and Google Password Manager. NDS never exports or copies them
+  and never answers their user verification.
+- An agent credential is a separate WebAuthn credential that the owner registers for one RP ID,
+  origin and project session. It is never an owner passkey, an NDS device-signing or session key,
+  or a shared browser credential record.
+- Vault holds it as its own typed record, not as a password record. The existing record
+  encryption binds it to owner, origin, entity, operation and revision. Server decryption
+  authority under ADR 0006 applies to it as to every Vault record.
+- Release goes only to the browser-use host on the same device, for one operation of the bound
+  session. It requires a fresh `browser_control` consent check and a fresh Vault read. The host
+  keeps the key in zeroizing memory and imports it into a virtual authenticator of that agent tab
+  over CDP. Agent code, the executor, FFI, public DTOs, logs and telemetry never carry it.
+- After the operation the host reads the new signature counter back, writes it to the record and
+  removes the authenticator. Cancellation, timeout, host loss and revocation zeroize the memory;
+  Chrome removes the authenticator with its CDP session.
+- Registration and revocation are explicit owner commands. Revocation deletes the record; the
+  public key stays trusted at the RP until the owner removes it there, which NDS reports and
+  cannot do itself.
+- Scope: the CDP WebAuthn domain is experimental; a passkey step needs the agent tab in front; RPs
+  that require attestation or a platform authenticator may refuse a virtual one. In an isolated
+  Chrome for Testing profile, an exported credential imported into a new authenticator signed in
+  with an advancing counter, and the authenticator was gone after its CDP session detached.
+- Integration: a core record kind, a Vault adapter for the browser-use custody port, agent
+  consent wiring and a typed host operation that keeps the key out of agent code. Until it
+  exists, agents keep no persistent credential.
+
 References: [chrome.debugger](https://developer.chrome.com/docs/extensions/reference/api/debugger),
 [native messaging](https://developer.chrome.com/docs/extensions/develop/concepts/native-messaging),
 [remote debugging change](https://developer.chrome.com/blog/remote-debugging-port),

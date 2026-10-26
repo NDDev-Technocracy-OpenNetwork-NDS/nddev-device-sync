@@ -15,6 +15,43 @@ spec.loader.exec_module(contracts)
 
 
 class Contracts(unittest.TestCase):
+    def test_application_manifest_binds_sources_and_distinct_data_formats(self):
+        value = {'schema': 1, 'application': 'nds', 'version': '1.0.0-alpha.2',
+                 'platform': 'linux', 'architecture': 'x86_64', 'channel': 'alpha',
+                 'sources': [{'role': 'desktop', 'repository': 'https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop',
+                              'commit': 'a' * 40}],
+                 'data': {'vault_journal': 8, 'sync_wire': 3, 'accounts_fence': 1},
+                 'artifact': {'url': 'https://example.invalid/app.bin', 'bytes': 17,
+                              'sha256': 'b' * 64, 'app_source': 'a' * 40, 'native_source': 'a' * 40}}
+        contracts.app_release(value)
+        # Distinct compiled package roles can pin distinct commits at one URI.
+        shared_repository = copy.deepcopy(value)
+        shared_repository['sources'].append(value['sources'][0] | {'role': 'adapter-io', 'commit': 'c' * 40})
+        contracts.app_release(shared_repository)
+        version_schema = contracts.load(contracts.ROOT / 'contracts/app-release.schema.json')['properties']['version']
+        from jsonschema import Draft202012Validator
+        version_validator = Draft202012Validator(version_schema)
+        for version in ['1.0.0-alpha.1', '1.0.0-alpha.4294967295']:
+            version_validator.validate(version)
+        for version in ['1.0.0-alpha.0', '1.0.0-alpha.01', '1.0.0-alpha.4294967296', '1.0.0-alpha.9999999999', '1.0.0-alpha.1\n']:
+            with self.subTest(version=version), self.assertRaises(ValidationError):
+                version_validator.validate(version)
+        for mutate in [
+            lambda d: d.update(version='1.0.0-alpha.4294967296'),
+            lambda d: d.update(channel='release'),
+            lambda d: d.update(platform='windows'),
+            lambda d: d['sources'].append(d['sources'][0] | {'commit': 'c' * 40}),
+            lambda d: d['artifact'].update(native_source='c' * 40),
+            lambda d: d['artifact'].update(bytes=1073741825),
+            lambda d: d['artifact'].update(url='file:///tmp/app'),
+            lambda d: d['data'].update(schema=3),
+            lambda d: d.update(publisher={'issuer': 'candidate-selected'}),
+        ]:
+            changed = copy.deepcopy(value)
+            mutate(changed)
+            with self.subTest(changed=changed), self.assertRaises((ValueError, ValidationError)):
+                contracts.app_release(changed)
+
     def test_native_browser_and_descriptor_boundaries(self):
         value = {'id': 'clipboard', 'version': '0.0.1-alpha.3', 'api_version': 1,
                  'kind': 'tool', 'platforms': ['android', 'ios', 'web'],

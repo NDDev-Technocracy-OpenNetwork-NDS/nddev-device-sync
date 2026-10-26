@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+from urllib.parse import urlsplit
 
 from jsonschema import Draft202012Validator
 
@@ -90,14 +91,49 @@ def descriptor(data):
         raise ValueError('self or duplicate module dependency')
 
 
+def app_release(data, development_http=False):
+    """Structural candidate checks, never publisher or runtime compatibility proof."""
+    validator('app-release.schema.json').validate(data)
+    candidate = int(data['version'].removeprefix('1.0.0-alpha.'))
+    if candidate > 4294967295:
+        raise ValueError('application candidate exceeds its unsigned 32-bit bound')
+    sources = {item['role']: item for item in data['sources']}
+    if len(sources) != len(data['sources']):
+        raise ValueError('duplicate application source role')
+    for item in sources.values():
+        repository = item['repository']
+        owner, name = repository.removeprefix('https://github.com/').split('/')
+        if owner in {'.', '..'} or name in {'.', '..'}:
+            raise ValueError('invalid application source repository')
+        if repository == 'https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate':
+            raise ValueError('private estate is not a public application source')
+    desktop = 'https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop'
+    artifact = data['artifact']
+    if sources.get('desktop', {}).get('repository') != desktop or sources.get('desktop', {}).get('commit') != artifact['app_source'] or artifact['native_source'] != artifact['app_source']:
+        raise ValueError('Linux wrapper/native sources must match their Desktop source')
+    url = urlsplit(artifact['url'])
+    if url.username is not None or url.password is not None or url.fragment:
+        raise ValueError('artifact URL must not contain credentials or a fragment')
+    if url.scheme != 'https' and not (development_http and url.scheme == 'http' and
+            url.hostname == '127.0.0.1' and url.port is not None and
+            url.netloc == f'127.0.0.1:{url.port}' and 1024 <= url.port <= 65535):
+        raise ValueError('HTTP is restricted to explicitly selected development loopback')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('runtime_manifests', nargs='*', type=Path)
+    parser.add_argument('--app-release', type=Path,
+                        help='validate a candidate before signing; does not verify a signature')
+    parser.add_argument('--development-http', action='store_true', help='allow owned literal 127.0.0.1 HTTP qualification only')
     args = parser.parse_args()
     data = load(ROOT / 'contracts/module-catalog.json')
     catalog(data)
     assembly(ROOT, data)
     validator('module-manifest.json')
+    validator('app-release.schema.json')
+    if args.app_release is not None:
+        app_release(load(args.app_release), args.development_http)
     for path in args.runtime_manifests:
         descriptor(load(path))
     print(f'Catalog and schemas valid; {len(args.runtime_manifests)} runtime descriptors checked.')

@@ -37,7 +37,13 @@ needed by actual retained data, rather than independent competing product lines.
 
 ## Artifacts
 
-Desktop artifacts are signed per operating system and architecture. Mobile
+Current alpha engineering uses project-built artifacts, without new platform
+registrations, production signing identities or store submissions. Build
+integrity, provenance, compatibility and functional acceptance still apply.
+Debug or simulator builds cannot be counted as production distribution.
+
+For separately approved release distribution, desktop artifacts are signed per
+operating system and architecture. Mobile
 artifacts use the platform stores or signed distribution packages. Server
 artifacts are signed container images with SBOM and build provenance. Release
 receipts contain source commit, toolchain, dependency lock hashes, artifact

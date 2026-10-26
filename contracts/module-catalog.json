@@ -219,9 +219,7 @@
       "kind": "module",
       "status": "future",
       "platforms": [
-        "macos",
-        "linux",
-        "windows"
+        "linux"
       ],
       "path": "modules/browser-use"
     },

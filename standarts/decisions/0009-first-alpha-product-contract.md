@@ -119,6 +119,12 @@ Activation preserves keys and queued work and waits for owned operations to
 reach a safe durable boundary. Interrupted or invalid downloads cannot replace
 the installed application; incompatible data cannot be silently downgraded.
 
+The current alpha engineering phase uses project-built artifacts. Platform
+registrations, production signing identities and store submissions are deferred
+until separately approved release preparation; they do not block this phase.
+Build integrity, provenance, compatibility and actual workflow acceptance remain
+required. Debug and simulator builds do not qualify production distribution.
+
 Store-distributed mobile builds use their store update mechanism. A separately
 distributed Android APK uses the system installer, the established signing
 identity and explicit platform approval. iOS uses supported Apple distribution.

@@ -46,7 +46,9 @@ class CargoCache(unittest.TestCase):
         return self.command([sys.executable, str(self.project / "scripts/cargo-cache.py"), *args], cwd, check)
 
     def setup_cache(self):
-        return json.loads(self.helper("setup", "--cache-root", str(self.root / "cache")).stdout)
+        result = self.helper("setup", "--cache-root", str(self.root / "cache"), check=False)
+        self.assertEqual(result.returncode, 0, result.stderr[-4096:])
+        return json.loads(result.stdout)
 
     def test_setup_is_idempotent_and_preserves_unmanaged_configuration(self):
         result = self.setup_cache()

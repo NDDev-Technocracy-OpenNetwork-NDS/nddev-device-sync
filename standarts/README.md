@@ -75,3 +75,7 @@ artifact and again before moving to `beta`.
 The public visual token source is
 `NDDev-Technocracy-OpenNetwork-NDS/nddev-opennetwork-design-system`, licensed under
 AGPL-3.0-only.
+
+The [complete source/privacy boundary](decisions/0019-complete-source-and-privacy-boundary.md)
+keeps private NDDev engineering governance separate from these public NDS product
+contracts. Public checkout and checks do not require private standards or Estate.

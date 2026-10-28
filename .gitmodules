@@ -81,3 +81,7 @@
 [submodule "browser-use"]
 	path = modules/browser-use
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-browser-use.git
+
+[submodule "organization"]
+	path = modules/organization
+	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/.github.git

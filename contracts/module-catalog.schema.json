@@ -17,7 +17,7 @@
       "const": "module-catalog.schema.json"
     },
     "catalog_version": {
-      "const": 2
+      "const": 3
     },
     "product": {
       "const": "nddev-device-sync"
@@ -47,7 +47,8 @@
           "kind",
           "status",
           "platforms",
-          "path"
+          "path",
+          "visibility"
         ],
         "properties": {
           "id": {
@@ -56,7 +57,7 @@
           },
           "repository": {
             "type": "string",
-            "pattern": "^nddev-[a-z0-9-]+$"
+            "pattern": "^(nddev-[a-z0-9-]+|\\.github)$"
           },
           "kind": {
             "enum": [
@@ -70,7 +71,10 @@
               "module",
               "tool",
               "self-hosting-engine",
-              "design-system"
+              "design-system",
+              "organization-profile",
+              "engineering-governance",
+              "deployment-configuration"
             ]
           },
           "status": {
@@ -103,21 +107,30 @@
               "null"
             ],
             "pattern": "^(modules|tools)/[a-z][a-z0-9-]{0,127}$"
+          },
+          "visibility": {
+            "enum": [
+              "public",
+              "private"
+            ]
           }
         },
         "allOf": [
           {
             "if": {
               "properties": {
-                "id": {
-                  "const": "estate"
+                "visibility": {
+                  "const": "private"
                 }
               }
             },
             "then": {
               "properties": {
-                "kind": {
-                  "const": "module"
+                "id": {
+                  "enum": [
+                    "estate",
+                    "standards"
+                  ]
                 },
                 "path": {
                   "type": "null"
@@ -126,6 +139,14 @@
             },
             "else": {
               "properties": {
+                "id": {
+                  "not": {
+                    "enum": [
+                      "estate",
+                      "standards"
+                    ]
+                  }
+                },
                 "path": {
                   "type": "string"
                 }

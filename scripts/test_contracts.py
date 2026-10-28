@@ -90,12 +90,35 @@ class Contracts(unittest.TestCase):
             lambda d: d['components'][0].update(path='tools/core'),
             lambda d: d['components'][0].update(path='../core'),
             lambda d: d['components'][0].update(path=None),
+            lambda d: d['components'][0].update(visibility='private'),
+            lambda d: d['components'][0].update(kind='engineering-governance'),
             lambda d: next(x for x in d['components'] if x['id'] == 'estate').update(path='modules/estate'),
+            lambda d: next(x for x in d['components'] if x['id'] == 'standards').update(visibility='public'),
+            lambda d: next(x for x in d['components'] if x['id'] == 'organization').update(repository='nddev-device-sync-organization'),
         ]:
             value = copy.deepcopy(original)
             mutate(value)
             with self.assertRaises((ValueError, ValidationError)):
                 contracts.catalog(value)
+
+    def test_private_contexts_are_not_public_application_sources(self):
+        data = contracts.load(contracts.ROOT / 'contracts/module-catalog.json')
+        self.assertEqual({item['id'] for item in data['components'] if item['visibility'] == 'private'},
+                         {'estate', 'standards'})
+        value = {'schema': 1, 'application': 'nds', 'version': '1.0.0-alpha.2',
+                 'platform': 'linux', 'architecture': 'x86_64', 'channel': 'alpha',
+                 'sources': [{'role': 'desktop', 'repository': 'https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop', 'commit': 'a' * 40}],
+                 'data': {'vault_journal': 8, 'sync_wire': 3, 'accounts_fence': 1},
+                 'artifact': {'url': 'https://example.invalid/app.bin', 'bytes': 17,
+                              'sha256': 'b' * 64, 'app_source': 'a' * 40, 'native_source': 'a' * 40}}
+        for item in data['components']:
+            if item['visibility'] == 'private':
+                for location in (f'{data["organization"]}/{item["repository"]}',
+                                 f'{data["organization"].lower()}/{item["repository"]}.git'):
+                    changed = copy.deepcopy(value)
+                    changed['sources'].append({'role': item['id'], 'repository': f'https://github.com/{location}', 'commit': 'c' * 40})
+                    with self.assertRaises(ValueError):
+                        contracts.app_release(changed)
 
 
 class Assembly(unittest.TestCase):
@@ -105,7 +128,7 @@ class Assembly(unittest.TestCase):
         self.root = Path(directory.name)
         self.data = contracts.load(contracts.ROOT / 'contracts/module-catalog.json')
         self.data['components'] = [x for x in self.data['components']
-                                   if x['id'] in {'core', 'clipboard', 'estate'}]
+                                   if x['id'] in {'core', 'clipboard', 'estate', 'standards'}]
         self.git('init', '--quiet')
         sections = []
         for item in self.data['components']:

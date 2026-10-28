@@ -10,6 +10,9 @@ This is the active implementation sequence for the product decisions in
 own the requirements; this plan owns sequencing and completion scenarios.
 Repository membership remains in the [catalog](../../contracts/module-catalog.json).
 Native manifests, locks and build records own changing technical identities.
+The [system standard](../17-system-standard.md) supplies stable clause references
+for a cohort's scope and acceptance; private engineering adaptations remain with
+the governance owner.
 
 ## Starting point
 
@@ -27,7 +30,31 @@ already changed a running application.
 
 ## Delivery sequence
 
+### Cohort progression
+
+Work on one coherent implementation cohort before adopting its dependants:
+
+1. Capture the selected source/lock baseline, affected clauses, real callers,
+   retained state and the observable outcome. Review the actual owning code.
+2. Change canonical contracts and providers with their real consumers. Define
+   upgrade/failure behavior before a migration can change retained data.
+3. Run owning checks and meaningful isolated adapter/migration acceptance.
+   Review concurrency, caller loss, scope replacement and unresolved effects.
+4. Qualify the affected client/host roles and diagnostic path. Record unsupported
+   or unexecuted targets honestly; do not activate a live route to hide a gap.
+5. Publish through the existing signed task → dev → main path, verify exact-main
+   checks, then adopt immutable sources in dependent assemblies. Remove superseded
+   paths only with their qualified replacement.
+
+Contract/source, component checks, packaged artifacts and actual target behavior
+are separate exit conditions. A failed gate keeps the cohort open. This plan
+does not issue deployment, protected-client maintenance or runtime-window authority.
+
 ### P0. Public source and private engineering boundary
+
+The source hierarchy now has a checked public recursive checkout and two private
+contexts. The system-standard entrypoint and private NDS engineering profile
+establish the adoption basis; they do not establish whole-system conformance.
 
 Review active component instructions, native metadata, generated outputs,
 public check prerequisites and retained history. Keep private policy/adoption
@@ -48,6 +75,21 @@ privacy or compatibility issue has a bounded disposition.
 
 Owners: Core, Protocol, Accounts, Organizations, Server, Vault; Agent and shared
 clients consume the same contract.
+
+Implement this foundation in three bounded cohorts:
+
+- **P1a — original scope:** introduce the canonical principal/space context through
+  an actual existing use case and its wire/store boundaries. Preserve old IDs,
+  encrypted ownership and pending operations; qualify the supported migration.
+- **P1b — membership:** personal plus multiple organizations, invitations/roles
+  and current admission through that context. Exercise cross-space denial and
+  stale/cached result disclosure before dependent features adopt it.
+- **P1c — devices and control:** stable device proof, the accepted purpose/placement
+  profiles and effective fullauto/manual policy through one real system-tool
+  action. Existing explicit restrictions survive; names grant no authority.
+
+Each cohort updates its actual clients and tests before the next adopts it.
+Do not add unused generic context types or fork the authorization/credential store.
 
 Separate stable user identity from personal/organization membership. Support one
 personal space and several organizations, current role and device grants. Add the

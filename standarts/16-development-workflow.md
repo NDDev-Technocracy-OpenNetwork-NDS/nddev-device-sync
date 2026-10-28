@@ -3,7 +3,8 @@
 ## Bounded delivery
 
 1. Confirm the canonical owner, current implementation and accepted outcome.
-   Separate defects, contract changes and new product features.
+   Identify affected [system clauses](17-system-standard.md), actual consumers
+   and retained data. Separate defects, contract changes and new product features.
 2. Implement the smallest complete behavior with its errors, bounds and telemetry.
    Reuse or remove existing draft code according to real callers; do not publish
    placeholders merely because a file already exists.

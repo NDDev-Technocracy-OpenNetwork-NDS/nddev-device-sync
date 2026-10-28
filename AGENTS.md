@@ -30,6 +30,12 @@ Local build tooling and shared Cargo artifacts follow
 - Follow ADR 0017's extensible offline kernel. Official and future user modules
   use one versioned contract; compiled-in libraries are not the only packaging
   form. Planned entries and structural checks are not working implementations.
+- Follow ADR 0018's fullauto/manual product profiles and standard/debug/off
+  diagnostics. Fullauto has no NDS sandbox or per-action permission prompts
+  inside its actor's personal/organization scope. Preserve explicit older manual
+  choices and original-scope checks; source decisions are not live activation.
+- Keep private engineering policy and adoption evidence outside public source,
+  artifacts and CI output. Public product contracts must remain self-contained.
 - Functional modules own their advertised behavior. Reuse archived code through
   a deliberate NDS-owned implementation and migration; preserve existing state,
   keys and safety controls. Thin I/O adapters remain internal boundaries.

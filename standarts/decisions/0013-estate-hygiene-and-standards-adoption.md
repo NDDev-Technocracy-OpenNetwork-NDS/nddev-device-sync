@@ -1,33 +1,30 @@
-# ADR 0013: estate hygiene and organization standards adoption
+# ADR 0013: estate hygiene and repository contracts
 
 Status: accepted owner direction, 2026-10-22.
 
-NDS adopts the organization standards corpus alongside its own locked
-standards. The product contract in `standarts/` remains the governing source
-for NDS behavior; the organization corpus governs repository structure,
-GitHub workflow, CI/CD shape and component versioning. Both apply; where a
-topic is covered by only one corpus, that corpus rules.
+[ADR 0018](0018-control-and-diagnostic-profiles.md) keeps private engineering
+policy and adoption evidence outside public product prose. This file records
+the NDS repository contract. Historical locked sources retain their original
+meaning; neither this amendment nor a source check changes running installations.
 
-## Adopted organization standards
+## Repository and delivery contracts
 
-- STD-0001 edition 3.0.0 governs repository structure. Every NDS repository
-  carries `.nds/nddev.yaml` declaring the adopted edition, its role and its
+- The existing repository manifest declares its role and
   ecosystem profiles. `nddev-device-sync` is the system root
   (`role: system-root`, `system.id: nds`) and lists every member repository;
   all other repositories are components naming this repository as their
   system root. Generated `.nds/` material and adapter shims are produced
   only by the `nddev` generator and are never hand-edited.
-- STD-0003 governs the already-practiced workflow: `dev` is the integration
+- `dev` is the integration
   branch, `main` is the normal target, task branches carry task work and
   pull requests merge as merge commits.
-- STD-0004 governs CI shape: a short finite pull-request gate precedes a
+- A short finite pull-request gate precedes a
   full validation on `main` pushes; `dev` pushes are not built by GitHub.
   Runtime repositories with native ecosystem profiles declare their contract
-  in `.github/nddev-ci.toml` and run it through the pinned std-0004 composite
-  at the latest final std-0004 release tag; this standards root keeps its
-  native `just` gate, which is already short and finite, and additionally
-  runs `nddev check` in full main validation.
-- STD-0008 governs versioning: native descriptors (`module.yaml`, package
+  in `.github/nddev-ci.toml` and use their selected public reusable implementation.
+  The source root's `just check` validates its catalog, schemas and existing
+  source fixtures. It is not a complete policy or product-conformance check.
+- Native descriptors (`module.yaml`, package
   manifests) own component versions; release authority stays with the
   release manifest.
 
@@ -48,8 +45,7 @@ topic is covered by only one corpus, that corpus rules.
 ## Structure variations recorded in repository manifests
 
 Each adopting manifest records the following NDS-owned material as approved
-variations referencing this decision: `.gds/` (owned by the GDS tool,
-excluded from std-0001 tooling per its own boundary rule), `standarts/`
+variations referencing this decision: `.gds/` (owned by the GDS tool), `standarts/`
 (the NDS corpus and its frozen directory name), `standarts.lock`,
 `module.yaml`, `protocol.lock`, `toolchains.lock.json`,
 `assembly.lock.json`, `provider.lock.json` (NDS contract locks) and
@@ -78,6 +74,4 @@ capabilities stay declared as planned.
 
 References: [standard 08 release policy](../08-release-policy.md),
 [standard 11 repository topology](../11-repository-topology.md),
-[ADR 0010](0010-react-browser-presentation.md),
-[STD-0001](https://github.com/NDDev-Technocracy-Standarts/std-0001-github-repository-structure),
-[STD-0004](https://github.com/NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows).
+[ADR 0010](0010-react-browser-presentation.md).

@@ -113,10 +113,12 @@ class Contracts(unittest.TestCase):
                               'sha256': 'b' * 64, 'app_source': 'a' * 40, 'native_source': 'a' * 40}}
         for item in data['components']:
             if item['visibility'] == 'private':
-                changed = copy.deepcopy(value)
-                changed['sources'].append({'role': item['id'], 'repository': f'https://github.com/{data["organization"]}/{item["repository"]}', 'commit': 'c' * 40})
-                with self.assertRaises(ValueError):
-                    contracts.app_release(changed)
+                for location in (f'{data["organization"]}/{item["repository"]}',
+                                 f'{data["organization"].lower()}/{item["repository"]}.git'):
+                    changed = copy.deepcopy(value)
+                    changed['sources'].append({'role': item['id'], 'repository': f'https://github.com/{location}', 'commit': 'c' * 40})
+                    with self.assertRaises(ValueError):
+                        contracts.app_release(changed)
 
 
 class Assembly(unittest.TestCase):

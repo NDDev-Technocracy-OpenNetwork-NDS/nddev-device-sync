@@ -109,14 +109,14 @@ def app_release(data, development_http=False):
     if len(sources) != len(data['sources']):
         raise ValueError('duplicate application source role')
     source_catalog = load(ROOT / 'contracts/module-catalog.json')
-    private_sources = {f'https://github.com/{source_catalog["organization"]}/{entry["repository"]}'
+    private_sources = {(source_catalog['organization'].lower(), entry['repository'].lower())
                        for entry in source_catalog['components'] if entry['visibility'] == 'private'}
     for item in sources.values():
         repository = item['repository']
         owner, name = repository.removeprefix('https://github.com/').split('/')
         if owner in {'.', '..'} or name in {'.', '..'}:
             raise ValueError('invalid application source repository')
-        if repository in private_sources:
+        if (owner.lower(), name.removesuffix('.git').lower()) in private_sources:
             raise ValueError('private context is not a public application source')
     desktop = 'https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop'
     artifact = data['artifact']

@@ -2,6 +2,11 @@
 
 Status: accepted owner direction, 2026-10-17; implementation and acceptance pending.
 
+Amended by [ADR 0017](0017-extensible-offline-kernel.md): one stable user has a
+personal space and may belong to multiple organizations. The exactly-one-company
+restriction below is historical; invitations, personal isolation, scoped admin
+access, retained identities and qualified migration remain binding.
+
 ## Ownership and roles
 
 A company is the top-level NDS tenant. Reuse the existing stable tenant identity;

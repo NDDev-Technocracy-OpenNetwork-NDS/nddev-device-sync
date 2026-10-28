@@ -27,10 +27,15 @@ Local build tooling and shared Cargo artifacts follow
   and third-party harness accounts. Read the locked identity contract and
   ADR 0006: three sign-in methods and automatic vault access are the accepted
   target; the server owns committed state and automatic vault key delivery.
-- Modules are compiled-in and manifest-driven; planned entries are not working
-  adapters. Add only code used by an accepted behavior.
-- Existing GDS, RDS and system tools own their state and safety policies.
-  Use explicit adapters; do not copy their databases or bypass their controls.
+- Follow ADR 0017's extensible offline kernel. Official and future user modules
+  use one versioned contract; compiled-in libraries are not the only packaging
+  form. Planned entries and structural checks are not working implementations.
+- Functional modules own their advertised behavior. Reuse archived code through
+  a deliberate NDS-owned implementation and migration; preserve existing state,
+  keys and safety controls. Thin I/O adapters remain internal boundaries.
+- Preserve personal and multiple-organization scopes, original resource owners,
+  device placement policy and bounded offline authorization. Never infer grants
+  from a device name, manifest, package signature or UI selection.
 - Harness account switching requires declared official provider support.
 - Follow the approved branch/PR workflow. No implicit releases, deployment,
   credential changes, backup/recovery or unrelated cleanup.

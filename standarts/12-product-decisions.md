@@ -23,6 +23,15 @@
   modes share the same redaction guarantees and observable delivery state.
 - Desktop, mobile and server have separate versioned artifacts in the coordinated
   alpha -> beta -> release train.
+- [ADR 0017](decisions/0017-extensible-offline-kernel.md) defines a common kernel
+  with full functional modules, autonomous work within existing offline grants,
+  personal plus multiple organization spaces and unified device profiles with
+  enforced workload placement. GitHub handles project code; NDS retains its own
+  encrypted state journal and delivery. Official alpha modules use the extension
+  boundary intended for future user-developed modules. Package versions and
+  compatibility are explicit; controlled restarts during verified NDS/module
+  updates are allowed. Earlier compiled-in-only and one-company restrictions
+  are superseded, not retroactively implemented by changing these documents.
 - Existing tools retain authority until approved migrations pass compatibility
   checks. Their repositories and private state are not disposable scaffolding.
 - [ADR 0009](decisions/0009-first-alpha-product-contract.md) records the accepted

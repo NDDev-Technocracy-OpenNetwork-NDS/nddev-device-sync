@@ -2,6 +2,10 @@
 
 Status: accepted owner direction, 2026-10-22.
 
+Amended by [ADR 0017](0017-extensible-offline-kernel.md): this template applies
+to thin I/O adapters and focused tools. It is not the full implementation
+boundary of GDS, RDS or another functional NDS module.
+
 Thin native integration adapters — the modules that bind an external native
 or provider surface to `adapter-io` (`sysinfo`, `cleaner`, `updater`,
 `clipboard`, `rds` and future thin integrations) — share one template. The

@@ -15,11 +15,18 @@ one explicit normalization rule. Real addresses and provider credentials never
 belong in public source, fixtures or manifests.
 
 [ADR 0011](decisions/0011-company-membership-and-device-access.md) adds companies
-and invited users to the alpha target. The creator is the first administrator;
-the current singleton identity implementation must be migrated and qualified.
-All sign-in methods resolve verified users through the same membership policy.
+and invited users. [ADR 0017](decisions/0017-extensible-offline-kernel.md)
+supersedes its one-company restriction: a stable user identity has a personal
+space and may hold memberships in multiple organizations. The creator is the
+first administrator; existing singleton/tenant-bound identity implementations
+require an explicit migration and qualification. All sign-in methods resolve
+verified users through the same membership policy.
 Administrative access extends to same-company RDS, not another user's Vault or
-personal module data. The existing bootstrap's stable IDs and keys are preserved.
+personal module data. Organization-owned shared data uses its explicit space
+and policy. Selection of a space never changes another retained operation's
+actor, credential or authorization lifetime. Leaving or being removed from one
+organization cannot rename the personal space or another membership's data.
+The existing bootstrap's stable IDs and keys are preserved.
 
 OTP challenges use a cryptographically secure generator, finite lifetime,
 bounded attempts, resend limits and bounded storage. A resend invalidates the
@@ -68,6 +75,11 @@ metadata to the authenticated owner. Revocation and explicit key-rotation
 transitions are enforced by the server and preserve authorization boundaries.
 Server records include their public identity, capabilities and heartbeat.
 
+Device profiles, administrative scope and workload placement follow
+[architecture](02-architecture.md). Reclassifying or renaming a device cannot
+rebind its identity, transfer data ownership or enlarge permissions. Serving the
+NDS coordinator is a workload on a device, not a second kind of device proof.
+
 Service identities for agents, email delivery and telemetry are separate from
 user/device credentials. Vector/OpenObserve credentials remain in the central
 telemetry pipeline. Authorization is checked at the owning use case and storage
@@ -85,7 +97,10 @@ Harness tokens, SSH credentials and API keys are encrypted records. PostgreSQL
 stores ciphertext and authenticated-encrypted owner key envelopes. A distinct
 operator wrapping key remains outside PostgreSQL. The server has decryption
 authority; do not describe this model as client-only E2EE.
-Each record has an owner, purpose, scope and lifecycle. Native credential stores
+Each record has an owner, personal/organization space, purpose, scope and
+lifecycle. Adding organization spaces requires explicit key/envelope and
+storage namespace design; never reuse a personal key as a company-wide grant or
+relabel existing ciphertext to make a migration pass. Native credential stores
 hold local secrets; metadata stores and UI events hold references or redacted
 metadata, never plaintext secret bytes. Public DTOs and logs cannot expose
 resolved secrets. OTP verifiers and session records follow the separate

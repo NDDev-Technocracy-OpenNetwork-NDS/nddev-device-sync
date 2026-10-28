@@ -1,7 +1,9 @@
 # nddev-device-sync
 
-NDS is the public, self-hostable NDDev OpenNetwork control plane for devices,
-servers and agent-work tools. Rust owns the domain and system behavior. The
+NDS is the public, self-hostable NDDev OpenNetwork distributed user system for
+devices, servers, functional modules and tools. Its common kernel owns identity,
+security, connections, synchronization, module lifetimes, updates and observation.
+Rust owns the domain and system behavior. The
 accepted presentation stack is Flutter for desktop/mobile and React with strict
 TypeScript for web, in English and Russian. The product keeps
 the NDDev OpenNetwork name and [nddev.ai](https://nddev.ai) attribution.
@@ -57,14 +59,25 @@ Actual deployment configuration and operational evidence belong in the private
 contains synthetic values and consumes the server's existing Compose contract
 through an exact Gitlink. It does not expose company infrastructure.
 
+[ADR 0017](standarts/decisions/0017-extensible-offline-kernel.md) records the
+owner-selected extensible offline architecture: personal and multiple
+organization spaces, unified device profiles and workload placement, native NDS
+state synchronization, full module ownership and independently versioned delivery.
+The [architecture](standarts/02-architecture.md) assigns all 22 component roles
+and the migration boundaries. Official alpha modules use the contract intended
+for later user-developed modules. These targets supersede the earlier
+compiled-in-only/adapter-only product limit; current implementations and
+immutable release locks require deliberate adoption and runtime qualification.
+
 [ADR 0009](standarts/decisions/0009-first-alpha-product-contract.md) records the
 accepted NDS 1 first-alpha outcomes and acceptance criteria. It includes module
 setup after sign-in, seven-day offline authorization, bidirectional GDS sync,
 cross-device viewing, NDS application updates and common observability. These
 targets are not a claim that the deployed composition already implements them.
 [ADR 0011](standarts/decisions/0011-company-membership-and-device-access.md) adds
-companies and invited users with administrative RDS access; personal Vault and
-GDS data remain owner-only. Server and client sources implement company,
+companies and invited users with administrative RDS access; ADR 0017 extends
+membership to multiple organization spaces while personal Vault and GDS data
+remain owner-only. Server and client sources implement company,
 membership and invitation workflows. Runtime repositories own supported-target
 qualification and migration acceptance for existing installations.
 

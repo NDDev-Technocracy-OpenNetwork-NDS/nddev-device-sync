@@ -2,6 +2,11 @@
 
 Status: accepted owner direction, 2026-10-15; implementation and acceptance pending.
 
+Amended by [ADR 0017](0017-extensible-offline-kernel.md) for the extensible
+offline kernel, multiple spaces, full module ownership and independent module
+delivery. Earlier compiled-in/provider-only limits do not define the new target.
+Unchanged behavior, consent and historical qualification retain their scope.
+
 ## Product boundary
 
 NDS 1 supports at most 32 active devices per user. The original single-owner

@@ -2,6 +2,10 @@
 
 Status: accepted implementation direction, 2026-10-14; runtime qualification pending.
 
+Amended by [ADR 0017](0017-extensible-offline-kernel.md): NDS RDS owns the full
+remote-display implementation; archived libraries are migration groundwork.
+Existing identity, OS-consent and view-only boundaries remain binding.
+
 ## Decision
 
 The accepted screen-view outcome uses separate NDS-owned endpoints on viewer

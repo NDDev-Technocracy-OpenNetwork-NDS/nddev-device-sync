@@ -26,9 +26,12 @@ repository's lockfile:
 | Flutter checks | dart format, dart analyze, Flutter unit/widget/integration tests |
 | Design | `nddev-opennetwork-design-system`, pinned alpha release |
 
-Tauri, Kubernetes, service meshes, runtime native plugins and additional
+Tauri, Kubernetes, service meshes, an in-process native plugin ABI and additional
 message brokers are outside the alpha baseline. They may be proposed through an
-ADR when a measured requirement justifies the added surface.
+ADR when a measured requirement justifies the added surface. Independently
+packaged modules under the existing supervised execution boundary follow
+[ADR 0017](decisions/0017-extensible-offline-kernel.md); this does not require a
+dynamic-library loader, another scheduler or a second telemetry implementation.
 
 [ADR 0010](decisions/0010-react-browser-presentation.md) replaces the Flutter Web
 presentation choice. Older immutable locks retain their Flutter baseline until

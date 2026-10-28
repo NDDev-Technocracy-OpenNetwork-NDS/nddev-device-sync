@@ -22,7 +22,14 @@ first administrator; existing singleton/tenant-bound identity implementations
 require an explicit migration and qualification. All sign-in methods resolve
 verified users through the same membership policy.
 Administrative access extends to same-company RDS, not another user's Vault or
-personal module data. Organization-owned shared data uses its explicit space
+personal module data. Diagnostic visibility follows
+[ADR 0018](decisions/0018-control-and-diagnostic-profiles.md): members see their
+own records, organization administrators see their organization's records, and
+a separately key-authenticated global NDS administrator sees all diagnostic
+spaces. Organization administration does not include a member's personal space.
+The global diagnostic credential is distinct from Vault encryption/wrapping
+keys; it cannot make secrets into permitted diagnostic content.
+Organization-owned shared data uses its explicit space
 and policy. Selection of a space never changes another retained operation's
 actor, credential or authorization lifetime. Leaving or being removed from one
 organization cannot rename the personal space or another membership's data.

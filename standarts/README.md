@@ -38,6 +38,10 @@ offline kernel, multiple personal/organization spaces, device placement,
 full module ownership and independently versioned delivery. Its explicit
 supersessions govern the target while earlier locks retain their original scope.
 An edit here does not change the meaning of a module's existing release lock.
+[ADR 0018](decisions/0018-control-and-diagnostic-profiles.md) adds trusted
+fullauto/manual action profiles, standard/debug/off diagnostics, diagnostic
+access roles and separately key-authenticated global administration. These
+are product contracts; private engineering governance is not this corpus.
 
 ## Normative documents
 

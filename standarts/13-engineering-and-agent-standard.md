@@ -45,9 +45,11 @@ service that acquires every responsibility.
 
 Authoritative mutations preserve invariants transactionally. Offline/read
 models expose revision and freshness and converge through the sync protocol;
-never imply instantaneous consistency while disconnected. Tenant/user/device/
-server ownership is explicit from the start. Company membership and scoped RDS
-administration follow ADR 0011; distributed infrastructure remains deferred.
+never imply instantaneous consistency while disconnected. Stable principal,
+personal/organization space, device and original-operation ownership are explicit
+from the start under ADRs 0017/0018. Scoped RDS administration preserves personal
+data isolation. Device placement follows the architecture; this does not add a
+distributed infrastructure controller.
 
 ## Agent execution loop
 

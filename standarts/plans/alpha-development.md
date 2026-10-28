@@ -180,6 +180,12 @@ fast-forward and actionable divergence/conflict handling. Keep uncommitted work
 and active writers intact. Automatic commits, force updates and history rewriting
 are not added by the fullauto admission setting.
 
+Use the declared Git hierarchy for source placement. A shared module may be
+embedded under several consumers while retaining one repository identity;
+distinguish those declared locations from competing standalone roots. Exercise
+this with the root server and the public example's nested server before
+claiming complete recursive placement auditing.
+
 Done when an actual authorized repository workflow converges between devices,
 including rename, offline restart, a dirty checkout, concurrent divergence,
 source/credential refusal and cancellation. Exercise the declared repository/

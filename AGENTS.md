@@ -3,6 +3,9 @@
 This public repository is the NDS source root. It owns public product contracts, generic
 assembly contracts and exact Gitlinks to independent component repositories.
 Public modules live under modules/ and small system tools under tools/.
+Keep native GDS superproject/module roles and immediate typed consumer
+relationships aligned with those Git paths; do not create competing flat
+checkouts for consumed components. Preserve the original repository identities.
 Keep component implementation and release ownership in those repositories.
 Private NDDev engineering standards and Estate remain separate protected
 checkouts; never add either private Gitlink here. All other organization source

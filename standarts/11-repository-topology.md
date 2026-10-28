@@ -20,8 +20,9 @@ flat; source hierarchy is represented by native Git submodules.
 
 The catalog owns component identity, role and path. `.gitmodules` must match it
 exactly, and every public entry must have one indexed Gitlink. Git owns the exact
-commit, so the catalog does not duplicate source revisions. CI checks this
-without recursively cloning components or requesting private credentials.
+commit, so the catalog does not duplicate source revisions. The catalog check validates this
+without cloning. CI separately obtains the real recursive public tree without
+component credentials and rejects missing or mismatched children.
 Use `just checkout` for the public recursive tree or initialize selected components explicitly; child dependency locks remain their
 runtime/build authority. A source snapshot does not qualify an alpha release.
 

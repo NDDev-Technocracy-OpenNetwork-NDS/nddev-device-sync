@@ -31,3 +31,7 @@ jobs:
         run: rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
       - name: Validate standards and module catalog
         run: just check
+      - name: Verify public recursive checkout without component credentials
+        run: |
+          git -c credential.helper= -c protocol.file.allow=never submodule update --init --recursive --jobs 2
+          test -z "$(git submodule status --recursive | sed -n '/^[+U-]/p')"

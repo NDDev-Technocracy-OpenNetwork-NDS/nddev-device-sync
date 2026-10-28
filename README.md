@@ -69,6 +69,12 @@ for later user-developed modules. These targets supersede the earlier
 compiled-in-only/adapter-only product limit; current implementations and
 immutable release locks require deliberate adoption and runtime qualification.
 
+The [active development plan](standarts/plans/alpha-development.md) sequences
+the remaining implementation and names a real completion scenario for each
+stage. It starts with personal/organization identity, devices and fullauto/manual
+profiles, with a correlated diagnostic path early in the work. Product rules
+remain owned by the architecture and diagnostic contracts, not the plan.
+
 [ADR 0009](standarts/decisions/0009-first-alpha-product-contract.md) records the
 accepted NDS 1 first-alpha outcomes and acceptance criteria. It includes module
 setup after sign-in, seven-day offline authorization, bidirectional GDS sync,

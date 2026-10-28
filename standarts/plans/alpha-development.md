@@ -285,3 +285,31 @@ Keep component tasks in the existing GitHub ownership hierarchy and link lasting
 decisions to their canonical contract. Update this one active sequence when
 scope changes; retire it when its work is complete. Estimate calendar delivery
 after the first coherent vertical exposes actual migration/integration cost.
+
+## Deferred follow-up: managed VPN design
+
+After the current alpha work, discuss an NDS-owned VPN module with the owner
+before implementation. The intended outcome is a protected network between the
+actor's devices through an operator-selected gateway, improving reachability
+and access to shared services such as the development cache. Personal and
+organization spaces remain isolated; network membership does not grant access
+to another space or replace service authentication.
+
+Use the [Happ-proxy repositories](https://github.com/orgs/Happ-proxy/repositories)
+as a reference for study, with license and security review before reuse. This is
+an owned-device/organization capability, without a subscription business model.
+No engine, routing policy or fallback transport is selected by this plan.
+
+The later design discussion must cover gateway and peer identity, device/key
+revocation, full versus selective routing, DNS and IPv6 behavior, reconnect and
+bounded fallback, gateway loss, cache/RDS coexistence, supported OS networking
+interfaces and safe shutdown/update. Fallback must preserve authentication,
+scope and the selected traffic policy. Reuse the kernel's identity, lifecycle
+and diagnostics rather than another account or orchestration system.
+
+Compare measured latency, throughput, resource use and recovery under declared
+packet loss and gateway failure. A tunnel does not repair an unavailable
+physical link; reliability and performance claims need actual target evidence.
+Private topology, endpoints and keys remain outside public source and telemetry.
+This deferred item creates no current repository, dependency, VPN installation,
+route change, cache activation or maintenance-window authority.

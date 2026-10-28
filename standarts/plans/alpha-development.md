@@ -1,0 +1,245 @@
+---
+status: active
+---
+
+# NDS alpha development plan
+
+This is the active implementation sequence for the product decisions in
+[ADR 0017](../decisions/0017-extensible-offline-kernel.md) and
+[ADR 0018](../decisions/0018-control-and-diagnostic-profiles.md). Those decisions
+own the requirements; this plan owns sequencing and completion scenarios.
+Repository membership remains in the [catalog](../../contracts/module-catalog.json).
+Native manifests, locks and build records own changing technical identities.
+
+## Starting point
+
+Keep the existing pure Rust domain/application boundary, authenticated client
+and device proofs, encrypted Vault replica/outbox/conflict mechanisms, native
+task/result/drain ownership, telemetry SDK and client generation. GDS already has
+an owned catalog and existing-commit sync engine. RDS has useful authority and
+session integration, while its native engine still comes from the archived
+product. These are reusable implementations, not a completed extensible system.
+
+The principal gaps are the multi-space identity model, device/action policy,
+general module lifecycle, fully owned functional workflows, actual update
+activation and coherent target acceptance. New contracts in source have not
+already changed a running application.
+
+## Delivery sequence
+
+### P0. Public source and private engineering boundary
+
+Review active component instructions, native metadata, generated outputs,
+public check prerequisites and retained history. Keep private policy/adoption
+material outside public source and CI output. Preserve legitimate public
+dependency attribution and licenses. Removing current references does not erase
+historical disclosure; no history rewrite or visibility change is incidental.
+
+Produce one coherent inventory from existing manifests and locks: owning
+components, real contracts, supported consumers and remaining integration work.
+Keep implementation, packaged support and runtime evidence distinct. Use existing
+checks and GitHub task ownership rather than another catalog or checking service.
+
+Done when a public checkout can run its supported prepared checks without a
+private policy corpus, current instructions match those checks, and each remaining
+privacy or compatibility issue has a bounded disposition.
+
+### P1. Principal, spaces, devices and control profiles
+
+Owners: Core, Protocol, Accounts, Organizations, Server, Vault; Agent and shared
+clients consume the same contract.
+
+Separate stable user identity from personal/organization membership. Support one
+personal space and several organizations, current role and device grants. Add the
+agreed device purpose profiles, clear naming and workload placement. Implement
+fullauto/manual as effective authenticated policy, preserving explicit older
+restrictions rather than reinterpreting them as new default grants.
+
+Preserve established IDs, device keys, Vault keys, ciphertext/AAD, queued
+operations and receipts through supported migrations. A new active space never
+relabels an old operation or encrypted record. Reuse existing authorization and
+generation fences; no parallel identity database or permissions service.
+
+Done when one user operates in a personal space and two organizations; colliding
+local IDs, role changes and late results cannot cross scope. A real supported
+action runs through fullauto without a prompt or NDS sandbox, while configured
+manual restrictions refuse it. Fresh and retained-data paths pass actual store
+and consumer checks.
+
+### P2. An early end-to-end diagnostic path
+
+Owners: existing SDK/collector, Server, Accounts, Agent and shared clients.
+
+Take one existing real action, such as a system-information query, through UI
+and agent entrypoints, the owning module, correlated diagnostics and searchable
+OpenObserve records. Implement standard/debug/off, scoped access and one-week
+retention without duplicating telemetry producers at every hop.
+
+Add the separate encrypted global-administrator credential and proof/session
+lifecycle through the existing identity and native credential owners. Members
+see their own records, organization administrators see theirs, and global
+diagnostic access requires the extra key. Storage credentials stay server-side.
+
+Done when actual logs, metrics and traces for the selected workflow are
+correlated and searchable; secret canaries remain absent. Exercise debug/off,
+wrong-scope queries, key replay/revocation, queue saturation, expiry and recovery.
+Ordinary work continues during a diagnostic outage; losses and unknown delivery
+remain visible. OpenObserve is the current review surface; external notification
+delivery is not claimed. Every later phase includes this diagnostic path.
+
+### P3. Connection and state synchronization
+
+Owners: Core, Protocol, Accounts, Vault and Server.
+
+Extend the existing durable journal, encrypted replica, revision checks,
+outbox/inbox, conflicts and history checkpoints to the new spaces and module
+state. Retain delivery progress so another device can catch up after the source
+device exits. Qualify authorized reachable-device operation without assuming
+that offline authorization makes an unreachable endpoint available.
+
+Keep desired state, local bindings, observations and commands/media distinct.
+GitHub remains the project-code/release authority; NDS does not mirror every
+working directory. An action with external effects has its own outcome protocol,
+not automatic replay from a settings queue. Use causal/revision rules rather
+than largest wall-clock timestamp for concurrent changes.
+
+Done when two devices survive offline edits and restart, duplicate/reordered
+delivery, concurrent conflict, stale deletion, expired history and reconnect.
+Scope changes, offline expiry and revoked membership preserve encrypted pending
+work and block effects that no longer have authority.
+
+### P4. One module/tool runtime contract
+
+Owners: Core application, Protocol, Agent and actual module consumers.
+
+Introduce the versioned namespaced boundary through an existing small tool and
+a real functional module. Cover discovery, compatibility, dependencies, scoped
+configuration, effective action profile, execution, health and exact-owner
+shutdown. Reuse retained task/results and bounded native I/O; do not build a
+generic plugin VM, duplicate scheduler or unused provider framework.
+
+Kernel libraries can remain statically composed. Independently delivered
+engines use the supported supervised boundary. Alpha admits official modules;
+the contract must not require a built-in enum or private UI switch for each
+ordinary future module. Unknown interfaces and privileges remain unsupported.
+
+Done when both real consumers use this path, version mismatch refuses before an
+effect, and cancellation/replacement/lost acknowledgement cannot act on a new
+owner. A failed or unknown cleanup keeps its original resources accounted for.
+Applications and agents exercise the same use case and result contract.
+
+### P5. Complete GDS workflows
+
+Owners: GDS with kernel identity, Vault, workspace and client consumers.
+
+Finish the existing owned engine: accessible GitHub catalog, stable repository
+identity, workspace connection, fetch, eligible publication of existing commits,
+fast-forward and actionable divergence/conflict handling. Keep uncommitted work
+and active writers intact. Automatic commits, force updates and history rewriting
+are not added by the fullauto admission setting.
+
+Done when an actual authorized repository workflow converges between devices,
+including rename, offline restart, a dirty checkout, concurrent divergence,
+source/credential refusal and cancellation. Exercise the declared repository/
+device capacity and observable backpressure. A legacy installed GDS executable
+is not a hidden prerequisite.
+
+### P6. Complete RDS workflows
+
+Owners: NDS RDS host/session/transport/viewer and platform adapters.
+
+Migrate reusable archived code into an NDS-owned implementation with its own
+contract, tests, provenance and lifecycle. Preserve existing identities and
+consent rather than replacing the legacy installation in place. Start with
+actual host/viewer connection, frame progress, reconnect, expiry, revoke and
+clean closure. Viewing is the current accepted baseline; keyboard/pointer input
+requires its explicit product-scope amendment before implementation.
+
+Done when actual qualified host/viewer pairs work through the kernel and source
+loss/reconnect cannot change endpoint identity or restore revoked authority.
+Qualify platform host and viewer roles separately. Metadata or a report file
+alone does not establish presented frames, graceful exit or recovery.
+
+### P7. Finish browser and tool integration
+
+Owners: browser-use, sysinfo, clipboard, cleaner, account adapters and clients.
+
+Adopt the compatible qualified browser engine, including its actual wire and
+script outcome types. Preserve exact session ownership and terminal release,
+timeout/abort behavior and replacement safety. Keep its standalone product and
+NDS integration on the same owning implementation.
+
+Qualify real system information, OS clipboard sharing, owned cache cleanup and
+supported official account operations through the common runtime. Each tool
+keeps its own provider state and useful scope. An unavailable provider or
+unsupported account operation remains explicit, not a fake successful adapter.
+
+Done when user and agent calls exercise each declared alpha function with actual
+dependencies, scoped diagnostics, failure, cancellation and shutdown. No broader
+platform/provider support is inferred from a compiled interface.
+
+### P8. Real application and module updates
+
+Owners: Updater, supported platform installation/launcher owners and kernel
+lifecycle. Read-only external OS-update reporting remains a distinct capability.
+
+Extend verified discovery/staging to actual activation: identify the installed
+application, verify the candidate, close admission, await a durable boundary,
+switch the owned installation, restart and observe the new running result.
+Support independently versioned module updates and explicit compatibility.
+
+Done when one actual application update and one supported module update preserve
+keys and pending work. Exercise interruption, bad signature, wrong target,
+incompatible schema and failed startup. Restore an older executable only when
+it can read the retained data; otherwise retain a clear roll-forward disposition.
+Retaining a previous program artifact is not a backup of user databases.
+
+### P9. Coherent clients and platform acceptance
+
+Owners: shared composition, Desktop, Mobile, Web and design system.
+
+Keep consumer pins, generated Rust/Dart/WASM/types, localization and actual
+artifacts coherent throughout earlier phases. Do not postpone broken consumer
+updates until this phase. Here qualify the full assembled product and consistent
+user/agent presentation of spaces, devices, modes, modules and diagnostics.
+
+First exercise the Linux application, an explicitly owned Android emulator and
+the actual Web client. Then close the declared macOS/Windows/iOS target matrix
+with their own platform evidence. Test sign-in/enrollment, real module actions,
+offline restart, multi-tab behavior where applicable, conflict resolution,
+profile/identity changes, update and shutdown without clearing retained data.
+Builds, emulators, physical devices and production signing keep distinct claims.
+
+### P10. Alpha publication and operation
+
+Owners: existing component release/build/deployment owners and Root assembly.
+
+Publish one coherent product composition with independently identified module
+artifacts, compatibility, integrity/provenance and useful self-hosting commands.
+Make catalog and capability labels agree with actual selected support. Keep the
+component matrix complete, including data-only/shared components and explicitly
+unsupported runtime roles; a catalog entry is not a working feature.
+
+Done when a fresh installation and a retained-data upgrade run the declared
+workflows, telemetry can explain their results, and each claimed platform has
+its actual acceptance. Source/CI, publication, installation and running-product
+states remain distinct. Live operational selection has its own fresh target,
+protected-work and recovery authority; this plan creates no maintenance window.
+
+## First implementation increment
+
+Start P0 and the P1 vertical. The concrete first result is one stable user, a
+personal space and two organizations, an enrolled device and fullauto/manual,
+with a real action in the correct scope. Carry the minimal correlated diagnostic
+context in that change; P2 completes its searchable/access-controlled route.
+
+Each increment changes the canonical owner and its actual consumers together,
+preserves retained data, exercises relevant positive and denied/failure paths,
+and reports the result at its real boundary. Pure rule tests do not finish a
+store, platform or delivery claim. No duplicate manager, private-corpus copy or
+speculative abstraction is an implementation milestone.
+
+Keep component tasks in the existing GitHub ownership hierarchy and link lasting
+decisions to their canonical contract. Update this one active sequence when
+scope changes; retire it when its work is complete. Estimate calendar delivery
+after the first coherent vertical exposes actual migration/integration cost.

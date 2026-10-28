@@ -43,6 +43,10 @@ fullauto/manual action profiles, standard/debug/off diagnostics, diagnostic
 access roles and separately key-authenticated global administration. These
 are product contracts; private engineering governance is not this corpus.
 
+The [active alpha development plan](plans/alpha-development.md) owns the current
+implementation order and completion scenarios. It does not replace these rules
+or assert that planned behavior already works.
+
 ## Normative documents
 
 1. [Product boundary](01-product.md)

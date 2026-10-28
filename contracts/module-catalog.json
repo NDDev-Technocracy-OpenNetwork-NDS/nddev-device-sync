@@ -1,6 +1,6 @@
 {
   "$schema": "module-catalog.schema.json",
-  "catalog_version": 2,
+  "catalog_version": 3,
   "product": "nddev-device-sync",
   "license": "AGPL-3.0-only",
   "organization": "NDDev-Technocracy-OpenNetwork-NDS",
@@ -19,7 +19,8 @@
         "android",
         "web"
       ],
-      "path": "modules/core"
+      "path": "modules/core",
+      "visibility": "public"
     },
     {
       "id": "protocol",
@@ -29,7 +30,8 @@
       "platforms": [
         "all"
       ],
-      "path": "modules/protocol"
+      "path": "modules/protocol",
+      "visibility": "public"
     },
     {
       "id": "server",
@@ -39,7 +41,8 @@
       "platforms": [
         "linux"
       ],
-      "path": "modules/server"
+      "path": "modules/server",
+      "visibility": "public"
     },
     {
       "id": "agent",
@@ -51,7 +54,8 @@
         "linux",
         "windows"
       ],
-      "path": "modules/agent"
+      "path": "modules/agent",
+      "visibility": "public"
     },
     {
       "id": "desktop",
@@ -63,7 +67,8 @@
         "linux",
         "windows"
       ],
-      "path": "modules/desktop"
+      "path": "modules/desktop",
+      "visibility": "public"
     },
     {
       "id": "mobile",
@@ -74,7 +79,8 @@
         "ios",
         "android"
       ],
-      "path": "modules/mobile"
+      "path": "modules/mobile",
+      "visibility": "public"
     },
     {
       "id": "observability",
@@ -84,7 +90,8 @@
       "platforms": [
         "linux"
       ],
-      "path": "modules/observability"
+      "path": "modules/observability",
+      "visibility": "public"
     },
     {
       "id": "accounts",
@@ -99,7 +106,8 @@
         "ios",
         "web"
       ],
-      "path": "modules/accounts"
+      "path": "modules/accounts",
+      "visibility": "public"
     },
     {
       "id": "organizations",
@@ -114,7 +122,8 @@
         "ios",
         "web"
       ],
-      "path": "modules/organizations"
+      "path": "modules/organizations",
+      "visibility": "public"
     },
     {
       "id": "vault",
@@ -129,7 +138,8 @@
         "ios",
         "web"
       ],
-      "path": "modules/vault"
+      "path": "modules/vault",
+      "visibility": "public"
     },
     {
       "id": "web",
@@ -139,7 +149,8 @@
       "platforms": [
         "web"
       ],
-      "path": "modules/web"
+      "path": "modules/web",
+      "visibility": "public"
     },
     {
       "id": "gds",
@@ -149,7 +160,8 @@
       "platforms": [
         "linux"
       ],
-      "path": "modules/gds"
+      "path": "modules/gds",
+      "visibility": "public"
     },
     {
       "id": "rds",
@@ -161,7 +173,8 @@
         "linux",
         "windows"
       ],
-      "path": "modules/rds"
+      "path": "modules/rds",
+      "visibility": "public"
     },
     {
       "id": "sysinfo",
@@ -173,7 +186,8 @@
         "linux",
         "windows"
       ],
-      "path": "tools/sysinfo"
+      "path": "tools/sysinfo",
+      "visibility": "public"
     },
     {
       "id": "clipboard",
@@ -187,7 +201,8 @@
         "android",
         "web"
       ],
-      "path": "tools/clipboard"
+      "path": "tools/clipboard",
+      "visibility": "public"
     },
     {
       "id": "cleaner",
@@ -199,7 +214,8 @@
         "linux",
         "windows"
       ],
-      "path": "tools/cleaner"
+      "path": "tools/cleaner",
+      "visibility": "public"
     },
     {
       "id": "updater",
@@ -211,7 +227,8 @@
         "linux",
         "windows"
       ],
-      "path": "tools/updater"
+      "path": "tools/updater",
+      "visibility": "public"
     },
     {
       "id": "browser-use",
@@ -221,7 +238,8 @@
       "platforms": [
         "linux"
       ],
-      "path": "modules/browser-use"
+      "path": "modules/browser-use",
+      "visibility": "public"
     },
     {
       "id": "cache",
@@ -231,17 +249,19 @@
       "platforms": [
         "linux"
       ],
-      "path": "modules/cache"
+      "path": "modules/cache",
+      "visibility": "public"
     },
     {
       "id": "estate",
       "repository": "nddev-device-sync-estate",
-      "kind": "module",
+      "kind": "deployment-configuration",
       "status": "alpha",
       "platforms": [
         "linux"
       ],
-      "path": null
+      "path": null,
+      "visibility": "private"
     },
     {
       "id": "estate-example",
@@ -251,7 +271,8 @@
       "platforms": [
         "linux"
       ],
-      "path": "modules/estate-example"
+      "path": "modules/estate-example",
+      "visibility": "public"
     },
     {
       "id": "design-system",
@@ -261,7 +282,30 @@
       "platforms": [
         "all"
       ],
-      "path": "modules/design-system"
+      "path": "modules/design-system",
+      "visibility": "public"
+    },
+    {
+      "id": "organization",
+      "repository": ".github",
+      "kind": "organization-profile",
+      "status": "alpha",
+      "platforms": [
+        "all"
+      ],
+      "path": "modules/organization",
+      "visibility": "public"
+    },
+    {
+      "id": "standards",
+      "repository": "nddev-device-sync-standards",
+      "kind": "engineering-governance",
+      "status": "alpha",
+      "platforms": [
+        "all"
+      ],
+      "path": null,
+      "visibility": "private"
     }
   ]
 }

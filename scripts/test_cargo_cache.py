@@ -72,6 +72,50 @@ class CargoCache(unittest.TestCase):
         self.assertNotEqual(failed.returncode, 0)
         self.assertFalse((self.scope / ".cargo/config.toml").exists())
 
+    def nested(self):
+        path = self.project / 'contracts/module-catalog.json'
+        data = json.loads(path.read_text())
+        data['catalog_version'] = 3
+        for entry in data['components']:
+            name = entry['repository']
+            entry['path'] = 'modules/' + name.removeprefix('nddev-device-sync-')
+            child = self.project / entry['path']
+            child.parent.mkdir(exist_ok=True)
+            (self.scope / name).rename(child)
+        data['components'].append({'repository': 'nddev-device-sync-standards', 'path': None})
+        path.write_text(json.dumps(data))
+        return self.project / 'modules/core'
+
+    def test_nested_configuration_covers_only_root_and_real_children(self):
+        core = self.nested()
+        (self.scope / 'unrelated-project').mkdir()
+        configured = self.setup_cache()
+        self.assertEqual(Path(configured['configuration']), self.project / '.cargo/config.toml')
+        self.assertFalse((self.scope / '.cargo').exists())
+        (core / 'src').mkdir()
+        (core / 'Cargo.toml').write_text('[package]\nname="nested_core"\nversion="0.0.0"\nedition="2024"\n')
+        (core / 'src/lib.rs').write_text('pub fn value() -> u8 { 7 }\n')
+        result = self.helper('run', '--', 'cargo', 'check', '--offline', cwd=core)
+        self.assertEqual(result.returncode, 0)
+        metadata = json.loads(self.helper('run', '--', 'cargo', 'metadata', '--offline', '--no-deps', '--format-version=1', cwd=core).stdout)
+        self.assertEqual(metadata['target_directory'], configured['target_directory'])
+
+    def test_nested_foreign_or_symlinked_child_never_writes_configuration(self):
+        core = self.nested()
+        self.command(['git', 'remote', 'set-url', 'origin', 'https://example.invalid/foreign.git'], core)
+        self.assertNotEqual(self.helper('setup', check=False).returncode, 0)
+        self.assertFalse((self.project / '.cargo').exists())
+        self.command(['git', 'remote', 'set-url', 'origin', 'https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-core.git'], core)
+        foreign = self.project / 'modules/foreign'
+        foreign.mkdir()
+        self.assertNotEqual(self.helper('setup', check=False).returncode, 0)
+        foreign.rmdir()
+        saved = self.root / 'saved'
+        core.rename(saved)
+        core.symlink_to(saved, target_is_directory=True)
+        self.assertNotEqual(self.helper('setup', check=False).returncode, 0)
+        self.assertFalse((self.project / '.cargo').exists())
+
     def test_actual_workspaces_share_artifacts_and_allow_isolated_targets(self):
         core = self.scope / "nddev-device-sync-core"
         server = self.scope / "nddev-device-sync-server"

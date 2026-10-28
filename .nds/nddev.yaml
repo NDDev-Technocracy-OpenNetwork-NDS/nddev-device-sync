@@ -88,6 +88,12 @@ spec:
   - id: nddev-opennetwork-design-system
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-opennetwork-design-system
     kind: design-system
+  - id: nddev-device-sync-organization
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/.github
+    kind: organization-profile
+  - id: nddev-device-sync-standards
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-standards
+    kind: engineering-governance
   root-tooling:
   - purposes:
     - catalog
@@ -108,7 +114,7 @@ spec:
   - name: module-manifest
     source: contracts/module-manifest.json
     direction: schema-first
-  - name: standards-corpus
+  - name: product-contracts
     source: standarts
     direction: schema-first
   variations:

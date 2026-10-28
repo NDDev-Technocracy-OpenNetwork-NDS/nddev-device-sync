@@ -51,7 +51,7 @@ import of the pure kernel just to be registered.
 ## Component ownership
 
 Repository membership and runtime extension membership are different. The source
-[catalog](../contracts/module-catalog.json) contains these 22 components. Paths,
+[catalog](../contracts/module-catalog.json) contains these 24 repository boundaries. Paths,
 Gitlinks, declared platforms and release status remain owned by that catalog.
 This table assigns target responsibility, not runtime readiness.
 
@@ -78,6 +78,8 @@ This table assigns target responsibility, not runtime readiness.
 | `cache` | Hosted cache service plus explicit per-device client integration |
 | `design-system` | Shared presentation tokens/components and generated visual assets |
 | `estate` | Private operational configuration and evidence, never a public runtime plugin |
+| `standards` | Private NDDev engineering governance, never an application source dependency |
+| `organization` | Public organization introduction and assets, no runtime execution |
 | `estate-example` | Synthetic deployment example, never another authorization/runtime authority |
 
 Logical kernel membership does not require merging repositories or relabeling

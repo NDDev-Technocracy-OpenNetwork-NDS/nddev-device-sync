@@ -3,6 +3,15 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 default:
     @just --list
 
+# Public exact Gitlinks only; no private governance or Estate credentials needed.
+checkout:
+    git submodule update --init --recursive --jobs 2
+
+# Preserve argument boundaries; each component owns its checks and build logic.
+[positional-arguments]
+component id *args:
+    .venv/bin/python scripts/component.py "$@"
+
 cargo-cache-setup:
     python3 scripts/cargo-cache.py setup
 

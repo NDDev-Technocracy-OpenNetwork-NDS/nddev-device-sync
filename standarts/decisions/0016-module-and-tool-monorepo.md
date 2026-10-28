@@ -25,10 +25,10 @@ The private estate remains a separate control-plane checkout with `path: null`.
 It retains system membership without publishing its source revision or requiring
 private access for public checkout/CI. The synthetic estate example is public.
 
-STD-0001's repository manifest records `modules/` and `tools/` as intentional
+The repository manifest records `modules/` and `tools/` as intentional
 package grouping roots. This is an owner-selected layout variation, not an
 exception permitting application implementation in the system root. Generated
-instruction projections are produced by the pinned standard's generator.
+instruction projections are produced by their recorded generator.
 
 Physical relocation is a separate checked adoption of this declared layout.
 Preserve dirty work, Vault, stash, nested repository identities and live services;

@@ -36,6 +36,12 @@ offline permission does not make an unavailable relay or target reachable.
 | Presentation | User interaction and generated typed boundaries; no independent authorization or sync engine |
 
 The kernel is implemented by existing component owners, not a new global daemon.
+Applications and agents use the same action boundary with fullauto/manual
+profiles under [ADR 0018](decisions/0018-control-and-diagnostic-profiles.md).
+Fullauto gives the trusted agent complete control inside its actor's space,
+without an NDS sandbox or per-action permission prompts. Manual exposes narrower
+choices. Current actor, target identity and space separation remain explicit;
+telemetry and a caller-supplied mode cannot grant authority.
 Domain imports no async runtime, filesystem, SQL, HTTP or UI libraries. Application
 ports describe behavior and its bounds; adapters own I/O. Module-specific GitHub
 and remote-display algorithms belong to their modules. Common policy is not
@@ -143,7 +149,9 @@ module declares its stable publisher/module identity, package version, kernel
 API compatibility, required dependencies, supported platforms/roles, requested
 permissions, resource bounds and data schema/migration compatibility. Keep one
 canonical schema in Protocol and generate projections. A manifest advertises
-intent; the kernel and OS decide admission.
+intent; the effective control profile and actual platform decide admission.
+Declared capabilities describe the interface and its required implementation.
+They are not a mandatory user-maintained permission checklist in fullauto.
 
 Ordinary compatible module registration must not require editing a built-in enum
 or private UI dispatch list. Namespaced module IDs and typed module-owned payloads

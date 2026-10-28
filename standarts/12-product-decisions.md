@@ -19,8 +19,10 @@
 - Docker Compose is the alpha deployment path. Companies, invited users and
   narrowly scoped administrative RDS access are defined by
   [ADR 0011](decisions/0011-company-membership-and-device-access.md).
-- Telemetry export is enabled by default and operator-controlled. Normal/debug
-  modes share the same redaction guarantees and observable delivery state.
+- [ADR 0018](decisions/0018-control-and-diagnostic-profiles.md) adds fullauto by
+  default for new setups, configurable manual access, standard/debug/off
+  diagnostics, one-week diagnostic retention and scoped administrative access.
+  Secret exclusion and honest delivery outcomes remain mandatory.
 - Desktop, mobile and server have separate versioned artifacts in the coordinated
   alpha -> beta -> release train.
 - [ADR 0017](decisions/0017-extensible-offline-kernel.md) defines a common kernel

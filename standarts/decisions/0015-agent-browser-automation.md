@@ -68,7 +68,7 @@ short bounded local exchanges, and `adapter-io` gains no listener.
 Linux qualifies first; other platforms claim support only after their own
 evidence.
 
-Playwriter remains the ADR 0009 and STD-0002 interactive browser tool until
+Playwriter remains the ADR 0009 interactive browser tool until
 the owner accepts qualified browser-use. This decision does not change
 existing locks, alpha acceptance or release blockers.
 

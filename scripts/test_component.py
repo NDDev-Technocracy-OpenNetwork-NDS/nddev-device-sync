@@ -16,12 +16,14 @@ class Component(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory(prefix='nds-component-')
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
-        for folder in ('scripts', 'contracts', '.venv/bin'):
+        for folder in ('scripts', 'contracts'):
             (self.root / folder).mkdir(parents=True)
         for path in ('scripts/component.py', 'scripts/check-contracts.py',
                      'contracts/module-catalog.schema.json', 'justfile'):
             shutil.copyfile(SOURCE / path, self.root / path)
-        (self.root / '.venv/bin/python').symlink_to(sys.executable)
+        # Keep the prepared environment's dependencies; a lone Python symlink
+        # changes venv discovery and can accidentally use global packages.
+        (self.root / '.venv').symlink_to(sys.prefix, target_is_directory=True)
         catalog = json.loads((SOURCE / 'contracts/module-catalog.json').read_text())
         catalog['components'] = [item for item in catalog['components'] if item['id'] in {'core', 'estate', 'standards'}]
         (self.root / 'contracts/module-catalog.json').write_text(json.dumps(catalog))

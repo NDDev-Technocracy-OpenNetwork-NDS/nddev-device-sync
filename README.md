@@ -11,6 +11,12 @@ the NDDev OpenNetwork name and [nddev.ai](https://nddev.ai) attribution.
 License: AGPL-3.0-only. See [LICENSE](LICENSE) and [TRADEMARKS.md](TRADEMARKS.md).
 Release journals live in [GitHub Releases](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/releases).
 
+The [NDS system standard](standarts/17-system-standard.md) is the common product
+contract for kernel, modules, tools and clients. It connects stable requirements
+to their canonical rules, responsible components and real acceptance scenarios.
+The [alpha development plan](standarts/plans/alpha-development.md) sequences
+their implementation and retained-data migration.
+
 This is the main NDS source monorepo. It owns the
 [public product contracts](standarts/README.md), [component catalog](contracts/module-catalog.json)
 and exact Git submodules for the independent component repositories:

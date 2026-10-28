@@ -1,5 +1,10 @@
 # nddev-device-sync standards
 
+Start with the [NDS system standard](17-system-standard.md): stable product
+clauses, canonical rules, accountable components and observable acceptance.
+Its contract revision 1 organizes the first-alpha target; it does not change
+the meaning of an existing wire version, package release or standards lock.
+
 This directory is the normative product standard for `nddev-device-sync`.
 The documents are written in English because code, APIs, events, schemas,
 release metadata and operational identifiers use English. The product UI
@@ -65,12 +70,18 @@ or assert that planned behavior already works.
 14. [Technology standard](14-technology-standard.md)
 15. [Observability and telemetry standard](15-observability-and-telemetry-standard.md)
 16. [Development workflow and consistency](16-development-workflow.md)
+17. [NDS system standard](17-system-standard.md)
 
 ## Status
 
 The product starts in the `alpha` channel. These documents describe the
 baseline for `1.0.0-alpha.<candidate>`; they are reviewed before the first public
 artifact and again before moving to `beta`.
+
+[ADR 0020](decisions/0020-system-standard-and-staged-adoption.md) records the
+system-wide adoption method. Product rules are targets; source, component checks,
+packaged artifacts and actual target behavior retain separate evidence. The
+active plan governs changes through those levels one coherent cohort at a time.
 
 The public visual token source is
 `NDDev-Technocracy-OpenNetwork-NDS/nddev-opennetwork-design-system`, licensed under

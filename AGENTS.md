@@ -10,7 +10,8 @@ belongs to this public assembly. The organization profile is source-only.
 Never add real credentials, owner addresses, private organization policy,
 estate topology, machine inventory or runtime evidence.
 
-Read the [engineering contract](standarts/13-engineering-and-agent-standard.md),
+Start with the [system standard](standarts/17-system-standard.md), then read the
+[engineering contract](standarts/13-engineering-and-agent-standard.md),
 [development workflow](standarts/16-development-workflow.md), current Git state
 and the owning module's AGENTS.md, standarts.lock and module.yaml before work.
 The owner defines outcomes and trust boundaries; the agent completes authorized
@@ -49,6 +50,10 @@ Local build tooling and shared Cargo artifacts follow
   credential changes, backup/recovery or unrelated cleanup.
 
 ## Verification
+
+For each change, identify the affected system clauses, canonical code owner,
+actual consumers and retained-data transition. Use the active alpha plan for
+cohort order. A clause reference is not conformance evidence or runtime authority.
 
 Run `just standards-check` and `just catalog-check` before review.
 These are structural checks only. Runtime repositories own behavioral tests;

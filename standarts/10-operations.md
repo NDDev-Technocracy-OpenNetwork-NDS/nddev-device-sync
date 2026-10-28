@@ -4,9 +4,12 @@ Every service exposes a health endpoint and emits startup, shutdown, version,
 dependency, migration and degraded-state events. Graceful shutdown drains
 bounded queues, closes database pools and reports the final delivery result.
 
-The server agent is outbound-first and least-privilege. It reports inventory
-and health using its device identity and accepts only explicitly signed,
-allowlisted operations. SSH credentials are vault records with a defined
+The server agent is outbound-first and reports inventory and health using its
+device identity. Its supported typed operations preserve the signed-request
+contract, authenticated original-space authority and the effective fullauto/manual
+policy. Fullauto requires no separate
+per-action user checklist; unknown operations and cross-space authority remain
+refused. Actual OS/provider restrictions are reported honestly. SSH credentials are vault records with a defined
 purpose and scope; they are never copied into logs or deployment scripts.
 
 The alpha operational loop is:

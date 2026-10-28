@@ -33,6 +33,10 @@ data isolation.
 artifact cache and safe build/acceptance path resolution.
 [ADR 0015](decisions/0015-agent-browser-automation.md) defines NDS-owned agent
 browser automation inside owner-granted agent tab groups.
+[ADR 0017](decisions/0017-extensible-offline-kernel.md) defines the extensible
+offline kernel, multiple personal/organization spaces, device placement,
+full module ownership and independently versioned delivery. Its explicit
+supersessions govern the target while earlier locks retain their original scope.
 An edit here does not change the meaning of a module's existing release lock.
 
 ## Normative documents

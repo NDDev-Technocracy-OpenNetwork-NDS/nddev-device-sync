@@ -17,10 +17,10 @@ classification:
   visibility_contract: "public"
   data_classification: "public"
 product:
-  purpose: "NDS is the public, self-hostable NDDev OpenNetwork control plane for devices, servers and agent-work tools. Rust owns the domain and system behavior; Flutter owns the shared client presentation."
+  purpose: "NDS is the public source root for the distributed NDDev OpenNetwork user system. Exact Git submodules compose the kernel, server, functional modules, tools and Flutter/React clients."
   capabilities:
     - "Umbrella control plane for the NDS product family"
-    - "Coordinates the protocol, server, client and native adapter repositories"
+    - "Composes independent public source repositories; private governance and Estate remain separate"
 policy:
   profiles:
     - "repository-default"

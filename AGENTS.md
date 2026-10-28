@@ -1,10 +1,12 @@
 # nddev-device-sync working contract
 
-This public repository is the NDS source root. It owns standards, generic
+This public repository is the NDS source root. It owns public product contracts, generic
 assembly contracts and exact Gitlinks to independent component repositories.
 Public modules live under modules/ and small system tools under tools/.
 Keep component implementation and release ownership in those repositories.
-Private estate remains a separate protected checkout; never add its Gitlink here.
+Private NDDev engineering standards and Estate remain separate protected
+checkouts; never add either private Gitlink here. All other organization source
+belongs to this public assembly. The organization profile is source-only.
 Never add real credentials, owner addresses, private organization policy,
 estate topology, machine inventory or runtime evidence.
 

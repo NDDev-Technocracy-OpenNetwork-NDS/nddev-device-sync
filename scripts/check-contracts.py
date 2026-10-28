@@ -39,11 +39,19 @@ def catalog(data):
     for module in data['components']:
         if 'all' in module['platforms'] and len(module['platforms']) != 1:
             raise ValueError('all cannot be combined with named platforms')
-        expected = ('nddev-opennetwork-design-system' if module['id'] == 'design-system'
-                    else 'nddev-device-sync-' + module['id'])
+        expected = {'design-system': 'nddev-opennetwork-design-system',
+                    'organization': '.github'}.get(module['id'], 'nddev-device-sync-' + module['id'])
         if module['repository'] != expected:
             raise ValueError('repository does not match its module boundary')
-        expected_path = (None if module['id'] == 'estate' else
+        private_kinds = {'estate': 'deployment-configuration', 'standards': 'engineering-governance'}
+        if module['id'] in private_kinds:
+            if module['visibility'] != 'private' or module['kind'] != private_kinds[module['id']]:
+                raise ValueError('private context has a different ownership boundary')
+        elif module['visibility'] != 'public' or module['kind'] in private_kinds.values():
+            raise ValueError('product components must remain public')
+        if (module['id'] == 'organization') != (module['kind'] == 'organization-profile'):
+            raise ValueError('organization profile has a different ownership boundary')
+        expected_path = (None if module['visibility'] == 'private' else
                          ('tools/' if module['kind'] == 'tool' else 'modules/') + module['id'])
         if module['path'] != expected_path:
             raise ValueError('component path does not match its type or privacy boundary')
@@ -100,13 +108,16 @@ def app_release(data, development_http=False):
     sources = {item['role']: item for item in data['sources']}
     if len(sources) != len(data['sources']):
         raise ValueError('duplicate application source role')
+    source_catalog = load(ROOT / 'contracts/module-catalog.json')
+    private_sources = {f'https://github.com/{source_catalog["organization"]}/{entry["repository"]}'
+                       for entry in source_catalog['components'] if entry['visibility'] == 'private'}
     for item in sources.values():
         repository = item['repository']
         owner, name = repository.removeprefix('https://github.com/').split('/')
         if owner in {'.', '..'} or name in {'.', '..'}:
             raise ValueError('invalid application source repository')
-        if repository == 'https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate':
-            raise ValueError('private estate is not a public application source')
+        if repository in private_sources:
+            raise ValueError('private context is not a public application source')
     desktop = 'https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop'
     artifact = data['artifact']
     if sources.get('desktop', {}).get('repository') != desktop or sources.get('desktop', {}).get('commit') != artifact['app_source'] or artifact['native_source'] != artifact['app_source']:

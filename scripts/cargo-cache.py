@@ -20,16 +20,38 @@ def output(arguments, *, cwd=ROOT):
 def context(*, validate_scope=True):
     catalog = json.loads((ROOT / "contracts/module-catalog.json").read_text())
     allowed = {item["repository"] for item in catalog["components"]} | {catalog["product"]}
-    scope = ROOT.parent
+    nested = catalog.get("catalog_version", 0) >= 3
+    scope = ROOT if nested else ROOT.parent
     # Cargo's parent configuration must never cover unrelated projects.
     if validate_scope:
-        for child in scope.iterdir():
+        if nested:
+            locations = {item["path"]: item["repository"] for item in catalog["components"] if item["path"] is not None}
+            children = []
+            for group in ("modules", "tools"):
+                parent = ROOT / group
+                if parent.is_symlink():
+                    raise ValueError("component grouping root must not be a symlink")
+                if parent.exists():
+                    for child in parent.iterdir():
+                        if child.is_symlink() or child.relative_to(ROOT).as_posix() not in locations:
+                            raise ValueError("unregistered component in the NDS source root")
+                        if child.is_dir() and not any(child.iterdir()):
+                            continue  # Native Git permits uninitialized public children.
+                        children.append(child)
+        else:
+            children = list(scope.iterdir())
+        for child in children:
             if not child.is_dir() or child.name == ".cargo":
+                if nested:
+                    raise ValueError("component checkout is not a directory")
                 continue
-            if child.name not in allowed or not (child / ".git").exists():
+            name = locations[child.relative_to(ROOT).as_posix()] if nested else child.name
+            if name not in allowed or not (child / ".git").exists():
                 raise ValueError("the common parent must contain only registered NDS checkouts")
+            if Path(output(["git", "rev-parse", "--show-toplevel"], cwd=child)).resolve() != child.resolve():
+                raise ValueError("component does not own its Git checkout")
             remote = output(["git", "remote", "get-url", "origin"], cwd=child)
-            expected = f"github.com/{catalog['organization']}/{child.name}"
+            expected = f"github.com/{catalog['organization']}/{name}"
             normalized = remote.removesuffix(".git").removeprefix("https://").replace("git@github.com:", "github.com/")
             if normalized.lower() != expected.lower():
                 raise ValueError("an NDS checkout has a different provider identity")

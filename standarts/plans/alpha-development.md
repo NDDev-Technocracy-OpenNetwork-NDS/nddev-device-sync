@@ -274,12 +274,29 @@ its actual acceptance. Source/CI, publication, installation and running-product
 states remain distinct. Live operational selection has its own fresh target,
 protected-work and recovery authority; this plan creates no maintenance window.
 
-## First implementation increment
+## Current checkpoint and next increment
 
-Start P0 and the P1 vertical. The concrete first result is one stable user, a
-personal space and two organizations, an enrolled device and fullauto/manual,
-with a real action in the correct scope. Carry the minimal correlated diagnostic
-context in that change; P2 completes its searchable/access-controlled route.
+The [P1a personal-context source cohort](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/pull/118)
+is delivered through Vault, GDS, Agent, Shared, Mobile and Web. It preserves
+original encrypted ownership and propagates the retained native follower read
+through the actual consumers. The isolated Linux and browser flows passed;
+Android native checks and packaged artifacts passed. Actual Android runtime and
+iOS runtime qualification remain open. This source delivery does not complete
+P1, the full client matrix or alpha acceptance.
+
+Close the remaining P1a Android runtime gate on the explicitly selected native
+device: sign-in, retained encrypted state across process restart, automatic
+replay, revocation and exact-owner shutdown. Keep physical-phone and emulator
+results distinct; neither closes another platform's gate. Reuse the canonical
+Shared acceptance harness and its isolated application namespace instead of
+committing temporary application IDs or duplicate fixture helpers into Mobile.
+
+Then implement P1b through the existing identity/membership, store and consumer
+boundaries: one personal space and two organizations, current role admission,
+colliding local IDs and late-result denial. Preserve personal encrypted work
+while switching spaces. P1c follows with stable device purpose/placement and a
+real fullauto/manual action. Carry the minimal correlated diagnostic context
+through both increments; P2 closes the searchable, access-controlled route.
 
 Each increment changes the canonical owner and its actual consumers together,
 preserves retained data, exercises relevant positive and denied/failure paths,

@@ -38,7 +38,7 @@ class Component(unittest.TestCase):
                  '-c', 'commit.gpgsign=false', 'commit', '-qm', 'fixture')
         self.commit = self.git(self.child, 'rev-parse', 'HEAD').strip()
         self.git(self.root, 'update-index', '--add', '--cacheinfo', f'160000,{self.commit},modules/core')
-        (self.root / '.gitmodules').write_text('[submodule "core"]\npath = modules/core\n'
+        (self.root / '.gitmodules').write_text('[submodule "modules/core"]\npath = modules/core\n'
             'url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-core.git\n')
 
     def git(self, cwd, *args):

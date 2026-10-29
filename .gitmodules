@@ -1,87 +1,87 @@
-[submodule "core"]
+[submodule "modules/core"]
 	path = modules/core
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-core.git
 
-[submodule "protocol"]
+[submodule "modules/protocol"]
 	path = modules/protocol
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-protocol.git
 
-[submodule "server"]
+[submodule "modules/server"]
 	path = modules/server
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-server.git
 
-[submodule "agent"]
+[submodule "modules/agent"]
 	path = modules/agent
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-agent.git
 
-[submodule "desktop"]
+[submodule "modules/desktop"]
 	path = modules/desktop
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop.git
 
-[submodule "mobile"]
+[submodule "modules/mobile"]
 	path = modules/mobile
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile.git
 
-[submodule "observability"]
+[submodule "modules/observability"]
 	path = modules/observability
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability.git
 
-[submodule "accounts"]
+[submodule "modules/accounts"]
 	path = modules/accounts
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-accounts.git
 
-[submodule "organizations"]
+[submodule "modules/organizations"]
 	path = modules/organizations
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-organizations.git
 
-[submodule "vault"]
+[submodule "modules/vault"]
 	path = modules/vault
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-vault.git
 
-[submodule "web"]
+[submodule "modules/web"]
 	path = modules/web
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web.git
 
-[submodule "gds"]
+[submodule "modules/gds"]
 	path = modules/gds
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-gds.git
 
-[submodule "rds"]
+[submodule "modules/rds"]
 	path = modules/rds
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-rds.git
 
-[submodule "sysinfo"]
+[submodule "tools/sysinfo"]
 	path = tools/sysinfo
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-sysinfo.git
 
-[submodule "clipboard"]
+[submodule "tools/clipboard"]
 	path = tools/clipboard
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-clipboard.git
 
-[submodule "cleaner"]
+[submodule "tools/cleaner"]
 	path = tools/cleaner
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-cleaner.git
 
-[submodule "updater"]
+[submodule "tools/updater"]
 	path = tools/updater
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-updater.git
 
-[submodule "estate-example"]
+[submodule "modules/estate-example"]
 	path = modules/estate-example
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate-example.git
 
-[submodule "design-system"]
+[submodule "modules/design-system"]
 	path = modules/design-system
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-opennetwork-design-system.git
 
-[submodule "cache"]
+[submodule "modules/cache"]
 	path = modules/cache
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-cache.git
 
-[submodule "browser-use"]
+[submodule "modules/browser-use"]
 	path = modules/browser-use
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-browser-use.git
 
-[submodule "organization"]
+[submodule "modules/organization"]
 	path = modules/organization
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/.github.git

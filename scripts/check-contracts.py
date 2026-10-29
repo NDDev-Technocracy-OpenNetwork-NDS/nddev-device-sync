@@ -65,11 +65,11 @@ def assembly(root, data):
     config = configparser.RawConfigParser(strict=True)
     config.read_string(path.read_text())
     expected = {item['path']: item for item in data['components'] if item['path'] is not None}
-    sections = {f'submodule "{item["id"]}"' for item in expected.values()}
+    sections = {f'submodule "{item["path"]}"' for item in expected.values()}
     if config.defaults() or set(config.sections()) != sections:
         raise ValueError('Git submodules must match the public catalog exactly')
     for location, item in expected.items():
-        section = config[f'submodule "{item["id"]}"']
+        section = config[f'submodule "{item["path"]}"']
         url = f'https://github.com/{data["organization"]}/{item["repository"]}.git'
         if dict(section) != {'path': location, 'url': url}:
             raise ValueError('submodule path or provider identity differs from the catalog')

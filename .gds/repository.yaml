@@ -4,6 +4,7 @@ repository:
   display_name: "nddev-device-sync"
   roles:
     - "project"
+    - "superproject"
   lifecycle: "active"
 provider:
   type: "github"
@@ -41,3 +42,93 @@ agent:
 release:
   mode: "version-tag"
   tag_style: "v-semver"
+
+relationships:
+- type: git-submodule-consumer
+  target: repo_01M4HDNR3TRQR3J5HSAB92M0X9
+  gitmodules_name: modules/core
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGWPJJGVY06XXN1PP0G8
+  gitmodules_name: modules/protocol
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MH0JRJDSZHFCXVKMF12W
+  gitmodules_name: modules/server
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGHKR3T2W6RV296CASNX
+  gitmodules_name: modules/agent
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGPFTTB9FZ5B18M31Q67
+  gitmodules_name: modules/desktop
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGSEKEMCAT532M6JZX11
+  gitmodules_name: modules/mobile
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGV2GNWZPVNNXVYXJ0Q9
+  gitmodules_name: modules/observability
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGG5GF99FZMAX26X6JS2
+  gitmodules_name: modules/accounts
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M628A7ZKTD6K21292YEY52ZZ
+  gitmodules_name: modules/organizations
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MH5582MDXZYYX6DMTY1B
+  gitmodules_name: modules/vault
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4ST4345P94BGWPGGED1G6CA
+  gitmodules_name: modules/web
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGQY75ADH9BD1W9RQX9D
+  gitmodules_name: modules/gds
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGY84VZJS3Z18WKDF1D6
+  gitmodules_name: modules/rds
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MH217GDZ3BZE3NADEDHY
+  gitmodules_name: tools/sysinfo
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGMV1FVDFBHHPC5M5FVS
+  gitmodules_name: tools/clipboard
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MGK754VJS1MB4SN5K2XD
+  gitmodules_name: tools/cleaner
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MH3HM6HET6WEVV4BC6QF
+  gitmodules_name: tools/updater
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M5SNCV6BG8Y5YA2MXVVFNYRZ
+  gitmodules_name: modules/browser-use
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M628A8AC1FV7HTDM4PM6H0GX
+  gitmodules_name: modules/cache
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M628A83NKV776BFBB5ZKC651
+  gitmodules_name: modules/estate-example
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M4R3MH6N71AVK6V4ZVP81YWC
+  gitmodules_name: modules/design-system
+  pin_management: consumer-transaction
+- type: git-submodule-consumer
+  target: repo_01M628A86T46CQF40A4Y0SEFVD
+  gitmodules_name: modules/organization
+  pin_management: consumer-transaction

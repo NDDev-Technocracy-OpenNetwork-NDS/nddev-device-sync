@@ -18,11 +18,27 @@ organization repositories. The public organization profile `.github` is included
 as source-only `modules/organization`; it is not a runtime module. GitHub repository names remain
 flat; source hierarchy is represented by native Git submodules.
 
+The native GDS anchor declares this root as a `superproject`. Each public
+child retains its stable repository/provider identity and declares the source
+`module` role with embedded development. The root has one typed
+`git-submodule-consumer` relationship per public child. Its `gitmodules_name`
+and the Git submodule section name both equal the catalog path. A nested
+consumer, such as the public self-hosting example, declares its own immediate
+children in the same way. Independent product execution does not require a
+second standalone source checkout.
+One shared repository keeps one stable identity when several declared consumers
+pin it. Each embedded location belongs to its immediate consumer and relative
+path; another declared location does not create another repository identity.
+
 The catalog owns component identity, role and path. `.gitmodules` must match it
 exactly, and every public entry must have one indexed Gitlink. Git owns the exact
 commit, so the catalog does not duplicate source revisions. The catalog check validates this
 without cloning. CI separately obtains the real recursive public tree without
 component credentials and rejects missing or mismatched children.
+With the existing native GDS CLI prepared, `just gds-check` validates the native
+anchor and typed Git relationships. Device placement is checked separately
+with `gds workspace audit --root . --device <descriptor>`; the descriptor and
+its observations remain private. These are source checks, not runtime admission.
 Use `just checkout` for the public recursive tree or initialize selected components explicitly; child dependency locks remain their
 runtime/build authority. A source snapshot does not qualify an alpha release.
 

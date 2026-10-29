@@ -134,7 +134,7 @@ class Assembly(unittest.TestCase):
         for item in self.data['components']:
             if item['path'] is None:
                 continue
-            sections.append(f'[submodule "{item["id"]}"]\npath = {item["path"]}\n'
+            sections.append(f'[submodule "{item["path"]}"]\npath = {item["path"]}\n'
                             f'url = https://github.com/{self.data["organization"]}/{item["repository"]}.git\n')
             self.git('update-index', '--add', '--cacheinfo', f'160000,{"a" * 40},{item["path"]}')
         self.modules = self.root / '.gitmodules'
@@ -151,8 +151,8 @@ class Assembly(unittest.TestCase):
     def test_wrong_remote_extra_private_link_and_duplicate_section_are_rejected(self):
         original = self.modules.read_text()
         for value in [original.replace('github.com/', 'example.invalid/'),
-                      original + '[submodule "estate"]\npath = modules/estate\nurl = private\n',
-                      original + '[submodule "core"]\npath = modules/core\n']:
+                      original + '[submodule "modules/estate"]\npath = modules/estate\nurl = private\n',
+                      original + '[submodule "modules/core"]\npath = modules/core\n']:
             with self.subTest(value=value):
                 self.modules.write_text(value)
                 with self.assertRaises((ValueError, configparser.Error)):

@@ -234,7 +234,7 @@
       "id": "browser-use",
       "repository": "nddev-device-sync-browser-use",
       "kind": "module",
-      "status": "future",
+      "status": "alpha",
       "platforms": [
         "linux"
       ],
@@ -245,7 +245,7 @@
       "id": "cache",
       "repository": "nddev-device-sync-cache",
       "kind": "service",
-      "status": "future",
+      "status": "alpha",
       "platforms": [
         "linux"
       ],

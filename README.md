@@ -54,6 +54,12 @@ Root Gitlinks select source for development; application assembly locks select
 compiled dependencies, including distinct roles at the same repository URI.
 A component's passing CI or source membership does not qualify the combined app.
 
+Cache and browser automation are required alpha components, composed through
+Agent and Shared on their supported native paths. Their catalog labels identify
+alpha scope; application locks and actual platform acceptance determine which
+workflows a selected assembly can run. Independently published standalone
+engines retain their own versions and lifecycle contracts.
+
 The [engineering contract](standarts/13-engineering-and-agent-standard.md)
 governs autonomous delivery, minimal code and state, real verification and
 scope control. [ADR 0002](standarts/decisions/0002-autonomous-engineering-and-email-identity.md)

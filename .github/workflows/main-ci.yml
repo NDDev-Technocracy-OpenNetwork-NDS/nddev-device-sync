@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      RUSTUP_HOME: ${{ runner.temp }}/nds-rustup
       RUSTUP_TOOLCHAIN: '1.99.1'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -36,7 +35,10 @@ jobs:
           enable-cache: 'false'
       - run: just setup
       - name: Install the pinned compiler for actual shared-cache acceptance
-        run: rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
+        run: |
+          export RUSTUP_HOME="$RUNNER_TEMP/nds-rustup"
+          printf 'RUSTUP_HOME=%s\n' "$RUSTUP_HOME" >> "$GITHUB_ENV"
+          rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
       - name: Validate standards and module catalog
         run: just check
       - name: Verify public recursive checkout without component credentials

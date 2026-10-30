@@ -292,12 +292,36 @@ do not complete P1, the full client/module matrix, searchable diagnostics or
 alpha acceptance. Reuse the canonical Shared acceptance harness instead of
 committing temporary application IDs or duplicate fixture helpers into Mobile.
 
-Then implement P1b through the existing identity/membership, store and consumer
-boundaries: one personal space and two organizations, current role admission,
-colliding local IDs and late-result denial. Preserve personal encrypted work
-while switching spaces. P1c follows with stable device purpose/placement and a
-real fullauto/manual action. Carry the minimal correlated diagnostic context
-through both increments; P2 closes the searchable, access-controlled route.
+The P1b candidate now implements personal/multiple-organization membership
+through those existing boundaries. The
+[Shared composition](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/144),
+[Web consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/pull/72)
+and [Mobile consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/pull/86)
+retain the original personal owner and captured selection/revision across awaited
+operations. Isolated Linux, real browser and the selected Android emulator
+scenarios passed personal/A/B selection and invitation isolation. Browser
+acceptance also drops an actual committed reply and explicitly retries the same
+command after connection verification; Android retains encrypted Vault state
+across two application processes. Integration-test artifacts remain private and
+cannot substitute for a clean distributable package.
+
+The Shared source cohort is delivered to MAIN. Web and Mobile source updates
+are delivered to dev; final MAIN publication, clean final artifacts and the
+coherent Root cohort remain open. Native qualification must use the selected
+execution, storage and tool-profile route; a local profile alone does not prove
+remote artifact storage or an admitted execution target.
+
+Close the [Vault local-read publication gate](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-vault/issues/134)
+before final adoption: a read retained across cancellation and same-owner
+reauthentication must validate its original authority, preserve encrypted state
+and permit a new explicit read. Its source correction and static checks do not
+substitute for the actual native fixture and consumer qualification.
+
+P1c starts after the coherent cohort is accepted, with stable device
+purpose/placement and a real fullauto/manual action. Carry the minimal correlated
+diagnostic context through both increments; P2 closes the searchable,
+access-controlled route. These P1b results do not complete the remaining module,
+update, diagnostic or full-alpha acceptance.
 
 Each increment changes the canonical owner and its actual consumers together,
 preserves retained data, exercises relevant positive and denied/failure paths,

@@ -311,6 +311,12 @@ coherent Root cohort remain open. Native qualification must use the selected
 execution, storage and tool-profile route; a local profile alone does not prove
 remote artifact storage or an admitted execution target.
 
+That qualification also depends on the kernel's
+[native workspace-storage operation](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/issues/124).
+The actual build consumer needs supported storage semantics and a retained
+original-target lease; Git synchronization, display transport and journal
+metadata do not supply a shared compiler filesystem.
+
 Close the [Vault local-read publication gate](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-vault/issues/134)
 before final adoption: a read retained across cancellation and same-owner
 reauthentication must validate its original authority, preserve encrypted state

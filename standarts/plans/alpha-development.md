@@ -279,16 +279,17 @@ protected-work and recovery authority; this plan creates no maintenance window.
 The [P1a personal-context source cohort](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/pull/118)
 is delivered through Vault, GDS, Agent, Shared, Mobile and Web. It preserves
 original encrypted ownership and propagates the retained native follower read
-through the actual consumers. The isolated Linux and browser flows passed;
-Android native checks and packaged artifacts passed. Actual Android runtime and
-iOS runtime qualification remain open. This source delivery does not complete
-P1, the full client matrix or alpha acceptance.
+through the actual consumers. The isolated Linux, browser and selected Android
+emulator flows passed. Android exercised sign-in, encrypted Vault/text sync,
+retained session and record across two app processes, client replacement,
+device revocation and logout. Its owning test driver preserves preexisting ADB
+bindings and the installed application, using an isolated test namespace.
+The [Shared harness change](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/142)
+adds the explicit remote-ADB debug port without changing the product runtime.
 
-Close the remaining P1a Android runtime gate on the explicitly selected native
-device: sign-in, retained encrypted state across process restart, automatic
-replay, revocation and exact-owner shutdown. Keep physical-phone and emulator
-results distinct; neither closes another platform's gate. Reuse the canonical
-Shared acceptance harness and its isolated application namespace instead of
+Physical-phone and iOS runtime qualification remain open. These selected flows
+do not complete P1, the full client/module matrix, searchable diagnostics or
+alpha acceptance. Reuse the canonical Shared acceptance harness instead of
 committing temporary application IDs or duplicate fixture helpers into Mobile.
 
 Then implement P1b through the existing identity/membership, store and consumer

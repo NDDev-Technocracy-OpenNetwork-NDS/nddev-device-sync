@@ -50,6 +50,36 @@ Contract/source, component checks, packaged artifacts and actual target behavior
 are separate exit conditions. A failed gate keeps the cohort open. This plan
 does not issue deployment, protected-client maintenance or runtime-window authority.
 
+### Alpha completion order and independent module work
+
+Complete the following integrated outcomes in order. Existing P0–P10 sections
+remain the requirement owners; this table makes their next release gates explicit.
+
+| Order | Cohort | Required completion |
+| --- | --- | --- |
+| 1 | P1b, retained-data safety | Finish the original-authority local-read gate; publish the qualified membership providers and Shared/Mobile/Web consumers as one compatible Root composition. Preserve personal ciphertext and pending operations across personal/A/B selection and same-owner renewal. |
+| 2 | P1c and early P2 | Exercise one real system-tool action through stable device placement and fullauto/manual policy, carrying its original principal and operation context into diagnostics. |
+| 3 | P2 diagnostic vertical | Qualify the actual signed client → Server → collector → OpenObserve route, all three diagnostic modes, scoped query/admin access, bounded durable delivery, one-week storage retention and incident recovery. Reuse it in every subsequent cohort. |
+| 4 | P3/P4 and module consumers | Close schema-one history reconciliation, offline/conflict and retained operation/result/drain gaps through real consumers. Adopt independently qualified GDS/RDS/browser/cache interfaces without adding another identity, scheduler or telemetry engine. |
+| 5 | P8 | Qualify one real application and module activation through the selected installed/launcher owner, including failed startup and retained-data compatibility. Verified staging alone does not finish this gate. |
+| 6 | P9 | Requalify the coherent Linux, Android and Web journeys, then each additionally claimed native role. Use actual artifacts, existing acceptance drivers and explicit unsupported states. |
+| 7 | P10 | Publish the exact accepted composition, authenticated artifacts and useful installation/run instructions, with the component/target evidence and remaining exclusions stated together. |
+
+GDS, RDS, network-cache, browser extension and CI/runner implementations have
+independent development owners. NDS owns its consuming contracts, original-scope
+authorization, retained lifetimes, shared presentation, diagnostics and coherent
+assembly. Their delivery inputs are immutable sources/artifacts, actual owning
+checks, supported capabilities and lifecycle/error semantics. A dependency stays
+explicit without stopping unrelated kernel/client work or declaring its module
+complete from a compatible signature.
+
+Ordinary compiler, unit and source checks may use the selected authoring-host
+toolchain and managed local cache. Actual applications, GUI, mobile emulators
+and system integration use their assigned execution targets. A supported local
+filesystem does not require remote-filesystem admission for a local code check;
+it also does not establish cross-host storage semantics. Preserve active work,
+native leases and resource headroom rather than duplicating full build trees.
+
 ### P0. Public source and private engineering boundary
 
 The source hierarchy now has a checked public recursive checkout and two private
@@ -128,6 +158,38 @@ wrong-scope queries, key replay/revocation, queue saturation, expiry and recover
 Ordinary work continues during a diagnostic outage; losses and unknown delivery
 remain visible. OpenObserve is the current review surface; external notification
 delivery is not claimed. Every later phase includes this diagnostic path.
+
+Close the actual remaining boundaries rather than installing parallel exporters:
+
+- Keep one SDK envelope and production operation owner. Preserve real trace
+  parentage and original authenticated scope through handoffs; untrusted trace
+  fields are correlation input, never authorization. Count retries, refusals,
+  unresolved completion and losses without repeating the same error at each hop.
+- Native client delivery must survive its declared restart/outage cases through
+  the existing owning storage/runtime boundary. The current RAM-only native feed
+  and durable browser queue have different guarantees. Do not describe either
+  as remote acknowledgement or exactly-once delivery. Bound bytes, age, retry
+  duration and shutdown, and expose overflow/expiry/unknown delivery.
+- Implement standard/debug/off as one effective collection and export policy.
+  Debug remains finite and scoped; off must not silently continue another
+  exporter or retain a hidden content stream. Functional journals and action
+  results remain independent of diagnostic availability.
+- Enforce member, organization-administrator and key-authenticated global
+  diagnostic access at the trusted NDS boundary, including list/count/detail and
+  export. Storage administrator tokens stay server-side. Do not rely on a
+  backend edition or browser UI to supply rights it does not implement.
+- Bring the selected collector/storage configuration to the agreed one-week
+  diagnostic retention, including supported stream overrides and expiry
+  behavior. Collector retention, local delivery expiry, functional history and
+  build-cache lifetime are distinct policies; changing one does not change the
+  others or authorize deletion of existing data.
+
+Acceptance searches a fresh operation's real log records, native spans and a
+positive metric datapoint with matching source/scope; a readiness response or
+local JSON log is insufficient. Include receiver refusal/partial acceptance,
+collector outage, restart and recovery, hostile content, wrong-scope queries and
+incident open/acknowledge/resolve. Explain missing signals and unsupported
+delivery instead of inventing an observation or adding an unbounded retry loop.
 
 ### P3. Connection and state synchronization
 
@@ -292,12 +354,44 @@ do not complete P1, the full client/module matrix, searchable diagnostics or
 alpha acceptance. Reuse the canonical Shared acceptance harness instead of
 committing temporary application IDs or duplicate fixture helpers into Mobile.
 
-Then implement P1b through the existing identity/membership, store and consumer
-boundaries: one personal space and two organizations, current role admission,
-colliding local IDs and late-result denial. Preserve personal encrypted work
-while switching spaces. P1c follows with stable device purpose/placement and a
-real fullauto/manual action. Carry the minimal correlated diagnostic context
-through both increments; P2 closes the searchable, access-controlled route.
+The P1b candidate now implements personal/multiple-organization membership
+through those existing boundaries. The
+[Shared composition](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/144),
+[Web consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/pull/72)
+and [Mobile consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/pull/86)
+retain the original personal owner and captured selection/revision across awaited
+operations. Isolated Linux, real browser and the selected Android emulator
+scenarios passed personal/A/B selection and invitation isolation. Browser
+acceptance also drops an actual committed reply and explicitly retries the same
+command after connection verification; Android retains encrypted Vault state
+across two application processes. Integration-test artifacts remain private and
+cannot substitute for a clean distributable package.
+
+The Shared source cohort is delivered to MAIN. Web and Mobile source updates
+are delivered to dev; final MAIN publication, clean final artifacts and the
+coherent Root cohort remain open. Native qualification must use the selected
+execution, storage and tool-profile route; a local profile alone does not prove
+remote artifact storage or an admitted execution target.
+
+The kernel's
+[native workspace-storage operation](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/issues/124)
+is a separate cross-host provider/consumer capability. It is not a prerequisite
+for ordinary code checks on an admitted local filesystem. Its eventual remote
+consumer still needs supported storage semantics and a retained original-target
+lease; Git synchronization, display transport and journal metadata do not supply
+a shared compiler filesystem.
+
+Close the [Vault local-read publication gate](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-vault/issues/134)
+before final adoption: a read retained across cancellation and same-owner
+reauthentication must validate its original authority, preserve encrypted state
+and permit a new explicit read. Its source correction and static checks do not
+substitute for the actual native fixture and consumer qualification.
+
+P1c starts after the coherent cohort is accepted, with stable device
+purpose/placement and a real fullauto/manual action. Carry the minimal correlated
+diagnostic context through both increments; P2 closes the searchable,
+access-controlled route. These P1b results do not complete the remaining module,
+update, diagnostic or full-alpha acceptance.
 
 Each increment changes the canonical owner and its actual consumers together,
 preserves retained data, exercises relevant positive and denied/failure paths,

@@ -72,6 +72,49 @@ Playwriter remains the ADR 0009 interactive browser tool until
 the owner accepts qualified browser-use. This decision does not change
 existing locks, alpha acceptance or release blockers.
 
+## Agent passkey custody
+
+Status: proposed amendment; the owner asked the NDS session to choose custody, and it recommends
+NDS Vault for agent credentials. Implementation needs the integration listed below.
+
+- Owner passkeys stay with Chrome and Google Password Manager. NDS never exports or copies them
+  and never answers their user verification.
+- An agent credential is a separate WebAuthn credential that the owner registers for one RP ID,
+  origin and project session. It is never an owner passkey, an NDS device-signing or session key,
+  or a shared browser credential record.
+- Vault holds it as its own typed record, not as a password record. The existing record
+  encryption binds it to owner, origin, entity, operation and revision. Server decryption
+  authority under ADR 0006 applies to it as to every Vault record.
+- Release goes only to the browser-use host on the same device, for one operation of the bound
+  session. It requires a fresh `browser_control` consent check and a fresh Vault read. The host
+  keeps the key in zeroizing memory and imports it into a virtual authenticator of that agent tab
+  over CDP. FFI, public DTOs, logs and telemetry do not carry it.
+- Exposure boundary, measured: Chrome gives the extension one debugger session per tab, and the
+  relay shares it between the host and every raw CDP session of agent code on that tab. Through
+  the current relay, a second agent CDP session received `WebAuthn.credentialAdded` and
+  `WebAuthn.credentialAsserted` events with the private key without enabling the domain, and read
+  the key with `WebAuthn.getCredentials`. Chrome does not isolate the credential, so the relay must:
+  while a custody authenticator exists, it drops WebAuthn credential events and refuses credential
+  reads and changes on host-owned authenticators toward agent sessions. Acceptance repeats that
+  probe as a negative test. Agent code and the executor still run with the owner's OS authority
+  and are not a sandbox. Custody bounds the credential to its binding, keeps it out of the
+  browser-use interfaces, logs and telemetry, and makes revocation explicit. It does not make the
+  key secret from code that runs as the owner.
+- After the operation the host reads the new signature counter back, writes it to the record and
+  removes the authenticator. Cancellation, timeout, host loss and revocation zeroize the host
+  memory. When the host is lost, the extension detaches its debugger from the agent tabs, which
+  removes their virtual authenticators.
+- Registration and revocation are explicit owner commands. Revocation deletes the record; the
+  public key stays trusted at the RP until the owner removes it there, which NDS reports and
+  cannot do itself.
+- Scope: the CDP WebAuthn domain is experimental; a passkey step needs the agent tab in front; RPs
+  that require attestation or a platform authenticator may refuse a virtual one. In an isolated
+  Chrome for Testing profile, an exported credential imported into a new authenticator signed in
+  with an advancing counter, and the authenticator was gone after its CDP session detached.
+- Integration: a core record kind, a Vault adapter for the browser-use custody port, agent
+  consent wiring, a typed host operation that imports the key, and the relay filter above with
+  its negative test. Until they exist, agents keep no persistent credential.
+
 References: [chrome.debugger](https://developer.chrome.com/docs/extensions/reference/api/debugger),
 [native messaging](https://developer.chrome.com/docs/extensions/develop/concepts/native-messaging),
 [remote debugging change](https://developer.chrome.com/blog/remote-debugging-port),

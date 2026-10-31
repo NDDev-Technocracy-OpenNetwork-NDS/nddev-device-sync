@@ -1,5 +1,5 @@
 # std-0001 repository manifest — schema: `nddev schema manifest`.
-apiVersion: nddev.ai/v1alpha3
+apiVersion: nddev.ai/v1alpha4
 kind: Repository
 metadata:
   id: nddev-device-sync
@@ -8,7 +8,6 @@ metadata:
 spec:
   standard:
     id: std-0001
-    version: 3.0.0
   role: system-root
   profiles:
   - docs
@@ -16,6 +15,12 @@ spec:
   lifecycle: active
   portfolios:
   - portfolio:nddev-technocracy-opennetwork-nds
+  adaptations:
+  - standarts/decisions/0021-std-0001-structure-adaptations.md
+  extensions:
+    nddev.standards-system:
+      standards:
+      - std-0001
   adapters:
   - claude
   - cursor
@@ -117,46 +122,5 @@ spec:
   - name: product-contracts
     source: standarts
     direction: schema-first
-  variations:
-  - paths:
-    - TRADEMARKS.md
-    purpose: legal
-    reason: Trademark usage terms are a deliberate legal document kept beside LICENSE at the repository root.
-    decision:
-      state: approved
-      by: rldyourmnd
-      date: '2026-10-22'
-      origin: document
-      reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
-  - paths:
-    - .gds
-    purpose: config
-    reason: GDS-owned repository anchor and policy projections; std-0001 excludes .gds from migration and validation by its own boundary rule.
-    decision:
-      state: approved
-      by: rldyourmnd
-      date: '2026-10-22'
-      origin: document
-      reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
-  - paths:
-    - rust-toolchain.toml
-    purpose: tool-config
-    reason: Pinned Rust toolchain for contract tooling in a repository without a Cargo workspace; the rust profile requires Cargo.toml so the pin is declared as a variation.
-    decision:
-      state: approved
-      by: rldyourmnd
-      date: '2026-10-22'
-      origin: document
-      reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
-  - paths: [modules, tools]
-    purpose: package
-    reason: The owner-selected NDS monorepo groups independently versioned module and tool Git submodules.
-    decision:
-      state: approved
-      by: rldyourmnd
-      date: '2026-10-25'
-      origin: conversation
-      reference: standarts/decisions/0016-module-and-tool-monorepo.md
-      excerpt: 'у нас должен быть один главный монорепо и в нем модули и тулы как отдельные репо'
   modules:
   - .

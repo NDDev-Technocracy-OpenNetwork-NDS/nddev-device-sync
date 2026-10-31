@@ -18,8 +18,8 @@ the governance owner.
 
 Keep the existing pure Rust domain/application boundary, authenticated client
 and device proofs, encrypted Vault replica/outbox/conflict mechanisms, native
-task/result/drain ownership, telemetry SDK and client generation. GDS already has
-an owned catalog and existing-commit sync engine. RDS has useful authority and
+task/result/drain ownership, telemetry SDK and client generation. The GitHub module already has
+an owned catalog and existing-commit sync engine. The remote module has useful authority and
 session integration, while its native engine still comes from the archived
 product. These are reusable implementations, not a completed extensible system.
 
@@ -60,12 +60,12 @@ remain the requirement owners; this table makes their next release gates explici
 | 1 | P1b, retained-data safety | Finish the original-authority local-read gate; publish the qualified membership providers and Shared/Mobile/Web consumers as one compatible Root composition. Preserve personal ciphertext and pending operations across personal/A/B selection and same-owner renewal. |
 | 2 | P1c and early P2 | Exercise one real system-tool action through stable device placement and fullauto/manual policy, carrying its original principal and operation context into diagnostics. |
 | 3 | P2 diagnostic vertical | Qualify the actual signed client → Server → collector → OpenObserve route, all three diagnostic modes, scoped query/admin access, bounded durable delivery, one-week storage retention and incident recovery. Reuse it in every subsequent cohort. |
-| 4 | P3/P4 and module consumers | Close schema-one history reconciliation, offline/conflict and retained operation/result/drain gaps through real consumers. Adopt independently qualified GDS/RDS/browser/cache interfaces without adding another identity, scheduler or telemetry engine. |
+| 4 | P3/P4 and module consumers | Close schema-one history reconciliation, offline/conflict and retained operation/result/drain gaps through real consumers. Adopt independently qualified GitHub/remote/browser/cache interfaces without adding another identity, scheduler or telemetry engine. |
 | 5 | P8 | Qualify one real application and module activation through the selected installed/launcher owner, including failed startup and retained-data compatibility. Verified staging alone does not finish this gate. |
 | 6 | P9 | Requalify the coherent Linux, Android and Web journeys, then each additionally claimed native role. Use actual artifacts, existing acceptance drivers and explicit unsupported states. |
 | 7 | P10 | Publish the exact accepted composition, authenticated artifacts and useful installation/run instructions, with the component/target evidence and remaining exclusions stated together. |
 
-GDS, RDS, network-cache, browser extension and CI/runner implementations have
+GitHub, remote, network-cache, browser extension and CI/runner implementations have
 independent development owners. NDS owns its consuming contracts, original-scope
 authorization, retained lifetimes, shared presentation, diagnostics and coherent
 assembly. Their delivery inputs are immutable sources/artifacts, actual owning
@@ -232,9 +232,9 @@ effect, and cancellation/replacement/lost acknowledgement cannot act on a new
 owner. A failed or unknown cleanup keeps its original resources accounted for.
 Applications and agents exercise the same use case and result contract.
 
-### P5. Complete GDS workflows
+### P5. Complete GitHub module workflows
 
-Owners: GDS with kernel identity, Vault, workspace and client consumers.
+Owners: the GitHub module with kernel identity, Vault, workspace and client consumers.
 
 Finish the existing owned engine: accessible GitHub catalog, stable repository
 identity, workspace connection, fetch, eligible publication of existing commits,
@@ -254,9 +254,9 @@ source/credential refusal and cancellation. Exercise the declared repository/
 device capacity and observable backpressure. A legacy installed GDS executable
 is not a hidden prerequisite.
 
-### P6. Complete RDS workflows
+### P6. Complete remote module workflows
 
-Owners: NDS RDS host/session/transport/viewer and platform adapters.
+Owners: the NDS remote module host/session/transport/viewer and platform adapters.
 
 Migrate reusable archived code into an NDS-owned implementation with its own
 contract, tests, provenance and lifecycle. Preserve existing identities and
@@ -339,7 +339,7 @@ protected-work and recovery authority; this plan creates no maintenance window.
 ## Current checkpoint and next increment
 
 The [P1a personal-context source cohort](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/pull/118)
-is delivered through Vault, GDS, Agent, Shared, Mobile and Web. It preserves
+is delivered through Vault, the GitHub module, Agent, Shared, Mobile and Web. It preserves
 original encrypted ownership and propagates the retained native follower read
 through the actual consumers. The isolated Linux, browser and selected Android
 emulator flows passed. Android exercised sign-in, encrypted Vault/text sync,
@@ -409,7 +409,7 @@ The [P1c device-control cohort](https://github.com/NDDev-Technocracy-OpenNetwork
 its accepted purposes and an effective fullauto/manual policy with a
 compare-and-set revision. Existing devices keep manual/desktop; new enrollments
 start fullauto/desktop. Fullauto removes the module checklist only for system
-tools; GDS, RDS and integrations keep explicit consent. Widening requires a
+tools; the GitHub and remote modules and integrations keep explicit consent. Widening requires a
 recent sign-in. Admission and action records carry the original device,
 principal and operation identifiers.
 
@@ -422,6 +422,20 @@ Fullauto ran the action without a checklist. Manual refused it with
 operations correlated admission and action on one device and principal. This
 does not qualify the Flutter UI, an installed NDS application or other
 platforms. P2 closes the searchable, access-controlled diagnostic route.
+
+The B2 standards and naming pass moves every member manifest to the current
+std-0001 `nddev.ai/v1alpha4` schema through the published validator. Each
+repository records its existing owner-approved contract locations in one
+accepted R-0037 ADR instead of legacy variations; this root's record is
+[ADR 0021](../decisions/0021-std-0001-structure-adaptations.md). The GitHub
+and remote modules now carry the names `github` and `remote` in their
+repositories, packages, module IDs, Agent and Shared composition, client
+labels and root paths. Persisted storage keys, the legacy `/v2/rds` screen
+wire, its transcript label and the endpoint keyring identity stay frozen, so
+retained configuration, consent, revisions and endpoint identities carry over
+and older clients keep working. The archived `gds` CLI projections are
+retired. This pass changes no runtime behavior beyond the names; the P1c native
+acceptance above remains the device-control evidence.
 
 Each increment changes the canonical owner and its actual consumers together,
 preserves retained data, exercises relevant positive and denied/failure paths,
@@ -450,7 +464,7 @@ No engine, routing policy or fallback transport is selected by this plan.
 
 The later design discussion must cover gateway and peer identity, device/key
 revocation, full versus selective routing, DNS and IPv6 behavior, reconnect and
-bounded fallback, gateway loss, cache/RDS coexistence, supported OS networking
+bounded fallback, gateway loss, cache/remote-module coexistence, supported OS networking
 interfaces and safe shutdown/update. Fallback must preserve authentication,
 scope and the selected traffic policy. Reuse the kernel's identity, lifecycle
 and diagnostics rather than another account or orchestration system.

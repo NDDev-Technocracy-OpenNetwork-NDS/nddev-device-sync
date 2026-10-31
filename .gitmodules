@@ -42,13 +42,13 @@
 	path = modules/web
 	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web.git
 
-[submodule "modules/gds"]
-	path = modules/gds
-	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-gds.git
+[submodule "modules/github"]
+	path = modules/github
+	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-github.git
 
-[submodule "modules/rds"]
-	path = modules/rds
-	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-rds.git
+[submodule "modules/remote"]
+	path = modules/remote
+	url = https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-remote.git
 
 [submodule "tools/sysinfo"]
 	path = tools/sysinfo

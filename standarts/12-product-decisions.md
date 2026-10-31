@@ -17,7 +17,7 @@
   Server-managed vault keys use a wrapping key outside PostgreSQL. The server
   has decryption authority; this supersedes the client-only E2EE boundary.
 - Docker Compose is the alpha deployment path. Companies, invited users and
-  narrowly scoped administrative RDS access are defined by
+  narrowly scoped administrative remote-screen access are defined by
   [ADR 0011](decisions/0011-company-membership-and-device-access.md).
 - [ADR 0018](decisions/0018-control-and-diagnostic-profiles.md) adds fullauto by
   default for new setups, configurable manual access, standard/debug/off
@@ -39,7 +39,7 @@
 - [ADR 0009](decisions/0009-first-alpha-product-contract.md) records the accepted
   NDS 1 first-alpha outcomes: sign-in-driven device enrollment and module setup,
   seven-day offline access, continuous synchronization where the platform permits,
-  bidirectional GDS commit sync, cross-device screen viewing, NDS application
+  bidirectional GitHub commit sync, cross-device screen viewing, NDS application
   updates and shared observability. Its acceptance matrix distinguishes target
   behavior from the currently qualified implementation.
 - Backup/recovery remains disabled, including after the first release, until an

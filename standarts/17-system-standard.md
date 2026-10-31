@@ -30,7 +30,7 @@ sequencing; source/CI/target evidence owns implementation status.
 | --- | --- | --- | --- |
 | NDS-S01 | [Public source and two private contexts](11-repository-topology.md) | Root, component repositories | A credential-free recursive checkout contains the selected public sources; supported public checks need no private policy or Estate. |
 | NDS-S02 | [Kernel and module responsibilities](02-architecture.md#boundaries) | Core application/domain, Agent, Server, functional modules | A representative operation follows one owning use case; OS/UI/provider code does not become kernel domain logic. |
-| NDS-S03 | [Complete functional modules](01-product.md) | GDS, RDS, browser-use and tools | The advertised real workflow works without a mandatory separately installed archived product. Reused libraries retain attribution and their actual responsibilities. |
+| NDS-S03 | [Complete functional modules](01-product.md) | github, remote, browser-use and tools | The advertised real workflow works without a mandatory separately installed archived product. Reused libraries retain attribution and their actual responsibilities. |
 | NDS-S04 | [One contract and generated consumers](02-architecture.md#extension-contract-and-trust) | Protocol, each payload owner, generated consumers | An interface change has an identified provider and all actual consumers; regenerated projections agree and incompatible versions refuse before effects. |
 
 ## Principal, device and action context

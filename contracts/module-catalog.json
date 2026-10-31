@@ -153,19 +153,19 @@
       "visibility": "public"
     },
     {
-      "id": "gds",
-      "repository": "nddev-device-sync-gds",
+      "id": "github",
+      "repository": "nddev-device-sync-github",
       "kind": "module",
       "status": "alpha",
       "platforms": [
         "linux"
       ],
-      "path": "modules/gds",
+      "path": "modules/github",
       "visibility": "public"
     },
     {
-      "id": "rds",
-      "repository": "nddev-device-sync-rds",
+      "id": "remote",
+      "repository": "nddev-device-sync-remote",
       "kind": "module",
       "status": "alpha",
       "platforms": [
@@ -173,7 +173,7 @@
         "linux",
         "windows"
       ],
-      "path": "modules/rds",
+      "path": "modules/remote",
       "visibility": "public"
     },
     {

@@ -21,7 +21,7 @@ space and may hold memberships in multiple organizations. The creator is the
 first administrator; existing singleton/tenant-bound identity implementations
 require an explicit migration and qualification. All sign-in methods resolve
 verified users through the same membership policy.
-Administrative access extends to same-company RDS, not another user's Vault or
+Administrative access extends to same-company remote screen, not another user's Vault or
 personal module data. Diagnostic visibility follows
 [ADR 0018](decisions/0018-control-and-diagnostic-profiles.md): members see their
 own records, organization administrators see their organization's records, and

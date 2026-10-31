@@ -15,7 +15,7 @@ flowchart LR
     K <--> S["NDS coordination server"]
     S <--> P["Other device kernels"]
     K <--> P
-    G["GDS"] --> GH["GitHub project history"]
+    G["github"] --> GH["GitHub project history"]
     G <--> K
     U["Verified update delivery"] --> K
     K --> O["Common telemetry SDK"]
@@ -68,8 +68,8 @@ This table assigns target responsibility, not runtime readiness.
 | `web` | React shell/assembly, shared Rust/WASM and qualified browser storage/lifecycle |
 | `server` | Coordination, authenticated control state and durable delivery |
 | `observability` | Common SDK plus collector/query/alert services; one telemetry authority |
-| `gds` | Full GitHub project synchronization module and its workspace engine |
-| `rds` | Full remote-display module: host, transport/session integration and viewer |
+| `github` | Full GitHub project synchronization module and its workspace engine |
+| `remote` | Full remote-display module: host, transport/session integration and viewer |
 | `browser-use` | Browser automation engine, standalone host and NDS module integration |
 | `sysinfo` | Focused system-information tool; observations are not grants |
 | `clipboard` | Clipboard tool and explicitly admitted sharing; OS consent remains binding |
@@ -117,7 +117,7 @@ scheme such as `<scope-alias>-<site-alias>-<primary-profile>-<index>`; aliases a
 are descriptive, not endpoint discovery or proof of identity. Product source
 contains only synthetic examples, never the actual fleet inventory.
 
-NDS, GDS, RDS and intended system tools can run in an admitted development
+NDS, the github and remote modules and intended system tools can run in an admitted development
 environment. Unrelated product workloads belong on the hosting/build device
 assigned to that project. Kernel-controlled launches enforce this policy; an
 agent's unrestricted external shell is not made into an OS sandbox by a label.
@@ -224,7 +224,7 @@ is not a separately installable module.
 The current compiled-in clients, scoped authorization, durable Vault protocol,
 Git workspace engine and owned screen/browser lifetimes are reusable foundations.
 Their earlier checks retain their exact source/platform scope. They do not yet
-prove multiple spaces, external module delivery or full legacy-independent RDS.
+prove multiple spaces, external module delivery or a full legacy-independent remote module.
 
 Implement ADR 0017's cohorts through the existing owners and real callers.
 Preserve IDs, keys, encrypted records, pending operations, installed modules and

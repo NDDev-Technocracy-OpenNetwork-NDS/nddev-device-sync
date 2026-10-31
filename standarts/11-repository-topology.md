@@ -4,7 +4,7 @@
 assembly metadata and the component catalog. Independent public component
 repositories are exact Git submodules under `modules/<id>`; the four small
 system tools (clipboard, sysinfo, updater, cleaner) live under `tools/<id>`
-and have catalog kind `tool`. GDS and RDS are full modules. Existing technical
+and have catalog kind `tool`. The github and remote modules are full modules. Existing technical
 roles such as shared-core, server and client remain explicit in the catalog.
 Each runtime module owns its implementation, tests, dependency locks and release
 boundary. `nddev-device-sync-estate` is the private configuration and operational
@@ -18,13 +18,12 @@ organization repositories. The public organization profile `.github` is included
 as source-only `modules/organization`; it is not a runtime module. GitHub repository names remain
 flat; source hierarchy is represented by native Git submodules.
 
-The native GDS anchor declares this root as a `superproject`. Each public
-child retains its stable repository/provider identity and declares the source
-`module` role with embedded development. The root has one typed
-`git-submodule-consumer` relationship per public child. Its `gitmodules_name`
-and the Git submodule section name both equal the catalog path. A nested
-consumer, such as the public self-hosting example, declares its own immediate
-children in the same way. Independent product execution does not require a
+This root is the NDS system root (`role: system-root` in `.nds/nddev.yaml`).
+Each public child retains its stable repository identity as a component of
+that system. The Git submodule section name equals the catalog path. A nested
+consumer, such as the public self-hosting example, pins its own immediate
+children in the same way. The earlier `.gds` anchors were projections of the
+archived `gds` CLI and are retired. Independent product execution does not require a
 second standalone source checkout.
 One shared repository keeps one stable identity when several declared consumers
 pin it. Each embedded location belongs to its immediate consumer and relative
@@ -35,15 +34,12 @@ exactly, and every public entry must have one indexed Gitlink. Git owns the exac
 commit, so the catalog does not duplicate source revisions. The catalog check validates this
 without cloning. CI separately obtains the real recursive public tree without
 component credentials and rejects missing or mismatched children.
-With the existing native GDS CLI prepared, `just gds-check` validates the native
-anchor and typed Git relationships. Device placement is checked separately
-with `gds workspace audit --root . --device <descriptor>`; the descriptor and
-its observations remain private. These are source checks, not runtime admission.
+These are source checks, not runtime admission.
 Use `just checkout` for the public recursive tree or initialize selected components explicitly; child dependency locks remain their
 runtime/build authority. A source snapshot does not qualify an alpha release.
 
 Preserve existing dirty and in-use checkouts. Physical adoption must reconcile
-Git identity, local work, nested Gitlinks and GDS ownership before retiring an old
+Git identity, local work and nested Gitlinks before retiring an old
 location. Do not create competing active roots or move a running agent's cwd.
 
 Create a module repository when an accepted behavior needs that boundary.
@@ -76,5 +72,5 @@ The unprofiled Cargo helper places its configuration inside this source root,
 covering only this tree; unrelated sibling projects are outside that scope.
 The existing Cleaner profile, when selected, continues to own cache placement.
 Neither checkout nor source dispatch rewrites that profile or creates another
-GDS synchronization root. Generic GDS graph reconciliation and deployment remain
+GitHub-module synchronization root. Generic graph reconciliation and deployment remain
 separate functional work.

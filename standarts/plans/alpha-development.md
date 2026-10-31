@@ -401,11 +401,27 @@ package identity and retain the original runtime Vault instance. Application
 and Root adoption keep their own source, artifact and target gates; this does
 not qualify an installed application or other platform's behavior.
 
-P1c starts after the coherent cohort is accepted, with stable device
-purpose/placement and a real fullauto/manual action. Carry the minimal correlated
-diagnostic context through both increments; P2 closes the searchable,
-access-controlled route. These P1b results do not complete the remaining module,
-update, diagnostic or full-alpha acceptance.
+The [P1c device-control cohort](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/issues/130) is delivered through
+[Core](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-core/pull/105), [Protocol](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-protocol/pull/64),
+[Server](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-server/pull/114), [Accounts](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-accounts/pull/129),
+[Agent](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-agent/pull/159), [Shared](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/157),
+[Mobile](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/pull/91) and [Web](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/pull/76). Each device carries
+its accepted purposes and an effective fullauto/manual policy with a
+compare-and-set revision. Existing devices keep manual/desktop; new enrollments
+start fullauto/desktop. Fullauto removes the module checklist only for system
+tools; GDS, RDS and integrations keep explicit consent. Widening requires a
+recent sign-in. Admission and action records carry the original device,
+principal and operation identifiers.
+
+On Ubuntu, the Server migration and policy routes passed the owned
+PostgreSQL/SMTP acceptance. The Shared main test binary then drove the installed
+`rldyour-sysinfo` tool through the public client APIs against that Server.
+Fullauto ran the action without a checklist. Manual refused it with
+`module_disabled` until explicit consent. A stale revision returned
+`operation_conflict`, and an aged sign-in could not widen the policy. Three
+operations correlated admission and action on one device and principal. This
+does not qualify the Flutter UI, an installed NDS application or other
+platforms. P2 closes the searchable, access-controlled diagnostic route.
 
 Each increment changes the canonical owner and its actual consumers together,
 preserves retained data, exercises relevant positive and denied/failure paths,

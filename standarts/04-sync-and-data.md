@@ -97,7 +97,7 @@ compatible transition before these new envelope semantics are advertised.
 
 [ADR 0009](decisions/0009-first-alpha-product-contract.md) defines the first-alpha
 target for continuous native execution, seven-day offline authorization, complete
-supported module-data collection and bidirectional GDS commit synchronization.
+supported module-data collection and bidirectional GitHub commit synchronization.
 These are acceptance requirements, not claims that the current runtime has
 already implemented them.
 

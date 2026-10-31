@@ -24,11 +24,6 @@ catalog-check:
     .venv/bin/python scripts/check-contracts.py
     .venv/bin/python -m unittest discover -s scripts -p 'test_*.py'
 
-# Optional prepared native GDS CLI; no private Estate or device access.
-gds-check:
-    gds --json validate repository
-    gds --json validate gitlinks
-
 standards-check: catalog-check
     test -s standarts/README.md
     test -s LICENSE

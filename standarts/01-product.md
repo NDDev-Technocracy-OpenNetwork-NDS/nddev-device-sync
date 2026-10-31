@@ -11,8 +11,8 @@ observability pipeline.
 The product provides these functions through common kernel services and typed
 module/tool contracts:
 
-- GitHub Device Sync (GDS);
-- Remote Device Sync (RDS);
+- the GitHub module (`github`, formerly GDS);
+- the remote module (`remote`, formerly RDS);
 - sysinfo;
 - clipboard;
 - cleaner;
@@ -32,7 +32,7 @@ through a local host. See [ADR 0017](decisions/0017-extensible-offline-kernel.md
 
 Existing tools retain their private state and safety policy until a deliberate
 NDS-owned migration is qualified. Archived implementations are development
-groundwork; a wrapper alone does not implement the advertised full GDS/RDS
+groundwork; a wrapper alone does not implement the advertised full GitHub/remote
 function. Do not copy provider databases, erase work or bypass their controls.
 
 The product owns device identity, synchronization metadata, connection

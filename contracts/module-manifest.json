@@ -31,8 +31,8 @@
     },
     "kind": {
       "enum": [
-        "gds",
-        "rds",
+        "github",
+        "remote",
         "tool",
         "accounts",
         "integration"

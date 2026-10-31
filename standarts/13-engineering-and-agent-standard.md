@@ -47,7 +47,7 @@ Authoritative mutations preserve invariants transactionally. Offline/read
 models expose revision and freshness and converge through the sync protocol;
 never imply instantaneous consistency while disconnected. Stable principal,
 personal/organization space, device and original-operation ownership are explicit
-from the start under ADRs 0017/0018. Scoped RDS administration preserves personal
+from the start under ADRs 0017/0018. Scoped remote-screen administration preserves personal
 data isolation. Device placement follows the architecture; this does not add a
 distributed infrastructure controller.
 

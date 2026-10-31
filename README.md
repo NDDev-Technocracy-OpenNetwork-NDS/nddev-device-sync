@@ -23,7 +23,7 @@ and exact Git submodules for the independent component repositories:
 
 ```text
 nddev-device-sync/
-  modules/       core, protocol, server, agent, clients, Vault, GDS, RDS, organization, ...
+  modules/       core, protocol, server, agent, clients, Vault, github, remote, organization, ...
   tools/         clipboard, sysinfo, updater, cleaner
   contracts/     catalog and assembly validation
   standarts/     NDS product contracts
@@ -37,12 +37,12 @@ The [catalog](contracts/module-catalog.json) gives every component its exact pat
 git clone --recurse-submodules https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync.git
 cd nddev-device-sync
 just setup
-just component gds check
+just component github check
 ```
 
 For an existing clean root, `just checkout` initializes the exact public source
 recursively. Selective checkout remains native Git, for example
-`git submodule update --init -- modules/gds tools/cleaner`. `just component <id>
+`git submodule update --init -- modules/github tools/cleaner`. `just component <id>
 <recipe> ...` runs the component's own justfile, preserving argument boundaries
 and refusing a different provider or HEAD than the selected Gitlink. Use a child
 worktree directly for feature development; central dispatch never resets it.
@@ -108,12 +108,12 @@ remain owned by the architecture and diagnostic contracts, not the plan.
 
 [ADR 0009](standarts/decisions/0009-first-alpha-product-contract.md) records the
 accepted NDS 1 first-alpha outcomes and acceptance criteria. It includes module
-setup after sign-in, seven-day offline authorization, bidirectional GDS sync,
+setup after sign-in, seven-day offline authorization, bidirectional GitHub sync,
 cross-device viewing, NDS application updates and common observability. These
 targets are not a claim that the deployed composition already implements them.
 [ADR 0011](standarts/decisions/0011-company-membership-and-device-access.md) adds
-companies and invited users with administrative RDS access; ADR 0017 extends
-membership to multiple organization spaces while personal Vault and GDS data
+companies and invited users with administrative remote-screen access; ADR 0017 extends
+membership to multiple organization spaces while personal Vault and GitHub module data
 remain owner-only. Server and client sources implement company,
 membership and invitation workflows. Runtime repositories own supported-target
 qualification and migration acceptance for existing installations.
@@ -149,4 +149,4 @@ version 2 source layout without changing a runtime descriptor API or reinterpret
 issued tags/locks. [ADR 0019](standarts/decisions/0019-complete-source-and-privacy-boundary.md)
 records the organization-wide boundary. Existing sibling checkouts and their
 worktrees remain preserved; no source command enrolls devices, deploys a service
-or registers a competing GDS workspace.
+or registers a competing GitHub-module workspace.

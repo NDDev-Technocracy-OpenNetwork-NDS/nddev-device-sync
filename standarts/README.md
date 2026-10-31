@@ -26,13 +26,13 @@ agent-first identity target recorded in
 [ADR 0007](decisions/0007-offline-browser-client.md) adds the accepted offline
 browser scope and its implementation/qualification gates.
 [ADR 0008](decisions/0008-nds-owned-screen-view.md) defines the NDS-owned screen
-endpoint boundary while preserving existing native RDS identities and policy.
+endpoint boundary while preserving existing native remote endpoint identities and policy.
 [ADR 0009](decisions/0009-first-alpha-product-contract.md) defines the accepted
 NDS 1 first-alpha outcomes and their cross-platform acceptance boundary.
 [ADR 0010](decisions/0010-react-browser-presentation.md) changes the browser
 presentation to React/TypeScript while preserving Rust behavior and offline data.
 [ADR 0011](decisions/0011-company-membership-and-device-access.md) adds company
-membership, invitations and administrative RDS access while preserving personal
+membership, invitations and administrative remote-screen access while preserving personal
 data isolation.
 [ADR 0012](decisions/0012-shared-cargo-cache.md) defines the shared local Cargo
 artifact cache and safe build/acceptance path resolution.

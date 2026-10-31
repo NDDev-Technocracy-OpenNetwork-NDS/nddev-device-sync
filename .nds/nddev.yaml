@@ -60,11 +60,11 @@ spec:
   - id: nddev-device-sync-web
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web
     kind: web-client
-  - id: nddev-device-sync-gds
-    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-gds
+  - id: nddev-device-sync-github
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-github
     kind: module
-  - id: nddev-device-sync-rds
-    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-rds
+  - id: nddev-device-sync-remote
+    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-remote
     kind: module
   - id: nddev-device-sync-sysinfo
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-sysinfo

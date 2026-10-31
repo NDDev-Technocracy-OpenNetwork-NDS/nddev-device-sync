@@ -19,6 +19,7 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-.venv/
+# Structural tooling may use the selected managed environment through a link.
+/.venv
 __pycache__/
 .nddev-reports/

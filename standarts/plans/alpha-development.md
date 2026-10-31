@@ -423,6 +423,20 @@ operations correlated admission and action on one device and principal. This
 does not qualify the Flutter UI, an installed NDS application or other
 platforms. P2 closes the searchable, access-controlled diagnostic route.
 
+The B2 standards and naming pass moves every member manifest to the current
+std-0001 `nddev.ai/v1alpha4` schema through the published validator. Each
+repository records its existing owner-approved contract locations in one
+accepted R-0037 ADR instead of legacy variations; this root's record is
+[ADR 0021](../decisions/0021-std-0001-structure-adaptations.md). The GitHub
+and remote modules now carry the names `github` and `remote` in their
+repositories, packages, module IDs, Agent and Shared composition, client
+labels and root paths. Persisted storage keys, the legacy `/v2/rds` screen
+wire, its transcript label and the endpoint keyring identity stay frozen, so
+retained configuration, consent, revisions and endpoint identities carry over
+and older clients keep working. The archived `gds` CLI projections are
+retired. This pass changes no runtime behavior beyond the names; the P1c native
+acceptance above remains the device-control evidence.
+
 Each increment changes the canonical owner and its actual consumers together,
 preserves retained data, exercises relevant positive and denied/failure paths,
 and reports the result at its real boundary. Pure rule tests do not finish a

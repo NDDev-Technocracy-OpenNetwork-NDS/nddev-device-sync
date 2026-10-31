@@ -367,11 +367,22 @@ command after connection verification; Android retains encrypted Vault state
 across two application processes. Integration-test artifacts remain private and
 cannot substitute for a clean distributable package.
 
-The Shared source cohort is delivered to MAIN. Web and Mobile source updates
-are delivered to dev; final MAIN publication, clean final artifacts and the
-coherent Root cohort remain open. Native qualification must use the selected
-execution, storage and tool-profile route; a local profile alone does not prove
-remote artifact storage or an admitted execution target.
+The compatible source cohort combines the
+[Agent adoption](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-agent/pull/158),
+[Shared composition](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/156),
+[Mobile consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/pull/90)
+and [Web consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/pull/74).
+Both clients select the same Shared revision; its validated dependency graph
+contains one Vault package identity and preserves distinct library/source roles.
+The corresponding exact-main build and artifact gates passed. This Root
+composition adopts those accepted commits without replacing the original
+native journey evidence.
+
+The native journeys above retain their original source and artifact bindings.
+A later source or packaging pass does not rerun those journeys. Native
+qualification must use the selected execution, storage and tool-profile route;
+a local profile alone does not prove remote artifact storage or an admitted
+execution target.
 
 The kernel's
 [native workspace-storage operation](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/issues/124)
@@ -381,11 +392,14 @@ consumer still needs supported storage semantics and a retained original-target
 lease; Git synchronization, display transport and journal metadata do not supply
 a shared compiler filesystem.
 
-Close the [Vault local-read publication gate](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-vault/issues/134)
-before final adoption: a read retained across cancellation and same-owner
-reauthentication must validate its original authority, preserve encrypted state
-and permit a new explicit read. Its source correction and static checks do not
-substitute for the actual native fixture and consumer qualification.
+The [Vault local-read publication gate](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-vault/issues/134)
+is closed at its owning source boundary. The native fixture held real SQLite
+completion across cancellation and same-owner renewal: the old result was
+refused, a new explicit read succeeded, encrypted rows stayed identical and
+caller drop released its permit. Agent and Shared adopt the same accepted Vault
+package identity and retain the original runtime Vault instance. Application
+and Root adoption keep their own source, artifact and target gates; this does
+not qualify an installed application or other platform's behavior.
 
 P1c starts after the coherent cohort is accepted, with stable device
 purpose/placement and a real fullauto/manual action. Carry the minimal correlated

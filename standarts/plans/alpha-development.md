@@ -483,8 +483,24 @@ after a database backup. The collector project keeps seven-day retention. Server
 process records, Server and collector spans and a positive collector metric are
 searchable.
 
+**Signed-client acceptance.** It passed on nds.nddev.link with the agent's own
+GitHub-signed session (`nds-agent auth github`, approved in the owner's browser only
+when the codes match). Eight checks passed:
+- the effective policy;
+- the caller's own fresh records;
+- refusal of a foreign organization;
+- refusal of a global search without a grant;
+- a grant opened with the administrator key;
+- global spans;
+- global logs;
+- refusal of a malformed request.
+
+That run also fixed the typed observability refusals in
+[Accounts](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-accounts/pull/145).
+A daily user timer on nddev-usa and ubuntu-machine renews the agent session and repeats
+the acceptance.
+
 **Still open:**
-- the signed-client acceptance, which needs an owner session;
 - the native durable export queue
   ([observability#92](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability/issues/92));
 - saturation and hostile-content cases on the deployed host. A 121-second Vector

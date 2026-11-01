@@ -460,7 +460,10 @@ with the [Shared](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-dev
 
 **Collection policy.** Each device has one effective policy: `off` while export is
 disabled, a finite `debug` window set by the operator, or `standard`. Accounts
-delivery applies it. `off` drops queued records and keeps no hidden stream.
+delivery applies it. `off` drops queued records and keeps no hidden stream. The
+application [follows](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/176)
+a debug window with its own local window. That local window never outlasts the
+server's window, and the follower closes only windows it opened itself.
 
 **Scoped search.** The signed Server decides the scope:
 - members read their own records;
@@ -484,7 +487,6 @@ searchable.
 - the signed-client acceptance, which needs an owner session;
 - the native durable export queue
   ([observability#92](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability/issues/92));
-- applying the debug window in long-running hosts;
 - saturation and hostile-content cases on the deployed host. A 121-second Vector
   outage passed there: the Server stayed ready, stale-source incidents opened and
   resolved themselves, and the sequence gaps became incidents that an operator

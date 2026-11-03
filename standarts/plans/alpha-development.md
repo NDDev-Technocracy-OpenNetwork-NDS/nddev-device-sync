@@ -448,6 +448,66 @@ decisions to their canonical contract. Update this one active sequence when
 scope changes; retire it when its work is complete. Estimate calendar delivery
 after the first coherent vertical exposes actual migration/integration cost.
 
+The P2 diagnostic path is deployed on the alpha host through
+[Protocol](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-protocol/pull/75),
+[Observability](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability/pull/90),
+[Server](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-server/pull/123),
+[Accounts](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-accounts/pull/139) and
+[Agent](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-agent/pull/175),
+with the [Shared](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/171),
+[Web](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/pull/86) and
+[Mobile](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/pull/104) consumers.
+
+**Collection policy.** Each device has one effective policy: `off` while export is
+disabled, a finite `debug` window set by the operator, or `standard`. Accounts
+delivery applies it. `off` drops queued records and keeps no hidden stream. The
+application [follows](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/176)
+a debug window with its own local window. That local window never outlasts the
+server's window, and the follower closes only windows it opened itself.
+
+**Scoped search.** The signed Server decides the scope:
+- members read their own records;
+- active organization administrators read records stored in that organization's tenant;
+- global reads need a grant.
+
+**Global grant.** A fresh SSHSIG signature by an allowed administrator key, over a
+one-time challenge bound to the session and device, opens the grant. It lasts
+fifteen minutes and ends as soon as the key leaves the allowed file.
+
+**Collector.** It reads OpenObserve through schema-first SQL, built only from fixed
+columns and validated identifiers, and returns fixed redacted records. Storage
+credentials stay server-side.
+
+**Alpha host acceptance.** On nds-alpha-02 the Server was migrated to schema 17
+after a database backup. The collector project keeps seven-day retention. Server
+process records, Server and collector spans and a positive collector metric are
+searchable.
+
+**Signed-client acceptance.** It passed on nds.nddev.link with the agent's own
+GitHub-signed session (`nds-agent auth github`, approved in the owner's browser only
+when the codes match). Eight checks passed:
+- the effective policy;
+- the caller's own fresh records;
+- refusal of a foreign organization;
+- refusal of a global search without a grant;
+- a grant opened with the administrator key;
+- global spans;
+- global logs;
+- refusal of a malformed request.
+
+That run also fixed the typed observability refusals in
+[Accounts](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-accounts/pull/145).
+A daily user timer on nddev-usa and ubuntu-machine renews the agent session and repeats
+the acceptance.
+
+**Still open:**
+- the native durable export queue
+  ([observability#92](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability/issues/92));
+- saturation and hostile-content cases on the deployed host. A 121-second Vector
+  outage passed there: the Server stayed ready, stale-source incidents opened and
+  resolved themselves, and the sequence gaps became incidents that an operator
+  acknowledged and resolved.
+
 ## Deferred follow-up: managed VPN design
 
 After the current alpha work, discuss an NDS-owned VPN module with the owner

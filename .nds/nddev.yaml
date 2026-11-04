@@ -85,7 +85,7 @@ spec:
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-cache
     kind: service
   - id: nddev-device-sync-estate
-    locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate
+    locator: github:NDDev-Technocracy-Ecosystem/nddev-device-sync-estate
     kind: module
   - id: nddev-device-sync-estate-example
     locator: github:NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate-example

@@ -103,8 +103,13 @@ immutable release locks require deliberate adoption and runtime qualification.
 The [active development plan](standarts/plans/alpha-development.md) sequences
 the remaining implementation and names a real completion scenario for each
 stage. It starts with personal/organization identity, devices and fullauto/manual
-profiles, with a correlated diagnostic path early in the work. Product rules
-remain owned by the architecture and diagnostic contracts, not the plan.
+profiles, with a correlated diagnostic path early in the work. The architecture
+and diagnostic contracts own the product rules.
+
+The [current source checkpoint](standarts/plans/alpha-development.md#current-checkpoint-and-next-increment)
+records the accepted Agent, Desktop, Web and Mobile revisions, their CI coverage
+and remaining P2 acceptance. Web and Mobile consume the same Desktop Shared
+revision through their assembly and Flutter locks.
 
 [ADR 0009](standarts/decisions/0009-first-alpha-product-contract.md) records the
 accepted NDS 1 first-alpha outcomes and acceptance criteria. It includes module

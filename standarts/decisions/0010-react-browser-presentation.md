@@ -1,6 +1,8 @@
 # ADR 0010: React browser presentation over the Rust runtime
 
-Status: accepted owner direction, 2026-10-17; migration and qualification pending.
+Accepted 2026-10-17. The React source migration is delivered in the Web assembly.
+The [active alpha plan](../plans/alpha-development.md#current-checkpoint-and-next-increment)
+records current browser coverage and outstanding acceptance.
 
 ## Decision
 
@@ -8,9 +10,8 @@ The browser presentation uses React, Vite, strict TypeScript, TanStack Router
 and Query, and shadcn/ui. Desktop and mobile retain Flutter. This replaces the
 Flutter-web presentation choice in ADRs 0007 and 0009; their offline, identity,
 data-preservation, update and observability requirements remain binding.
-The current Flutter browser assembly remains the migration baseline until its
-replacement passes those workflows. This decision does not assert a shipped
-React client or authorize live deployment.
+The previous Flutter browser assembly provided the migration baseline. Web
+release and deployment follow their own acceptance and authorization gates.
 
 Core domain/application, backend services, synchronization, authorization and
 cryptography remain Rust. The browser compiles the applicable Rust adapters to
@@ -60,7 +61,7 @@ contract and pipeline, with bounded redacted presentation failure reporting.
 Acceptance compares real workflows: login/enrollment, local edits, offline full
 restart, reconnect/replay, conflicts, multiple tabs, logout/revocation and an
 upgrade with unsent work. Run the same applicable native regressions and actual
-Playwriter browser checks. Retire the Flutter browser build path and obsolete
+Playwright browser checks. Retire the Flutter browser build path and obsolete
 assets when the replacement is qualified; do not maintain two browser products.
 
 References: [shadcn/ui with Vite](https://ui.shadcn.com/docs/installation/vite),

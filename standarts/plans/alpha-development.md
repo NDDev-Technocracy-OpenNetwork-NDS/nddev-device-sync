@@ -166,10 +166,10 @@ Close the actual remaining boundaries rather than installing parallel exporters:
   fields are correlation input, never authorization. Count retries, refusals,
   unresolved completion and losses without repeating the same error at each hop.
 - Native client delivery must survive its declared restart/outage cases through
-  the existing owning storage/runtime boundary. The current RAM-only native feed
-  and durable browser queue have different guarantees. Do not describe either
-  as remote acknowledgement or exactly-once delivery. Bound bytes, age, retry
-  duration and shutdown, and expose overflow/expiry/unknown delivery.
+  the existing owning storage/runtime boundary. Accounts owns the bounded
+  native spool, and the browser queue has its own storage and expiry guarantees.
+  Track remote acknowledgement separately from local persistence. Bound bytes,
+  age, retry duration and shutdown, and expose overflow, expiry and unknown delivery.
 - Implement standard/debug/off as one effective collection and export policy.
   Debug remains finite and scoped; off must not silently continue another
   exporter or retain a hidden content stream. Functional journals and action
@@ -338,6 +338,41 @@ protected-work and recovery authority; this plan creates no maintenance window.
 
 ## Current checkpoint and next increment
 
+### Diagnostic collection source cohort
+
+The Root Gitlinks select these accepted source revisions.
+
+| Component | Accepted source | Exact main CI |
+| --- | --- | --- |
+| Agent | [`45c4a2c`](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-agent/commit/45c4a2cc0a286761e7c9b23f164a5d5adf596743) | [Contract and Linux, macOS and Windows](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-agent/actions/runs/41714466959) |
+| Desktop Shared | [`cc004f7`](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/commit/cc004f720800edb19bd59c63524df8c5956e8e68) | [Contracts and browser checks](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/actions/runs/41819196457) |
+| Web | [`ca9be80`](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/commit/ca9be80269da0f61f000066323500a41ec15e455) | [Contract, Chromium worker and artifact checks](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/actions/runs/41826426006) |
+| Mobile | [`a7b481c`](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/commit/a7b481c1ad767cfd6f0f7fdf604c21f5309c81b6) | [Android ARM64 and unsigned iOS device and simulator builds](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/actions/runs/41828612044) |
+
+Web's assembly lock and Mobile's UI and native bridge lock select the same Desktop
+commit. Shared distinguishes local SDK collection from the authenticated policy
+and export status. Confirmed Off stops local collection and manual diagnostic
+debug windows. A later Unknown retains the confirmed Off until policy is known
+again. Agent applies the same policy while functional CLI commands continue.
+
+The [Ubuntu acceptance](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/182)
+verified Off → Unknown → Off → On, concurrent functional CLI reads, resumed
+indexed delivery, hidden synchronization, reopening and both quit paths. The
+bounded accessibility worker completed the installed GUI check with stable
+pidfds. The Web CI exercises the offline worker in Chromium. The Mobile CI
+qualifies builds and provenance. Physical-device runtime acceptance, release
+signing and deployment have separate gates.
+
+The [durable native delivery cohort](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/pull/159)
+already selected the Accounts spool and its consumers. The owning
+[queue issue](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability/issues/92)
+tracks the restart and outage acceptance boundary. The remaining
+[P2 work](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/issues/152)
+includes deployed queue saturation and hostile signed input, scoped metrics, and
+count, detail and export at the authorized query boundary.
+
+### Prior qualified cohorts
+
 The [P1a personal-context source cohort](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/pull/118)
 is delivered through Vault, the GitHub module, Agent, Shared, Mobile and Web. It preserves
 original encrypted ownership and propagates the retained native follower read
@@ -354,8 +389,8 @@ do not complete P1, the full client/module matrix, searchable diagnostics or
 alpha acceptance. Reuse the canonical Shared acceptance harness instead of
 committing temporary application IDs or duplicate fixture helpers into Mobile.
 
-The P1b candidate now implements personal/multiple-organization membership
-through those existing boundaries. The
+P1b added personal and multiple-organization membership through those
+existing boundaries. The
 [Shared composition](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/144),
 [Web consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/pull/72)
 and [Mobile consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/pull/86)
@@ -367,16 +402,16 @@ command after connection verification; Android retains encrypted Vault state
 across two application processes. Integration-test artifacts remain private and
 cannot substitute for a clean distributable package.
 
-The compatible source cohort combines the
+The earlier compatible source cohort combined the
 [Agent adoption](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-agent/pull/158),
 [Shared composition](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-desktop/pull/156),
 [Mobile consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-mobile/pull/90)
 and [Web consumer](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web/pull/74).
 Both clients select the same Shared revision; its validated dependency graph
 contains one Vault package identity and preserves distinct library/source roles.
-The corresponding exact-main build and artifact gates passed. This Root
-composition adopts those accepted commits without replacing the original
-native journey evidence.
+The corresponding exact-main build and artifact gates passed. That Root
+composition adopted those accepted commits and kept the original native
+journeys bound to their tested sources.
 
 The native journeys above retain their original source and artifact bindings.
 A later source or packaging pass does not rerun those journeys. Native
@@ -448,7 +483,7 @@ decisions to their canonical contract. Update this one active sequence when
 scope changes; retire it when its work is complete. Estimate calendar delivery
 after the first coherent vertical exposes actual migration/integration cost.
 
-The P2 diagnostic path is deployed on the alpha host through
+The earlier alpha deployment qualified the P2 diagnostic path through
 [Protocol](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-protocol/pull/75),
 [Observability](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability/pull/90),
 [Server](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-server/pull/123),
@@ -478,14 +513,12 @@ fifteen minutes and ends as soon as the key leaves the allowed file.
 columns and validated identifiers, and returns fixed redacted records. Storage
 credentials stay server-side.
 
-**Alpha host acceptance.** On nds-alpha-02 the Server was migrated to schema 17
-after a database backup. The collector project keeps seven-day retention. Server
-process records, Server and collector spans and a positive collector metric are
-searchable.
+**Earlier alpha-host acceptance.** The Server migrated to schema 17 after a
+database backup. That deployment verified seven-day collector retention,
+searchable Server records, Server and collector spans and a collector metric.
 
-**Signed-client acceptance.** It passed on nds.nddev.link with the agent's own
-GitHub-signed session (`nds-agent auth github`, approved in the owner's browser only
-when the codes match). Eight checks passed:
+**Signed-client acceptance.** The earlier deployment passed eight checks with
+an authenticated Agent session:
 - the effective policy;
 - the caller's own fresh records;
 - refusal of a foreign organization;
@@ -497,16 +530,9 @@ when the codes match). Eight checks passed:
 
 That run also fixed the typed observability refusals in
 [Accounts](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-accounts/pull/145).
-A daily user timer on nddev-usa and ubuntu-machine renews the agent session and repeats
-the acceptance.
-
-**Still open:**
-- the native durable export queue
-  ([observability#92](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-observability/issues/92));
-- saturation and hostile-content cases on the deployed host. A 121-second Vector
-  outage passed there: the Server stayed ready, stale-source incidents opened and
-  resolved themselves, and the sequence gaps became incidents that an operator
-  acknowledged and resolved.
+An earlier Vector outage exercise kept the Server ready. Stale-source incidents
+opened and resolved, and an operator acknowledged and resolved the sequence-gap
+incidents. The current checkpoint above tracks the remaining P2 boundaries.
 
 ## Deferred follow-up: managed VPN design
 

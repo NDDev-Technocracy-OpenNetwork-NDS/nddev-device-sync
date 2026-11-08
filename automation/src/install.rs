@@ -127,13 +127,19 @@ pub(crate) fn install(root: &Path) -> Result<()> {
     let destination = bin.join(format!("nds-source{}", std::env::consts::EXE_SUFFIX));
     let receipt_path = tools.join("nds-source.json");
     let desired = info()?;
-    if fs::symlink_metadata(&destination).is_ok() && digest(&destination)? != desired.binary_sha256
+    let observed = match fs::symlink_metadata(&destination) {
+        Ok(_) => Some(digest(&destination)?),
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => None,
+        Err(error) => return Err(error.into()),
+    };
+    if let Some(observed) = &observed
+        && observed != &desired.binary_sha256
     {
         let previous: Receipt =
             serde_json::from_value(json::load(&receipt_path)?).map_err(|_| Error::Occupied)?;
         if previous.schema != 1
             || previous.tool != desired.tool
-            || previous.binary_sha256 != digest(&destination)?
+            || &previous.binary_sha256 != observed
         {
             return Err(Error::Occupied);
         }
@@ -147,11 +153,11 @@ pub(crate) fn install(root: &Path) -> Result<()> {
     }
     // A lost reply after binary publication is reconciled by the exact desired
     // binary digest. Never overwrite an unrelated file to repair a receipt.
-    if !destination.exists() || digest(&destination)? != desired.binary_sha256 {
+    if observed.as_ref() != Some(&desired.binary_sha256) {
         atomic(&destination, File::open(std::env::current_exe()?)?, true)?;
-    }
-    if digest(&destination)? != desired.binary_sha256 {
-        return Err(Error::Occupied);
+        if digest(&destination)? != desired.binary_sha256 {
+            return Err(Error::Occupied);
+        }
     }
     let receipt = serde_json::to_vec_pretty(&desired).map_err(|_| Error::Json)?;
     atomic(&receipt_path, receipt.as_slice(), false)?;

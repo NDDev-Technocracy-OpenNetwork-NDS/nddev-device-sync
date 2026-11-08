@@ -273,14 +273,17 @@ fn runtime_descriptors_keep_closed_permissions_and_dependency_rules() {
     fixture.write("module.json", &browser);
     fixture.refuses(&["check", "module.json"]);
     // This would be a valid descriptor if duplicate keys silently won.
+    browser["permissions"] = json!(["browser_control"]);
     let encoded = serde_json::to_string(&browser)
         .unwrap()
         .replacen('{', "{\"api_version\":1,", 1);
-    browser["permissions"] = json!(["browser_control"]);
-    let encoded = encoded.replace("[\"browser\"]", "[\"browser_control\"]");
     fs::write(fixture.root().join("module.json"), encoded).unwrap();
     fixture.refuses(&["check", "module.json"]);
+    // The descriptor's version contract permits any non-whitespace string.
     browser["version"] = json!("SYNTHETIC_SENTINEL\n");
+    fixture.write("module.json", &browser);
+    fixture.accepts(&["check", "module.json"]);
+    browser["id"] = json!("SYNTHETIC_SENTINEL/");
     fixture.write("module.json", &browser);
     let output = fixture.refuses(&["check", "module.json"]);
     assert!(!String::from_utf8_lossy(&output.stderr).contains("SYNTHETIC_SENTINEL"));

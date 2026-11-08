@@ -17,7 +17,7 @@
       "const": "module-catalog.schema.json"
     },
     "catalog_version": {
-      "const": 3
+      "const": 4
     },
     "product": {
       "const": "nddev-device-sync"
@@ -72,9 +72,7 @@
               "tool",
               "self-hosting-engine",
               "design-system",
-              "organization-profile",
-              "engineering-governance",
-              "deployment-configuration"
+              "organization-profile"
             ]
           },
           "status": {
@@ -102,57 +100,14 @@
             }
           },
           "path": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "pattern": "^(modules|tools)/[a-z][a-z0-9-]{0,127}$"
           },
           "visibility": {
-            "enum": [
-              "public",
-              "private"
-            ]
+            "const": "public"
           }
         },
         "allOf": [
-          {
-            "if": {
-              "properties": {
-                "visibility": {
-                  "const": "private"
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "id": {
-                  "enum": [
-                    "estate",
-                    "standards"
-                  ]
-                },
-                "path": {
-                  "type": "null"
-                }
-              }
-            },
-            "else": {
-              "properties": {
-                "id": {
-                  "not": {
-                    "enum": [
-                      "estate",
-                      "standards"
-                    ]
-                  }
-                },
-                "path": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           {
             "if": {
               "properties": {

@@ -25,7 +25,7 @@ class Component(unittest.TestCase):
         # changes venv discovery and can accidentally use global packages.
         (self.root / '.venv').symlink_to(sys.prefix, target_is_directory=True)
         catalog = json.loads((SOURCE / 'contracts/module-catalog.json').read_text())
-        catalog['components'] = [item for item in catalog['components'] if item['id'] in {'core', 'estate', 'standards'}]
+        catalog['components'] = [item for item in catalog['components'] if item['id'] == 'core']
         (self.root / 'contracts/module-catalog.json').write_text(json.dumps(catalog))
         self.git(self.root, 'init', '--quiet')
         self.child = self.root / 'modules/core'
@@ -69,7 +69,7 @@ class Component(unittest.TestCase):
         self.assertEqual(argv, ['--working-directory', str(self.child), '--justfile', str(self.child / 'justfile'), *args])
 
     def test_private_unknown_uninitialized_and_wrong_source_are_refused(self):
-        for identity in ('estate', 'standards', 'missing'):
+        for identity in ('unlisted', 'missing'):
             self.assertNotEqual(self.call(identity).returncode, 0)
         self.git(self.child, 'remote', 'set-url', 'origin', 'https://example.invalid/foreign.git')
         self.assertNotEqual(self.call().returncode, 0)

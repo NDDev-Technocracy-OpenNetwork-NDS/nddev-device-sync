@@ -3,7 +3,7 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 default:
     @just --list
 
-# Public exact Gitlinks only; no private governance or Estate credentials needed.
+# Initialize the exact public source selection.
 checkout:
     git submodule update --init --recursive --jobs 2
 
@@ -18,14 +18,22 @@ cargo-cache-setup:
 cargo-cache-check:
     python3 scripts/cargo-cache.py check
 
-check: standards-check catalog-check
+check: catalog-check documentation-check
+    just --fmt --check
 
 catalog-check:
     .venv/bin/python scripts/check-contracts.py
+
+# Tooling acceptance includes real Cargo compilation in isolated fixtures.
+test:
     .venv/bin/python -m unittest discover -s scripts -p 'test_*.py'
 
-standards-check: catalog-check
-    test -s standarts/README.md
+# Check the product entry points without compiling components.
+documentation-check:
+    test -s docs/architecture.md
+    test -s docs/integration.md
+    test -s docs/development.md
+    test -s docs/status.md
     test -s LICENSE
 
 # Isolated structural tooling; runtime repositories retain their own gates.

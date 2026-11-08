@@ -1,6 +1,6 @@
 {
   "$schema": "module-catalog.schema.json",
-  "catalog_version": 3,
+  "catalog_version": 4,
   "product": "nddev-device-sync",
   "license": "AGPL-3.0-only",
   "organization": "NDDev-Technocracy-OpenNetwork-NDS",
@@ -253,17 +253,6 @@
       "visibility": "public"
     },
     {
-      "id": "estate",
-      "repository": "nddev-device-sync-estate",
-      "kind": "deployment-configuration",
-      "status": "alpha",
-      "platforms": [
-        "linux"
-      ],
-      "path": null,
-      "visibility": "private"
-    },
-    {
       "id": "estate-example",
       "repository": "nddev-device-sync-estate-example",
       "kind": "module",
@@ -295,17 +284,6 @@
       ],
       "path": "modules/organization",
       "visibility": "public"
-    },
-    {
-      "id": "standards",
-      "repository": "nddev-device-sync-standards",
-      "kind": "engineering-governance",
-      "status": "alpha",
-      "platforms": [
-        "all"
-      ],
-      "path": null,
-      "visibility": "private"
     }
   ]
 }

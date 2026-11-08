@@ -75,14 +75,14 @@ class CargoCache(unittest.TestCase):
     def nested(self):
         path = self.project / 'contracts/module-catalog.json'
         data = json.loads(path.read_text())
-        data['catalog_version'] = 3
+        data['catalog_version'] = 4
         for entry in data['components']:
             name = entry['repository']
             entry['path'] = 'modules/' + name.removeprefix('nddev-device-sync-')
             child = self.project / entry['path']
             child.parent.mkdir(exist_ok=True)
             (self.scope / name).rename(child)
-        data['components'].append({'repository': 'nddev-device-sync-standards', 'path': None})
+        data['components'].append({'repository': 'unmaterialized-fixture', 'path': None})
         path.write_text(json.dumps(data))
         return self.project / 'modules/core'
 

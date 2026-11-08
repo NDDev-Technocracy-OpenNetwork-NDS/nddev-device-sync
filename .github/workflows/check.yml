@@ -34,8 +34,8 @@ jobs:
           export RUSTUP_HOME="$RUNNER_TEMP/nds-rustup"
           printf 'RUSTUP_HOME=%s\n' "$RUSTUP_HOME" >> "$GITHUB_ENV"
           rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
-      - name: Validate standards and module catalog
-        run: just check
+      - name: Check source contracts and tooling behavior
+        run: just check test
       - name: Verify public recursive checkout without component credentials
         run: |
           git -c credential.helper= -c protocol.file.allow=never submodule update --init --recursive --jobs 2
@@ -43,7 +43,7 @@ jobs:
 
   workflows:
     # Workflow lint and audit plus the secret scan: new commits on pull requests,
-    # the full history on main (STD-0004 library tools, verified prebuilt binaries).
+    # the full history on main (verified prebuilt tools).
     runs-on: ubuntu-26.04
     timeout-minutes: 10
     permissions:

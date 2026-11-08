@@ -1,157 +1,60 @@
-# nddev-device-sync
+# NDDev Device Sync
 
-NDS is the public, self-hostable NDDev OpenNetwork distributed user system for
-devices, servers, functional modules and tools. Its common kernel owns identity,
-security, connections, synchronization, module lifetimes, updates and observation.
-Rust owns the domain and system behavior. The
-accepted presentation stack is Flutter for desktop/mobile and React with strict
-TypeScript for web, in English and Russian. The product keeps
-the NDDev OpenNetwork name and [nddev.ai](https://nddev.ai) attribution.
+NDS connects independently usable products across devices. It adds shared identity,
+synchronization, telemetry and managed integration around their own engines and
+interfaces. Each product owns its functionality and releases.
 
-License: AGPL-3.0-only. See [LICENSE](LICENSE) and [TRADEMARKS.md](TRADEMARKS.md).
-Release journals live in [GitHub Releases](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/releases).
+The architecture is a phone with apps: NDS provides the common host, and products
+connect through adapters. The current alpha still composes its native modules as
+Rust libraries. Installing and replacing modules while the host runs is future
+work; separate repositories alone do not provide that behavior.
 
-The [NDS system standard](standarts/17-system-standard.md) is the common product
-contract for kernel, modules, tools and clients. It connects stable requirements
-to their canonical rules, responsible components and real acceptance scenarios.
-The [alpha development plan](standarts/plans/alpha-development.md) sequences
-their implementation and retained-data migration.
+See [architecture](docs/architecture.md), [integration](docs/integration.md),
+[current implementation](docs/status.md) and [development](docs/development.md).
+The [product decision](docs/decisions/0022-independent-products.md) records the
+direction and the boundary of the upcoming refactor.
 
-This is the main NDS source monorepo. It owns the
-[public product contracts](standarts/README.md), [component catalog](contracts/module-catalog.json)
-and exact Git submodules for the independent component repositories:
+## Source
+
+This repository pins the public component repositories through exact Gitlinks.
+The [catalog](contracts/module-catalog.json) describes those source boundaries;
+runtime descriptors and application locks have their own owners.
 
 ```text
 nddev-device-sync/
-  modules/       core, protocol, server, agent, clients, Vault, github, remote, organization, ...
-  tools/         clipboard, sysinfo, updater, cleaner
-  contracts/     catalog and assembly validation
-  standarts/     NDS product contracts
+  modules/       kernel, server, clients and product integrations
+  tools/         focused native integrations
+  contracts/     source catalog, module and application schemas
+  docs/          product, integration and development documentation
+  scripts/       source and contract tooling
 ```
-
-GitHub repositories keep their flat organization names, histories and releases.
-The [catalog](contracts/module-catalog.json) gives every component its exact path;
-`.gitmodules` and Gitlinks own the source snapshot. Get the public tree with:
 
 ```sh
 git clone --recurse-submodules https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync.git
 cd nddev-device-sync
 just setup
-just component github check
+just check
 ```
 
-For an existing clean root, `just checkout` initializes the exact public source
-recursively. Selective checkout remains native Git, for example
-`git submodule update --init -- modules/github tools/cleaner`. `just component <id>
-<recipe> ...` runs the component's own justfile, preserving argument boundaries
-and refusing a different provider or HEAD than the selected Gitlink. Use a child
-worktree directly for feature development; central dispatch never resets it.
-The organization introduction is source-only at `modules/organization`, with no
-runtime descriptor or executor.
+`just checkout` initializes the selected public source recursively.
+`just component <id> <recipe> ...` invokes a component's own justfile after checking
+its repository and exact selected revision. Component development and acceptance
+are described in each component's README. The
+[self-hosting example](modules/estate-example/README.md) contains synthetic inputs
+and consumes the server's Compose contract.
 
-Every component retains its history, releases, checks and dependency locks.
-Root Gitlinks select source for development; application assembly locks select
-compiled dependencies, including distinct roles at the same repository URI.
-A component's passing CI or source membership does not qualify the combined app.
+NDDev Remote is an independent product with an NDS adapter. Browser automation
+already has its own host, extension, executor and CLI; its extraction as an
+independent product is planned. Existing versions, wire formats, application locks
+and stored data retain their current meaning during that work.
 
-Cache and browser automation are required alpha components, composed through
-Agent and Shared on their supported native paths. Their catalog labels identify
-alpha scope; application locks and actual platform acceptance determine which
-workflows a selected assembly can run. Independently published standalone
-engines retain their own versions and lifecycle contracts.
+Desktop and mobile use Flutter presentation. Web uses React and TypeScript over
+the shared Rust/WASM composition. Rust owns identity, encrypted state and native
+operations. Platform support and runtime qualification belong to the implementing
+component and its consumers.
 
-The [engineering contract](standarts/13-engineering-and-agent-standard.md)
-governs autonomous delivery, minimal code and state, real verification and
-scope control. [ADR 0002](standarts/decisions/0002-autonomous-engineering-and-email-identity.md)
-records the engineering baseline; [ADR 0006](standarts/decisions/0006-agent-first-sign-in-and-vault-access.md)
-records email OTP, GitHub and passkey sign-in with automatic vault access and
-native agent capabilities. The coordinated implementation includes
-server-managed owner keys, encrypted replica catch-up, paginated vault records,
-explicit conflict resolution and signed client diagnostics. Advertised sign-in
-methods depend on the instance configuration. A compiled platform is not proof
-of runtime qualification; each runtime repository owns that evidence.
-Existing module locks and published alpha tags keep their original meaning.
+## License
 
-Use the installed NDS development profile to share Cargo artifacts outside Git.
-The central helper remains available: from a component under `modules/` or
-`tools/`, use `python3 ../../scripts/cargo-cache.py run -- just check` to select
-the complete pinned Rust toolchain. Existing sibling checkouts retain their
-previous helper path until an explicit, checked relocation.
-[ADR 0012](standarts/decisions/0012-shared-cargo-cache.md)
-defines cache isolation, artifact paths and safe cleanup.
-
-Exactly two organization repositories are private and kept outside recursive
-public checkout: `nddev-device-sync-standards` owns private NDDev engineering
-standards selection/adoption, and `nddev-device-sync-estate` owns actual deployment
-configuration and operational evidence. All other repositories are public OSS.
-NDS-specific architecture, API contracts and necessary build instructions remain
-public under `standarts/`; private governance is not a public build dependency. The public
-[estate example](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate-example)
-contains synthetic values and consumes the server's existing Compose contract
-through an exact Gitlink. It does not expose company infrastructure.
-
-[ADR 0017](standarts/decisions/0017-extensible-offline-kernel.md) records the
-owner-selected extensible offline architecture: personal and multiple
-organization spaces, unified device profiles and workload placement, native NDS
-state synchronization, full module ownership and independently versioned delivery.
-The [architecture](standarts/02-architecture.md) assigns all component roles
-and the migration boundaries. Official alpha modules use the contract intended
-for later user-developed modules. These targets supersede the earlier
-compiled-in-only/adapter-only product limit; current implementations and
-immutable release locks require deliberate adoption and runtime qualification.
-
-The [active development plan](standarts/plans/alpha-development.md) sequences
-the remaining implementation and names a real completion scenario for each
-stage. It starts with personal/organization identity, devices and fullauto/manual
-profiles, with a correlated diagnostic path early in the work. The architecture
-and diagnostic contracts own the product rules.
-
-The [current source checkpoint](standarts/plans/alpha-development.md#current-checkpoint-and-next-increment)
-records the accepted Agent, Desktop, Web and Mobile revisions, their CI coverage
-and remaining P2 acceptance. Web and Mobile consume the same Desktop Shared
-revision through their assembly and Flutter locks.
-
-[ADR 0009](standarts/decisions/0009-first-alpha-product-contract.md) records the
-accepted NDS 1 first-alpha outcomes and acceptance criteria. It includes module
-setup after sign-in, seven-day offline authorization, bidirectional GitHub sync,
-cross-device viewing, NDS application updates and common observability. These
-targets are not a claim that the deployed composition already implements them.
-[ADR 0011](standarts/decisions/0011-company-membership-and-device-access.md) adds
-companies and invited users with administrative remote-screen access; ADR 0017 extends
-membership to multiple organization spaces while personal Vault and GitHub module data
-remain owner-only. Server and client sources implement company,
-membership and invitation workflows. Runtime repositories own supported-target
-qualification and migration acceptance for existing installations.
-
-The catalog describes repository boundaries and declared platforms, not a
-release bill of materials or a runtime capability response. The accepted
-[offline browser scope](standarts/decisions/0007-offline-browser-client.md)
-is implemented by the [web assembly](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-web),
-which uses React/TanStack/shadcn presentation under
-[ADR 0010](standarts/decisions/0010-react-browser-presentation.md) and the shared
-Rust/WASM composition. Desktop and mobile retain Flutter. Browser
-adapters provide encrypted local credentials, a durable replica and telemetry
-queue, while the server remains authoritative for committed state. The web
-repository owns artifact provenance and browser qualification; an alpha catalog
-entry does not assert deployment or support for untested browsers.
-
-Run `just setup` once to install isolated, pinned structural tooling, then
-`just check` for the central repository's structural checks. Runtime
-repositories own their implementation and acceptance checks. Passing central
-checks is not evidence that the application or observability pipeline works.
-
-To check an actual compiled-in descriptor against the central contract, run
-`.venv/bin/python scripts/check-contracts.py /path/to/module/contracts/module.json`.
-This validates schema and dependency declarations; runtime activation, dependency
-graph compatibility and OS behavior remain the runtime owner’s responsibility.
-The descriptor schema includes the `web` platform accepted by ADR 0007.
-Earlier native-only schema snapshots cannot validate browser descriptors;
-their immutable release and source locks remain unchanged.
-
-Catalog version 3 records visibility and distinguishes the two private contexts
-and the organization introduction from runtime components. It extends the
-version 2 source layout without changing a runtime descriptor API or reinterpreting
-issued tags/locks. [ADR 0019](standarts/decisions/0019-complete-source-and-privacy-boundary.md)
-records the organization-wide boundary. Existing sibling checkouts and their
-worktrees remain preserved; no source command enrolls devices, deploys a service
-or registers a competing GitHub-module workspace.
+AGPL-3.0-only. See [LICENSE](LICENSE) and [TRADEMARKS.md](TRADEMARKS.md).
+Part of [NDDev OpenNetwork](https://nddev.ai).
+[Release history](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/releases).

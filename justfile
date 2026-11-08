@@ -38,7 +38,7 @@ test:
 
 # Run only on an execution host; source machines use its verified artifact.
 build-tools:
-    cd automation && cargo run --locked -- --root .. install-tool
+    cd automation && cargo run --locked --release -- --root .. install-tool
 
 verify: check test
     cd automation && cargo build --locked --release

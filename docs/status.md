@@ -21,7 +21,7 @@ component's README, dependency locks, tests and releases describe its own revisi
 | Remote | Manager observation and opt-in Linux X11 screen library; standalone Remote has separate ownership and qualification |
 | Browser-use | Rust native host, extension, executor, CLI and Android link; independent product extraction remains |
 | Cache | Existing server/client integration; product extraction and runtime migration are deferred to the owning cache work |
-| Sysinfo | Native-provider observations; the adapter is not the full system-information product |
+| Sysinfo | Versioned observations from standalone NDDev Systeminfo; the product owns collection, native UI and installation |
 | Clipboard | Native archive access and explicit browser copy; provider/archive ownership remains |
 | Cleaner | Provider observation and an opt-in development-cache maintenance executable |
 | Updater | Native policy/report observation; full NDS application installation and activation need consumer acceptance |

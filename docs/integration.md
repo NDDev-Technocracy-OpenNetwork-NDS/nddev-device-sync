@@ -45,9 +45,20 @@ Standalone packaging, its public name and the NDS adapter transition remain
 separate work. Existing browser profiles, host registration, session ownership,
 artifact access and observation choices must survive that transition.
 
+## System information
+
+[NDDev Systeminfo](https://github.com/NDDev-Technocracy-OpenNetwork/nddev-systeminfo)
+owns native collection, its tray application, configuration, installation and releases.
+It is independently usable on Windows, macOS and Linux.
+
+The NDS sysinfo adapter reads the product's v1 endpoint through its pinned provider
+contract. Agent and the shared client composition select the same adapter revision.
+The adapter does not start a second collector. Missing or stopped providers and unavailable
+readings remain explicit; NDS identity and telemetry remain with the integration.
+
 ## Other integrations
 
-GitHub owns repository-provider and Git-workspace behavior. Clipboard, sysinfo,
+GitHub owns repository-provider and Git-workspace behavior. Clipboard,
 cleaner and updater currently adapt their native providers; extracting a complete
 product includes the functionality that still lives in those providers. Cache has
 its own service and client/pool/egress packages. Their source boundaries and

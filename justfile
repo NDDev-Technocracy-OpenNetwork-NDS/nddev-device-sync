@@ -32,7 +32,7 @@ catalog-check:
 # Tooling acceptance includes real Cargo compilation in isolated fixtures.
 test:
     cd automation && cargo nextest run --locked --profile ci
-    cd automation && cargo test --locked --doc
+    # Binary-only package: the public contract is exercised through the CLI.
     cd automation && cargo clippy --locked --all-targets -- -D warnings
     python3 -m unittest discover -s scripts -p 'test_*.py'
 

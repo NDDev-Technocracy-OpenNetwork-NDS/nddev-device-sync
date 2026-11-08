@@ -55,3 +55,12 @@ current limits are listed in [status](status.md).
 
 Independent packaging alone does not qualify an NDS integration. Each consumer
 checks its selected API, lifecycle, platform behavior and retained-data transition.
+
+## Design system
+
+[OpenNetwork Design System](https://github.com/NDDev-Technocracy-OpenNetwork/nddev-opennetwork-design-system)
+publishes the standalone tokens, web kit and native theme bindings under Apache-2.0, with the
+bundled assets retaining their own licenses. The NDS source assembly selects its
+[public fork](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-opennetwork-design-system)
+at a qualified upstream commit. Applications retain their own dependency pins; a source-root pin
+does not update an application theme or qualify a new package version for that application.

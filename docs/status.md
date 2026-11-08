@@ -52,4 +52,4 @@ activation and cross-platform screen acceptance are not completed by this source
 reorganization. The independent-products decision replaces the earlier roadmap
 as the starting point for planning those changes.
 
-Cache implementation and migration are outside this preparation. Source-catalog reconciliation does not switch active cache routing, credentials or services.
+Cache implementation and migration are outside this preparation. The root retains its existing Cache source pin until that transition is qualified. Source-catalog reconciliation does not switch active cache routing, credentials or services.

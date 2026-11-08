@@ -6,15 +6,28 @@ dependencies and acceptance commands.
 ```sh
 git clone --recurse-submodules https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync.git
 cd nddev-device-sync
-just setup
 just check
 ```
 
-`just setup` prepares isolated Python tooling. `just check` validates the catalog,
-schemas, exact Gitlinks and documentation presence without compiling components.
-`just test` exercises the tooling, including isolated real Git and Cargo fixtures;
-it needs the pinned Rust toolchain and `just` available on the test host. CI runs
-both commands and verifies recursive public checkout.
+`just check` validates the Rust source, catalog, schemas, exact Gitlinks and
+documentation without compilation or network access. It requires the pinned
+Rust tools and a verifier prepared from these exact sources. On an execution
+host, run `just setup build-tools` once; `setup` downloads dependencies and
+`build-tools` compiles and installs the verifier in this checkout's `.tools/`.
+
+A source machine takes `nds-source-tool` from the successful full CI run of the
+selected source commit. Check that the run belongs to this repository and commit,
+verify `SHA256SUMS`, and compare `source-commit.txt`. Run the downloaded executable
+with `--root /path/to/checkout install-tool`. It checks its embedded digest of
+the Rust source, lock, configuration and schemas before installing. An older
+verifier refuses changed inputs, and installation preserves unrelated files.
+The artifact includes the executable, source/binary receipt and license notices.
+
+`just test` exercises the compiled CLI through actual Git and just, plus the
+existing isolated Cargo cache fixtures. `just verify` also builds the release
+tool. These commands require an execution host with the pinned compiler, Python
+and just; they never run on a source-only machine. CI also verifies recursive
+public checkout. Component runtime acceptance stays with its owning repository.
 
 ## Working with components
 
@@ -45,7 +58,7 @@ source path. It changes no runtime descriptor or application release version.
 `contracts/module-manifest.json` validates the current compiled-in descriptors:
 
 ```sh
-.venv/bin/python scripts/check-contracts.py /path/to/component/contracts/module.json
+.tools/bin/nds-source check /path/to/component/contracts/module.json
 ```
 
 `contracts/app-release.schema.json` describes application candidates. Source

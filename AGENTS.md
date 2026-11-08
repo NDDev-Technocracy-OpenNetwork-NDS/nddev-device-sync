@@ -26,3 +26,10 @@ Run `just check` for checks that need no compilation. `just test` exercises the
 root's tooling, including real Cargo fixtures, on a build/test host or CI.
 Component acceptance follows its owning repository. Report the exact source and
 platforms exercised; a source/catalog check is not runtime acceptance.
+
+Root automation is an independent Cargo workspace in automation/. Never create
+an ancestor workspace around the component repositories. Build the source
+verifier on an execution host and install only a source-matching artifact before
+running catalog checks on a source machine. The Cargo cache helper and its
+acceptance fixtures remain with their existing implementation until their owning
+transition.

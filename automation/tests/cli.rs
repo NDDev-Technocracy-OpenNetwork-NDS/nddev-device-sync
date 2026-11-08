@@ -16,9 +16,14 @@ fn source() -> PathBuf {
         .to_owned()
 }
 
-fn executable() -> &'static str {
-    option_env!("CARGO_BIN_EXE_nds-source")
-        .expect("Cargo must provide the actual nds-source test artifact")
+fn executable() -> PathBuf {
+    // Exercise the actual installed entry point prepared by build-tools. Its
+    // embedded source digest refuses a stale binary in every positive fixture.
+    // This also works with external Cargo target directories and Clippy, which
+    // checks integration targets without supplying CARGO_BIN_EXE_* artifacts.
+    source()
+        .join(".tools/bin")
+        .join(format!("nds-source{}", std::env::consts::EXE_SUFFIX))
 }
 
 fn isolated(command: &mut Command) -> &mut Command {

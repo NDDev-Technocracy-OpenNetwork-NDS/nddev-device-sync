@@ -15,7 +15,7 @@ implementation. Product-specific behavior does not move into a central kernel or
 shared presentation object merely to make that integration possible.
 
 NDDev Remote's independent product work continues under its existing owner.
-Browser automation is a subsequent independent product extraction. Other current
+Browser automation is a subsequent independent product extraction. Cache extraction and runtime migration are deferred to the owning cache work. Other current
 integrations need an ownership and dependency review before their migration.
 
 ## Transition

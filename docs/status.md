@@ -20,12 +20,12 @@ component's README, dependency locks, tests and releases describe its own revisi
 | GitHub | Local status worker, catalog collection and optional existing-commit synchronization; integrated permission/replica lifetimes remain coupled |
 | Remote | Manager observation and opt-in Linux X11 screen library; standalone Remote has separate ownership and qualification |
 | Browser-use | Rust native host, extension, executor, CLI and Android link; independent product extraction remains |
-| Cache | Cache server, device client, pool and egress; deployed service selection is separate from source membership |
+| Cache | Existing server/client integration; product extraction and runtime migration are deferred to the owning cache work |
 | Sysinfo | Native-provider observations; the adapter is not the full system-information product |
 | Clipboard | Native archive access and explicit browser copy; provider/archive ownership remains |
 | Cleaner | Provider observation and an opt-in development-cache maintenance executable |
 | Updater | Native policy/report observation; full NDS application installation and activation need consumer acceptance |
-| Design system | Public tokens and generated Flutter/CSS projections |
+| Design system | Self-contained OpenNetwork tokens, web kit and native bindings; source and package qualification are tracked in its repository |
 | Self-hosting example | Synthetic configuration consuming the selected server Compose contract |
 | Organization profile | Public introduction and assets, with no runtime execution |
 
@@ -51,3 +51,5 @@ implementation. Hot replacement, arbitrary user modules, application update
 activation and cross-platform screen acceptance are not completed by this source
 reorganization. The independent-products decision replaces the earlier roadmap
 as the starting point for planning those changes.
+
+Cache implementation and migration are outside this preparation. Source-catalog reconciliation does not switch active cache routing, credentials or services.

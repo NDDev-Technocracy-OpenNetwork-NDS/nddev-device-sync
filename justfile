@@ -23,7 +23,7 @@ check: source-check catalog-check documentation-check
 
 source-check:
     cd automation && cargo fmt --all -- --check
-    cd automation && cargo deny --locked check licenses sources
+    cd automation && cargo deny --frozen check licenses sources
     cd automation && cargo shear --locked --offline
 
 catalog-check:

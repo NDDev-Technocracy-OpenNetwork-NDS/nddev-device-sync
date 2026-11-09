@@ -19,6 +19,8 @@ jobs:
     env:
       RUSTUP_TOOLCHAIN: '1.99.1'
     steps:
+      - name: Disable external telemetry
+        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/telemetry@52d8302d2272967a21fd8e3ae594205588648777 # v0.6.28
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
@@ -28,45 +30,27 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
         with:
           python-version-file: .python-version
-      - run: just setup
+      - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/recipe@52d8302d2272967a21fd8e3ae594205588648777 # v0.6.28
+        with:
+          recipe: setup
       - name: Install the pinned compiler for actual shared-cache acceptance
         run: |
           export RUSTUP_HOME="$RUNNER_TEMP/nds-rustup"
           printf 'RUSTUP_HOME=%s\n' "$RUSTUP_HOME" >> "$GITHUB_ENV"
           rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
       - name: Check source contracts and tooling behavior
-        run: just check test
+        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/recipe@52d8302d2272967a21fd8e3ae594205588648777 # v0.6.28
+        with:
+          recipe: verify
       - name: Verify public recursive checkout without component credentials
         run: |
           git -c credential.helper= -c protocol.file.allow=never submodule update --init --recursive --jobs 2
           test -z "$(git submodule status --recursive | sed -n '/^[+U-]/p')"
 
-  workflows:
-    # Workflow lint and audit plus the secret scan: new commits on pull requests,
-    # the full history on main (verified prebuilt tools).
-    runs-on: ubuntu-26.04
-    timeout-minutes: 10
+
+  merge-stops:
     permissions:
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/tools@c192c6adcf22088abf456635de614d42e8fa3f8d # nddev-cicd-v0.6.20
-        with:
-          capability: security
-      - name: Lint and audit workflows
-        run: |
-          actionlint
-          zizmor --offline --no-progress .github
-      - name: Scan new pull request commits, or the full history on main
-        env:
-          BASE: ${{ github.event.pull_request.base.sha }}
-          HEAD: ${{ github.event.pull_request.head.sha }}
-        run: |
-          if [ -n "$BASE" ]; then
-            gitleaks git --no-banner --redact --log-opts="$BASE..$HEAD" .
-          else
-            gitleaks git --no-banner --redact .
-          fi
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/merge-stops.yml@52d8302d2272967a21fd8e3ae594205588648777 # v0.6.28
+    with:
+      hosted-runner: ubuntu-26.04

@@ -40,3 +40,6 @@ documentation-check:
 setup:
     python3 -m venv .venv
     .venv/bin/python -m pip install -r requirements-check.txt
+
+# Check source contracts and the actual native tooling fixtures.
+verify: check test

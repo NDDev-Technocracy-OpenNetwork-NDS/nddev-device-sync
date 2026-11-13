@@ -28,14 +28,42 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
         with:
           python-version-file: .python-version
-      - run: just setup
       - name: Install the pinned compiler for actual shared-cache acceptance
         run: |
           export RUSTUP_HOME="$RUNNER_TEMP/nds-rustup"
           printf 'RUSTUP_HOME=%s\n' "$RUSTUP_HOME" >> "$GITHUB_ENV"
           rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
+      - name: Prepare pinned Rust source and acceptance tools
+        run: |
+          set -euo pipefail
+          bin="$RUNNER_TEMP/nds-source-checks"
+          archive="$RUNNER_TEMP/nds-source-checks.tar.gz"
+          mkdir -p "$bin"
+          fetch() {
+            curl -fsSL --retry 3 --max-time 120 -o "$archive" "$1"
+            echo "$2  $archive" | sha256sum --check --quiet
+            tar -xzf "$archive" -C "$bin" --strip-components="$4" "$3"
+          }
+          fetch 'https://github.com/EmbarkStudios/cargo-deny/releases/download/0.20.2/cargo-deny-0.20.2-x86_64-unknown-linux-musl.tar.gz' \
+            '9f12ed4c49936e09b48bf862b595cde2fe64fcbd9d74dfacac6131ca824c8d5f' \
+            'cargo-deny-0.20.2-x86_64-unknown-linux-musl/cargo-deny' 1
+          fetch 'https://github.com/Boshen/cargo-shear/releases/download/v1.14.0/cargo-shear-x86_64-unknown-linux-musl.tar.gz' \
+            '9004df4eb031a456026c4326ae0d0ce545321527a67be90f4524c1be729dc40e' 'cargo-shear' 0
+          fetch 'https://github.com/nextest-rs/nextest/releases/download/cargo-nextest-0.9.151/cargo-nextest-0.9.151-x86_64-unknown-linux-gnu.tar.gz' \
+            '1d4ce302b820c41f4b89c5fb9bce45f0f0c94882c1cf08fc360caf08be6e7df4' 'cargo-nextest' 0
+          rm "$archive"
+          echo "$bin" >> "$GITHUB_PATH"
+          just setup build-tools
       - name: Check source contracts and tooling behavior
         run: just check test
+      - name: Prepare the source verifier artifact
+        run: just source-artifact
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: nds-source-tool
+          path: .nddev-reports/source-tool/
+          if-no-files-found: error
+          retention-days: 7
       - name: Verify public recursive checkout without component credentials
         run: |
           git -c credential.helper= -c protocol.file.allow=never submodule update --init --recursive --jobs 2

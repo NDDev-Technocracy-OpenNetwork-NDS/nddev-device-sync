@@ -1,4 +1,6 @@
 /target/
+/automation/target/
+/.tools/
 # Cargo.lock is committed for the desktop application and reproducible builds.
 .DS_Store
 .idea/

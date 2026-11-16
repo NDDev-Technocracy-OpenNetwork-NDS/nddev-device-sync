@@ -26,15 +26,18 @@ nddev-device-sync/
   tools/         focused native integrations
   contracts/     source catalog, module and application schemas
   docs/          product, integration and development documentation
-  scripts/       source and contract tooling
+  automation/    standalone Rust source verifier and component dispatcher
+  scripts/       existing Cargo cache helper
 ```
 
 ```sh
 git clone --recurse-submodules https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync.git
 cd nddev-device-sync
-just setup
 just check
 ```
+
+Prepare the source verifier from a checked execution-host artifact as described
+in [development](docs/development.md). The source check never builds it.
 
 `just checkout` initializes the selected public source recursively.
 `just component <id> <recipe> ...` invokes a component's own justfile after checking
@@ -56,5 +59,7 @@ component and its consumers.
 ## License
 
 AGPL-3.0-only. See [LICENSE](LICENSE) and [TRADEMARKS.md](TRADEMARKS.md).
+The original Rust source tool under `automation/` is Apache-2.0; see its
+[license](automation/LICENSE) and [notice](automation/NOTICE).
 Part of [NDDev OpenNetwork](https://nddev.ai).
 [Release history](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync/releases).

@@ -18,6 +18,8 @@ jobs:
   quality:
     runs-on: ubuntu-26.04
     timeout-minutes: ${{ github.event_name == 'pull_request' && 20 || 30 }}
+    env:
+      RUSTUP_TOOLCHAIN: '1.99.1'
     permissions:
       contents: read
     steps:

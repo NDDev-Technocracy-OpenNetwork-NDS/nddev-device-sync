@@ -66,3 +66,14 @@ Its setup/check recipes are `just cargo-cache-setup` and `just cargo-cache-check
 The helper checks source membership and selects the complete pinned compiler.
 Explicit staging and component-specific provider preparation retain their own
 contracts. See the component README before regenerating a prepared lock.
+
+## Source CI
+
+The existing `main-ci` entry point runs pull request checks and full development
+verification through the shared execution frame. Both retain actual Cargo-cache
+fixtures and recursive public source checkout. `just test` includes that checkout
+and refuses uninitialized, conflicted or changed recursive Gitlinks;
+`just check` remains build-free and does not initialize components. `just verify`
+runs the complete root contract. Main adoption reuses the verified development
+source under its release owner's contract; component runtime acceptance remains
+separate.

@@ -85,6 +85,14 @@ def assembly(root, data):
         raise ValueError('indexed Gitlinks do not match the public catalog')
 
 
+def initialized_checkout(root):
+    """Retain the recursive checkout gate after public source initialization."""
+    status = subprocess.check_output(
+        ['git', 'submodule', 'status', '--recursive'], cwd=root, text=True)
+    if any(line.startswith(('+', 'U', '-')) for line in status.splitlines()):
+        raise ValueError('recursive source checkout is uninitialized, conflicted or differs from the index')
+
+
 def descriptor(data):
     validator('module-manifest.json').validate(data)
     dependencies = [dependency['id'] for dependency in data['dependencies']]
@@ -128,6 +136,8 @@ def app_release(data, development_http=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('runtime_manifests', nargs='*', type=Path)
+    parser.add_argument('--initialized', action='store_true',
+                        help='require every recursive Gitlink at its selected revision')
     parser.add_argument('--app-release', type=Path,
                         help='validate a candidate before signing; does not verify a signature')
     parser.add_argument('--development-http', action='store_true', help='allow owned literal 127.0.0.1 HTTP qualification only')
@@ -135,6 +145,8 @@ def main():
     data = load(ROOT / 'contracts/module-catalog.json')
     catalog(data)
     assembly(ROOT, data)
+    if args.initialized:
+        initialized_checkout(ROOT)
     validator('module-manifest.json')
     validator('app-release.schema.json')
     if args.app_release is not None:

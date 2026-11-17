@@ -32,8 +32,8 @@ jobs:
         with:
           managed: false
           fetch-depth: 0
-          python-version: '3.15.0'
-          rust-version: '1.99.1'
+          python-version: '3.15.2'
+          rust-version: '1.100.0'
           rust-components: rustfmt,clippy
       - name: Check the source root and real tooling behavior
         id: project

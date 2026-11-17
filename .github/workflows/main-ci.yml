@@ -28,7 +28,7 @@ jobs:
         run: printf 'RUSTUP_HOME=%s/nds-rustup\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
       - name: Prepare the source-root job
         id: setup
-        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/prepare@de3456fa347576fa72c0ad63c25d73f4d693271c # v0.6.58
+        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/prepare@c09f5939b8ca3ef1ddf72d825ff01d751e649292 # v0.6.60
         with:
           managed: false
           fetch-depth: 0
@@ -50,7 +50,7 @@ jobs:
           fi
       - name: Complete source-root qualification
         if: always()
-        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/complete@de3456fa347576fa72c0ad63c25d73f4d693271c # v0.6.58
+        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/complete@c09f5939b8ca3ef1ddf72d825ff01d751e649292 # v0.6.60
         with:
           status: ${{ job.status }}
           project-outcome: ${{ steps.project.outcome }}
@@ -61,7 +61,7 @@ jobs:
 
   merge-stops:
     if: github.event_name == 'pull_request'
-    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/merge-stops.yml@de3456fa347576fa72c0ad63c25d73f4d693271c # v0.6.58
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/merge-stops.yml@c09f5939b8ca3ef1ddf72d825ff01d751e649292 # v0.6.60
     with:
       hosted-runner: ubuntu-26.04
     permissions:

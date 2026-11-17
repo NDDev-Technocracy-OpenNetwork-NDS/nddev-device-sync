@@ -18,22 +18,39 @@ jobs:
   quality:
     runs-on: ubuntu-26.04
     timeout-minutes: ${{ github.event_name == 'pull_request' && 20 || 30 }}
-    env:
-      RUSTUP_TOOLCHAIN: '1.99.1'
     permissions:
       contents: read
     steps:
-      # Cargo-cache acceptance deliberately uses an isolated installed SDK.
-      - name: Isolate the existing fixture toolchain
-        run: printf 'RUSTUP_HOME=%s/nds-rustup\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
+      - name: Read the root toolchain declaration
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Select the root compiler in an isolated Rustup home
+        id: fixture-toolchain
+        shell: python3 {0}
+        run: |
+          import os
+          import re
+          import tomllib
+          from pathlib import Path
+
+          with Path("rust-toolchain.toml").open("rb") as source:
+              channel = tomllib.load(source)["toolchain"]["channel"]
+          if not isinstance(channel, str) or not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", channel):
+              raise ValueError("The source root requires an exact Rust release")
+          home = Path(os.environ["RUNNER_TEMP"]) / "nds-rustup"
+          with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as env:
+              env.write(f"RUSTUP_HOME={home}\nRUSTUP_TOOLCHAIN={channel}\n")
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as output:
+              output.write(f"channel={channel}\n")
       - name: Prepare the source-root job
         id: setup
         uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/prepare@98ff340ab5d2e0f62821a6ee25fd4161b87f59ba # v0.6.69
         with:
           managed: false
           fetch-depth: 0
-          python-version: '3.15.0'
-          rust-version: '1.99.1'
+          python-version: '3.15.2'
+          rust-version: ${{ steps.fixture-toolchain.outputs.channel }}
           rust-components: rustfmt,clippy
       - name: Check the source root and real tooling behavior
         id: project

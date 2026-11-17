@@ -25,7 +25,7 @@ class CargoCache(unittest.TestCase):
         (self.project / "scripts").mkdir(parents=True)
         (self.project / "contracts").mkdir()
         shutil.copyfile(SOURCE, self.project / "scripts/cargo-cache.py")
-        (self.project / "rust-toolchain.toml").write_text('[toolchain]\nchannel="1.99.1"\n')
+        shutil.copyfile(SOURCE.parents[1] / "rust-toolchain.toml", self.project / "rust-toolchain.toml")
         names = ["nddev-device-sync-core", "nddev-device-sync-server"]
         (self.project / "contracts/module-catalog.json").write_text(json.dumps({
             "product": "nddev-device-sync", "organization": "NDDev-Technocracy-OpenNetwork-NDS",

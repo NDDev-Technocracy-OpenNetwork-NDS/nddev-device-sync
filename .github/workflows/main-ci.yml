@@ -45,7 +45,7 @@ jobs:
               output.write(f"channel={channel}\n")
       - name: Prepare the source-root job
         id: setup
-        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/prepare@dc8f083393ae11ba7b9d4acd36c56137a29ec9a8 # v0.6.175
+        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/prepare@9f400b71c978c8c3974863f4dd25331d3d1be79d # v0.6.176
         with:
           managed: false
           fetch-depth: 0
@@ -67,7 +67,7 @@ jobs:
           fi
       - name: Complete source-root qualification
         if: always()
-        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/complete@dc8f083393ae11ba7b9d4acd36c56137a29ec9a8 # v0.6.175
+        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/complete@9f400b71c978c8c3974863f4dd25331d3d1be79d # v0.6.176
         with:
           status: ${{ job.status }}
           project-outcome: ${{ steps.project.outcome }}
@@ -78,7 +78,7 @@ jobs:
 
   merge-stops:
     if: github.event_name == 'pull_request'
-    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/merge-stops.yml@dc8f083393ae11ba7b9d4acd36c56137a29ec9a8 # v0.6.175
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/merge-stops.yml@9f400b71c978c8c3974863f4dd25331d3d1be79d # v0.6.176
     with:
       hosted-runner: ubuntu-26.04
     permissions:
